@@ -1,0 +1,69 @@
+.report-container {
+    background: url('/images/img-home.jpg') center center/cover no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+    object-fit: flex;
+  }
+  .report-container > h1 {
+    color: #fff;
+    font-size: 50px;
+    margin-top: -50px;
+  }
+  
+  .report-container > p {
+    margin-top: 8px;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+      'Lucida Sans', Arial, sans-serif;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+  
+  .report-btns {
+    margin-top: 32px;
+    margin-bottom: 15%;
+    align-self: center;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+  
+  .report-btns .btn {
+    margin: 6px;
+  }
+  
+  .fa-play-circle {
+    margin-left: 4px;
+  }
+  
+  @media screen and (max-width: 960px) {
+    .report-container > h1 {
+      font-size: 50px;
+      margin-top: -250px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .report-container > h1 {
+      font-size: 40px;
+      margin-top: -300px;
+    }
+  
+    .report-container > p {
+      font-size: 16px;
+    }
+  
+    .btn-mobile {
+      display: block;
+      text-decoration: none;
+    }
+  
+    .btn {
+      width: 100%;
+    }
+  }
+  
