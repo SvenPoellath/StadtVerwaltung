@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5e5f630f.css",
+    "main.js": "/static/js/main.2d7f4bc4.js",
+    "static/media/img-2.jpg": "/static/media/img-2.bb238fc1bea8ae2474d2.jpg",
+    "static/media/img-home.jpg": "/static/media/img-home.c034239ee9a63564602b.jpg",
+    "static/media/img-8.jpg": "/static/media/img-8.fabdf94dc5be2d3dc707.jpg",
+    "static/media/Stadt_Ludwgishafen_logo.png": "/static/media/Stadt_Ludwgishafen_logo.070f1354adf0b8af3d34.png",
+    "index.html": "/index.html",
+    "main.5e5f630f.css.map": "/static/css/main.5e5f630f.css.map",
+    "main.2d7f4bc4.js.map": "/static/js/main.2d7f4bc4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5e5f630f.css",
+    "static/js/main.2d7f4bc4.js"
+  ]
+}
