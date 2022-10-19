@@ -30,9 +30,10 @@ function Navbar() {
       <nav className='navbar'>
 
         <div className='navbar-container'>
+        <img src={Logo} className='logo-image' alt='Lu' />
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-            <img src={Logo} className='logo-image' alt='Lu' />
-            Stadt Ludwigshafen
+            <h1>Ludwigshaven am Rhein</h1>
+            <h3 className='stadt'>Stadt Verwaltung</h3>
           </Link>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />

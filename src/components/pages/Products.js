@@ -2,7 +2,6 @@ import React from 'react';
 import '../../App.css';
 import './Products.css'
 import { Button } from '../Button';
-import { Link } from 'react-router-dom';
 export default function Products() {
   return (
   <div className='report-container'>

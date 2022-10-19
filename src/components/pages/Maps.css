@@ -1,4 +1,14 @@
 .leaflet-container{
-    height: 20%;
-    width: 4000px;
+    width: 400px;
+    display: flex;
+    margin-left: 35%;
+}
+.container{
+    background: url('/public/images/img-home.jpg') center center/cover no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    font-size: 25px;
+    height: 100%;
 }

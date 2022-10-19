@@ -1,20 +1,22 @@
 .navbar {
   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
-  height: 80px;
+  height: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
   position: sticky;
   top: 0;
   z-index: 999;
 }
-
+.stadt{
+  width: 100%;
+  text-align: center;
+}
 .navbar-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80px;
+  height: 150px;
   max-width: 1500px;
 }
 .logo-image{
@@ -22,16 +24,16 @@
   height: 64px;
   justify-content: flex-start;
   display: flex;
-  margin-right: 32px;
+  margin-left: 32px;
 }
 .navbar-logo {
   color: #fff;
   justify-self: start;
-  margin-left: 50px;
+  margin-left: 15px;
+  margin-right: 30px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 1.8rem;
-  display: flex;
+  display: table;
   align-items: center;
 }
 
@@ -49,7 +51,8 @@
 }
 
 .nav-item {
-  height: 80px;
+  height: 110px;
+  font-size: 18px;
 }
 
 .nav-links {
@@ -85,6 +88,9 @@
   .logo-image{
     width: 32px;
     height: 32px;
+  }
+  .h1{
+    font-size: 5px;
   }
   .nav-menu {
     display: flex;
