@@ -18,7 +18,7 @@ const STYLES = ['btn--primary', 'btn--outline', 'btn--test'];
 
 const SIZES = ['btn--medium', 'btn--large', 'btn--long'];
 
-const LINKS = ['/sign-up', '/home', '/services', '/products', '/maps']
+const LINKS = ['/sign-up', '/home', '/services', '/products', '/maps', '/login']
 
 export const Button = ({
   children,

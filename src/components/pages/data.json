@@ -1,0 +1,29 @@
+[
+  {
+    "id": "sFaSB198a5dF",
+    "latitude": 49.47743213303505,
+    "longitude": 8.42211620924414,
+    "kindOfCase": "defect",
+    "pictureID": "Q6etnFsPizqq",
+    "description": "Kaputter Hydrant",
+    "citizenID": "kxmM5uylCW8D"
+  },
+  {
+    "id": "ePFVIVwzh3uC",
+    "latitude": 49.47330276797773,
+    "longitude": 8.423570517338486,
+    "kindOfCase": "pollution",
+    "pictureID": "pgbp2Q9cqaE2",
+    "description": "MÃ¼ll nicht weggeschmissen",
+    "citizenID": "O119nDfjSASI"
+  },
+  {
+    "id": "Syy5hjSOL4zf",
+    "latitude": 49.47865049905125,
+    "longitude": 8.456384842327548,
+    "kindOfCase": "parkingViolation",
+    "pictureID": "jwjyhWJ13UYv",
+    "description": "Hier steht jemand auf dem Behinderten Parkplatz",
+    "citizenID": "081UXe84LMqE"
+  }
+]

@@ -7,20 +7,15 @@ import {
     Popup
   } from 'react-leaflet'
 import { Button } from '../Button';
+import json from '/Users/svenpoellath/VS Code Libary/Melcher SE/StadtVerwaltung/src/components/pages/data.json'
 
 
- 
 
 export default function Map() {
   const handleScrollDown = () => {
     window.scrollTo( { top: 40000, behavior: 'smooth'})
   }
-  function getData(url, cb) {
-    fetch(url)
-    .then(response => response.json ())
-    .then(result => cb(result));
-    }
-  var jsondata = getData('http://localhost:8080/cases', (jsondata))
+
   return (
     <div className='container'>
       <h1>
@@ -31,7 +26,17 @@ export default function Map() {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-
+      {(Object.entries(json) || []).map(([key, data]) => {
+                return(
+                  <div key={key}>
+                  <Marker position={[data.latitude, data.longitude]}>
+                  <Popup>
+                    {data.kindOfCase} <br /> {data.description}
+                  </Popup>
+                </Marker>
+                </div>
+                );
+        })}
 
     </MapContainer>
     <button
@@ -56,16 +61,3 @@ export default function Map() {
     </div>
   );
 }
-/*      <div className="stock-container">
-        {jsondata.Map((data, key) => {
-          return(
-            <div key={key}>
-            <Marker position={[data.latitude, data.longitude]}>
-            <Popup>
-              {data.kindOfCase} <br /> {data.description}
-            </Popup>
-          </Marker>
-          </div>
-          );
-        })}
-      </div> */
