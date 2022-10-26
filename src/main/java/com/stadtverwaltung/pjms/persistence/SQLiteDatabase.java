@@ -1,12 +1,15 @@
 package com.stadtverwaltung.pjms.persistence;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.sql.*;
 
 public class SQLiteDatabase {
 
@@ -18,11 +21,15 @@ public class SQLiteDatabase {
         if (connection == null) {
             loadDb();
             createTables();
+            if (noData()) {
+                generateSampleData();
+            }
+            logger.info("Database ready");
         }
     }
 
     //Initializes DB and creates tables if necessary
-    public void loadDb() {
+    private void loadDb() {
         try {
             connection = DriverManager.getConnection(URL);
             logger.info("Connection to database established");
@@ -31,7 +38,7 @@ public class SQLiteDatabase {
         }
     }
     //Creates table if they don't exist
-    public void createTables() {
+    private void createTables() {
         String citizenTable = """
                 CREATE TABLE IF NOT EXISTS citizens (
                  id              text(12) PRIMARY KEY,  \s
@@ -61,9 +68,49 @@ public class SQLiteDatabase {
                   description text,
                   pictureID text(12),
                   citizenID text(12),
-                  employeeID text(12)
+                  employeeID text(12),
+                  FOREIGN KEY (citizenID) REFERENCES citizens(id),
+                  FOREIGN KEY (employeeID) REFERENCES employees(id)
                 );""";
         executeSQL(caseTable);
+        logger.info("Tables created");
+    }
+
+
+    private boolean noData() {
+        try {
+            PreparedStatement getCases = connection.prepareStatement("SELECT * FROM cases");
+            PreparedStatement getCitizens = connection.prepareStatement("SELECT * FROM citizens");
+            PreparedStatement getEmployees = connection.prepareStatement("SELECT * FROM employees");
+
+            boolean casesEmpty = !getCases.executeQuery().next();
+            boolean citizensEmpty = !getCitizens.executeQuery().next();
+            boolean employeesEmpty = !getEmployees.executeQuery().next();
+
+            if (casesEmpty && citizensEmpty && employeesEmpty) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    private void generateSampleData() {
+        logger.info("Trying to insert sample data");
+        String fileContent;
+        try {
+             fileContent =  Files.readString(Path.of("sampleData.txt"), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String[] sqlStatements = fileContent.split(System.getProperty("line.separator"));
+        for (String sql : sqlStatements) {
+            executeSQL(sql);
+        }
+        logger.info("Sample data inserted");
     }
 
     //Executes generic SQL string
@@ -75,4 +122,13 @@ public class SQLiteDatabase {
             logger.error("Failed to execute SQL Statement: " + sql,sqe);
         }
     }
+
+    public String generateID() {
+        return RandomStringUtils.randomAlphanumeric(12);
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
 }

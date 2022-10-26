@@ -2,12 +2,13 @@ package com.stadtverwaltung.pjms.model;
 
 public class Case {
 
+    public String id;
     public double latitude;
     public double longitude;
     public String kindOfCase;
-    public int pictureID;
+    public String pictureID;
     public String description;
-    public Citizen citizen;
+    public String citizenID;
 
     public Case() {}
 }
