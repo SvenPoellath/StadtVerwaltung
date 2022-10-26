@@ -1,8 +1,18 @@
 .leaflet-container{
     width: 400px;
-    display: flex;
+    display: list-item;
     margin-left: 35%;
+    margin-top: 50px;
 }
+
+.container > p{
+    margin-top: 100px;
+}
+
+.container > h1{
+    padding-top: 25px;
+}
+
 .container{
     background: url('/public/images/img-home.jpg') center center/cover no-repeat;
     background-position: center;
@@ -11,4 +21,62 @@
     color: #fff;
     font-size: 25px;
     height: 100%;
+    align-items: center;
+}
+.btns{
+background-color: transparent;
+  color: #fff;
+  padding: 8px 20px;
+  border: 1px solid var(--primary);
+  transition: all 0.3s ease-out;
+  margin-right: 50px;
+  align-self: center;
+  display: flex;
+  margin-left: 45%;
+  margin-top: 100px;
+  margin-bottom: 10%;
+  padding: 12px 26px;
+  font-size: 20px;
+}
+.Description-From{
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    display: list-item;
+    margin-top: 400px;
+}
+.form-box label{
+    align-self: center;
+    text-align: center;
+    font-size: 50px;
+    margin-left: 40%;
+}
+.form-box input{
+    display: block;
+    margin: .9vw 0 ;
+    border:0;
+    border-radius: 5px;
+    font-size: 20px;
+}
+input[type=text] {
+    padding: 20px 300px 300px 10px;
+    height: 30px;
+    position: center;
+    left: 0;
+    outline: none;
+    border: 1px solid #cdcdcd;
+    border-color: rgba(0, 0, 0, .15);
+    background-color: white;
+    font-size: 16px;
+    margin-left: 33%;
+    border: 0;
+    border-radius: 15px;
+    box: shadow 15px 15px 15px 15px rgba(0,0,0,0.06);
+  }
+
+.btns:hover{
+    transition: all 0.3s ease-out;
+  background: #fff;
+  color: #242424;
+  transition: 250ms;
 }
