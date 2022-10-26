@@ -4,6 +4,6 @@ INSERT INTO citizens VALUES ("081UXe84LMqE","Friedricht","Engels","friedrich.eng
 INSERT INTO employees VALUES ("M4AlwVugvxrH","Olaf","Scholz","olaf.scholz@bundesrepublik.de","+4919580614");
 INSERT INTO employees VALUES ("QRTyU1qatu4E","Karl","Lauterbach","karl.lauterbach@bundesrepublik.de","+4919630221");
 INSERT INTO employees VALUES ("Wt6f7ncuaBUw","Christian","Lindner","christian.lindner@fdp.de","+4919790107");
-INSERT INTO cases VALUES ("sFaSB198a5dF",49.47743213303505, 8.42211620924414,"defect","Kaputter Hydrant","Q6etnFsPizqq","kxmM5uylCW8D","M4AlwVugvxrH");
-INSERT INTO cases VALUES ("ePFVIVwzh3uC",49.47330276797773, 8.423570517338486,"pollution","Müll nicht weggeschmissen","pgbp2Q9cqaE2","O119nDfjSASI","QRTyU1qatu4E");
-INSERT INTO cases VALUES ("Syy5hjSOL4zf",49.47865049905125, 8.456384842327548,"parkingViolation","Hier steht jemand auf dem Behinderten Parkplatz","jwjyhWJ13UYv","081UXe84LMqE","Wt6f7ncuaBUw");
+INSERT INTO reports VALUES ("sFaSB198a5dF",49.47743213303505, 8.42211620924414,"defect","Kaputter Hydrant","Q6etnFsPizqq","kxmM5uylCW8D","M4AlwVugvxrH");
+INSERT INTO reports VALUES ("ePFVIVwzh3uC",49.47330276797773, 8.423570517338486,"pollution","Müll nicht weggeschmissen","pgbp2Q9cqaE2","O119nDfjSASI","QRTyU1qatu4E");
+INSERT INTO reports VALUES ("Syy5hjSOL4zf",49.47865049905125, 8.456384842327548,"parkingViolation","Hier steht jemand auf dem Behinderten Parkplatz","jwjyhWJ13UYv","081UXe84LMqE","Wt6f7ncuaBUw");

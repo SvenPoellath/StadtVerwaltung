@@ -39,7 +39,7 @@ public class SQLiteDatabase {
     }
     //Creates table if they don't exist
     private void createTables() {
-        String citizenTable = """
+        String citizensTable = """
                 CREATE TABLE IF NOT EXISTS citizens (
                  id              text(12) PRIMARY KEY,  \s
                  firstName       text     NOT NULL,     \s
@@ -47,7 +47,7 @@ public class SQLiteDatabase {
                  email_address   text             ,     \s
                  phone_number    text                   \s
                 );""";
-        executeSQL(citizenTable);
+        executeSQL(citizensTable);
 
         String employeeTable = """
                 CREATE TABLE IF NOT EXISTS employees (
@@ -59,12 +59,12 @@ public class SQLiteDatabase {
                 );""";
         executeSQL(employeeTable);
 
-        String caseTable = """
-                CREATE TABLE IF NOT EXISTS cases (
+        String reportsTable = """
+                CREATE TABLE IF NOT EXISTS reports (
                   id  text(12) PRIMARY KEY,
                   latitude real,
                   longitude real,
-                  kindOfCase text,
+                  kindOfReport text,
                   description text,
                   pictureID text(12),
                   citizenID text(12),
@@ -72,22 +72,22 @@ public class SQLiteDatabase {
                   FOREIGN KEY (citizenID) REFERENCES citizens(id),
                   FOREIGN KEY (employeeID) REFERENCES employees(id)
                 );""";
-        executeSQL(caseTable);
+        executeSQL(reportsTable);
         logger.info("Tables created");
     }
 
 
     private boolean noData() {
         try {
-            PreparedStatement getCases = connection.prepareStatement("SELECT * FROM cases");
+            PreparedStatement getReports = connection.prepareStatement("SELECT * FROM reports");
             PreparedStatement getCitizens = connection.prepareStatement("SELECT * FROM citizens");
             PreparedStatement getEmployees = connection.prepareStatement("SELECT * FROM employees");
 
-            boolean casesEmpty = !getCases.executeQuery().next();
+            boolean reportsEmpty = !getReports.executeQuery().next();
             boolean citizensEmpty = !getCitizens.executeQuery().next();
             boolean employeesEmpty = !getEmployees.executeQuery().next();
 
-            if (casesEmpty && citizensEmpty && employeesEmpty) {
+            if (reportsEmpty && citizensEmpty && employeesEmpty) {
                 return true;
             } else {
                 return false;
