@@ -33,6 +33,25 @@ public class ReportPersistence {
         return returnReport;
     }
 
+    public String persistReport(Report report) throws SQLException {
+
+        PreparedStatement insertStatement = sqliteDatabase.getConnection().prepareStatement("INSERT INTO reports (id,latitude,longitude,kindOfReport,description,citizenID) VALUES (?,?,?,?,?,?)");
+        String id = sqliteDatabase.generateID("reports");
+        insertStatement.setString(1,id);
+        insertStatement.setDouble(2,report.latitude);
+        insertStatement.setDouble(3,report.longitude);
+        insertStatement.setString(4,report.kindOfReport);
+        insertStatement.setString(5, report.description);
+        insertStatement.setString(6,report.citizenID);
+        int done = insertStatement.executeUpdate();
+
+        if (done == 1) {
+            return id;
+        } else {
+            return null;
+        }
+    }
+
     private Report mapReport(ResultSet resultSet) throws SQLException {
         Report returnReport = new Report();
         returnReport.id = resultSet.getString("id");

@@ -3,7 +3,9 @@ package com.stadtverwaltung.pjms.persistence;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -123,8 +125,24 @@ public class SQLiteDatabase {
         }
     }
 
-    public String generateID() {
-        return RandomStringUtils.randomAlphanumeric(12);
+    public String generateID(String sqlSelect) {
+        String id;
+        do {
+            id = RandomStringUtils.randomAlphanumeric(12);
+        } while (checkForDouble(id,sqlSelect));
+        return id;
+    }
+
+    private boolean checkForDouble(String generatedId, String sqlSelect) {
+        Statement selectStatement;
+        ResultSet resultSet;
+        try {
+            selectStatement = connection.createStatement();
+            resultSet = selectStatement.executeQuery("SELECT * FROM " + sqlSelect + " WHERE id = \"" + generatedId + "\"");
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Connection getConnection() {
