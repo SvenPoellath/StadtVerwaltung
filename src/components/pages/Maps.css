@@ -12,7 +12,13 @@
 .container > h1{
     padding-top: 25px;
 }
-
+.Search-Box{
+    margin-bottom: 20px;
+    size: 9px;
+    font-size: 16px;
+    border-radius: 15px;
+    margin-right: 30px;
+}
 .container{
     background: url('/public/images/img-home.jpg') center center/cover no-repeat;
     background-position: center;
