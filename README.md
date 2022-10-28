@@ -14,10 +14,11 @@ Die PJMS Stadtverwaltung ist ein Projekt von Studierenden der HWG Ludwigshafen. 
 ```
 
 ### Frontend Einrichtung
--   Notwendige Node.JS Pakete installieren (Befehl vom Hauptordner des Projekts ausführen)
+-   Notwendige Node.JS Pakete mittels yarn installieren (Befehl vom Hauptordner des Projekts ausführen)
 
 ```
-    npm install
+    npm install yarn
+    yarn install
 ```
 
 -   Der folgende Befehl kann genutzt werden, um eventuelle Sicherheitsprobleme zu beheben
