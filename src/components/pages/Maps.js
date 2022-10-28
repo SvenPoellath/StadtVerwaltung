@@ -9,7 +9,6 @@ import {
     Popup
   } from 'react-leaflet'
 import { Button } from '../Button';
-import jsondataa from '/Users/svenpoellath/VS Code Libary/Melcher SE/StadtVerwaltung/src/components/pages/data.json'
 import { LatLng } from 'leaflet';
 import Search from 'react-leaflet-search'
 
@@ -23,8 +22,8 @@ import Search from 'react-leaflet-search'
   loadReportsRequest.open("GET","http://localhost:8080/reports",false);
   loadReportsRequest.send();
   
-  const json = loadReportsRequest.responseText;
-  console.log("Done");
+  const json = JSON.parse(loadReportsRequest.responseText);
+  
 
   return (
     <div className='container'>
