@@ -1,43 +1,33 @@
 .report-container {
     background: url('/public/images/img-home.jpg') center center/cover no-repeat;
+    display:grid;
     height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
-    object-fit: flex;
   }
   .report-container > h1 {
     color: #fff;
     font-size: 50px;
-    margin-top: -50px;
+    margin-top: -250px;
   }
   
-  .report-container > p {
-    margin-top: 8px;
-    color: #fff;
-    font-size: 16px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-      'Lucida Sans', Arial, sans-serif;
-    margin-left: 20%;
-    margin-right: 20%;
-  }
   
   .report-btns {
-    margin-top: 32px;
-    margin-bottom: 15%;
+    margin-top: -20%;
+    display: grid;
     align-self: center;
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-bottom: 400px;
+    margin-right: 20%;
+    margin-left: 20%;
   }
   
   .report-btns .btn {
+    padding: auto;
+    box-sizing: border-box;
+    width: 100%;
     margin: 6px;
+    align-self: center;
   }
   
   .fa-play-circle {
-    margin-left: 4px;
   }
   
   @media screen and (max-width: 960px) {

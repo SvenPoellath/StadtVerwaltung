@@ -8,6 +8,7 @@ import Products from './components/pages/Products';
 import SignUp from './components/pages/SignUp';
 import Maps from './components/pages/Maps';
 import Login from './components/pages/Login';
+import Form from './components/pages/Form';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/maps' element={<Maps />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/form' element={<Form />}/>
         </Routes>
       </Router>
     </>
