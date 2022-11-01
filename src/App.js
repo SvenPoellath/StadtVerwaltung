@@ -9,8 +9,10 @@ import SignUp from './components/pages/SignUp';
 import Maps from './components/pages/Maps';
 import Login from './components/pages/Login';
 import Form from './components/pages/Form';
+import Summary from './components/pages/Summary';
 
 function App() {
+  var dataEntry;
   return (
     <>
       <Router>
@@ -23,6 +25,7 @@ function App() {
           <Route path='/maps' element={<Maps />} />
           <Route path='/login' element={<Login />} />
           <Route path='/form' element={<Form />}/>
+          <Route path='/summary' element={<Summary/>}/>
         </Routes>
       </Router>
     </>

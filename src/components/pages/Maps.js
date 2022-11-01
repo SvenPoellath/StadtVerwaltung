@@ -13,6 +13,9 @@ import { Link } from 'react-router-dom';
 
 
  export default function Maps() {
+  var checked
+  const defaultChecked = checked ? checked : false;
+  const [isChecked, setIsChecked] = useState(defaultChecked);
   const mapRef = useRef();
 const useGeoLocation = () => {
   const [location, setLocation] = useState({
@@ -115,14 +118,14 @@ const onError = (error) => {
           </Marker>
         )}
     </Map>
-    <button
-      className='btns btn-locate'
-      buttonStyle='btn--outline'
-      buttonSize='btn--medium'
+    <label className='checkbox'>
+      <input
+      type='checkbox'
+      onChange={() => setIsChecked((prev) => !prev)}
       onClick={showMyLocation}
-    >
+    />
       My Location
-    </button>
+    </label>
     <Link to='/form'>
       <button
           className='btns btn-normal'
@@ -133,16 +136,6 @@ const onError = (error) => {
           Weiter
       </button>
     </Link>
-    
-    <div className='form-box'>
-    <form className='Description-Form'>
-      <label>
-        Description
-        
-      </label>
-      <input type='text' placeholder='Enter Description'/>
-    </form>
-    </div>
 
 
     </div>
