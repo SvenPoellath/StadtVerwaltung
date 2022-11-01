@@ -5,7 +5,7 @@
     background-repeat: no-repeat;
     color: #fff;
     font-size: 25px;
-    height: 100%;
+    height: 100vh;
     display:grid;
     align-content: center;
     justify-content: center;
@@ -21,7 +21,19 @@
     margin-left: 100px;
     margin-right: 100px;
 }
-
+.checkbox{
+    margin-right: 350px;
+    font-size: 16px;
+}
+input[type=checkbox]{
+        /* create custom checkbox appearance */
+        width: 12px;
+        height: 15px;
+        
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 10px;
+}
 .container > p{
     margin-top: 100px;
 }
@@ -40,7 +52,7 @@
 .btns{
 background-color: transparent;
   color: #fff;
-  border: 1px solid var(--primary);
+  border: 2px solid var(--primary);
   transition: all 0.3s ease-out;
   align-self: center;
 
@@ -59,6 +71,8 @@ background-color: transparent;
     margin-left: 200px;
     margin-right: 225px;
     margin-top: 50px;
+    background: #fff;
+    color: #242424;
 }
 .Description-From{
     align-items: center;
@@ -79,6 +93,7 @@ background-color: transparent;
     border-radius: 5px;
     font-size: 20px;
 }
+
 input[type=text] {
     padding: 20px 300px 300px 10px;
     height: 30px;
