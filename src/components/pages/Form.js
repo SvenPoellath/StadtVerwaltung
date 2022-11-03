@@ -1,40 +1,26 @@
 import React from 'react';
 import './Form.css'
 import { useForm } from 'react-hook-form';
-import App from '../../App'
 import { useNavigate } from 'react-router-dom';
+import Citizen from '../globalVariables/Citizen';
 
 export default function Form(){
+    window.addEventListener('beforeunload', function (e) {
+        e.preventDefault();
+    });
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
-       App.dataEntry = JSON.stringify(data);
-       navigate('/summary');
+        Citizen.firstName = data.firstName;
+        Citizen.lastName=data.lastName;
+        Citizen.mailAddress=data.email;
+        Citizen.phoneNumber=data.phoneNumber;
+       navigate('/description');
     }
     return(
         <div className='Container'>
             <form onSubmit={handleSubmit(onSubmit)}>
             <table>
-            <tr>
-                <td>
-                    <label className='label Beschreibung-Text'>Beschreibung*</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <textarea
-                        { ...register('description')}
-                        type='textarea'
-                        className="textbox Beschreibung-TextBox"
-                        placeholder="Beschreibung"
-                        required='true'
-                        value={App.Beschreibung}
-                    />
-                </td>
-                <td>
-
-                </td>
-            </tr>
             <tr>
                 <td>
                     <h3 className='header'>Kontakt Information</h3>
@@ -52,7 +38,7 @@ export default function Form(){
                 <td>
                     
                     <input
-                        { ...register('firstname')}
+                        { ...register('firstName')}
                         type='text'
                         className="textbox Vorname-TextBox"
                         placeholder="Vorname"
@@ -61,7 +47,7 @@ export default function Form(){
                 </td>
                 <td>
                     <input
-                        { ...register('lastname')}
+                        { ...register('lastName')}
                         type='text'
                         className="textbox Nachname-TextBox"
                         placeholder="Nachname"
@@ -89,7 +75,7 @@ export default function Form(){
                 </td>
                 <td>
                     <input
-                        { ...register('phonenumber')}
+                        { ...register('phoneNumber')}
                         type='text'
                         className="textbox Telefonnummer-TextBox"
                         placeholder="Telefonnummer"

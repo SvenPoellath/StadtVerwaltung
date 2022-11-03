@@ -1,24 +1,25 @@
 import React from 'react';
 import './Form.css'
-import App from '../../App'
+import Report from '../globalVariables/Report';
+import Citizen from '../globalVariables/Citizen';
 
 export default function Summary(){
+    window.addEventListener('beforeunload', function (e) {
+        e.preventDefault();
+    });
     return(
         <div className='Container'>
             <table>
             <tr>
                 <td>
-                    <label className='label Beschreibung-Text'>Beschreibung*</label>
+                    <label className='label Beschreibung-Text'>Beschreibung</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <textarea
-                        type='textarea'
-                        className="textbox Beschreibung-TextBox"
-                        value={App.dataEntry.description}
-                        required='true'
-                    />
+                    <label className='dataEntry'>
+                        {Report.description}
+                    </label>
                 </td>
                 <td>
 
@@ -31,45 +32,37 @@ export default function Summary(){
             </tr>
             <tr>
                 <td>
-                    <label className='label'>Vorname*</label>
-                    <input
-                        type='text'
-                        className="textbox Vorname-TextBox"
-                        value="Vorname"
-                        required='true'
-                    />
+                    <label className='label'>Vorname</label>
                 </td>
                 <td>
-                    <label className='label'>Nachname*</label>
-                    <input
-                        type='text'
-                        className="textbox Nachname-TextBox"
-                        value="Nachname"
-                        required='true'
-                    /> 
+                    <label className='label'>Nachname</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label className='label'>E-Mail*</label>
-                    <input
-                        type='text'
-                        className="textbox Email-TextBox"
-                        value="Email"
-                        required='true'
-                    />
+                    <label className='dataEntry'>{Citizen.firstName}</label>
                 </td>
                 <td>
-                    <label className='label'>Telefonnummer</label>
-                    <input
-                        type='text'
-                        className="textbox Telefonnummer-TextBox"
-                        value="Telefonnummer"
-                    /> 
+                    <label className='dataEntry'>{Citizen.lastName}</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <label className='label'>E-Mail</label>
+                </td>
+                <td>
+                <label className='label'>Telefonnummer</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label className='dataEntry'>{Citizen.mailAddress}</label>
+                </td>
+                <td>
+                    <label className='dataEntry'>{Citizen.phoneNumber}</label>
                 </td>
             </tr> 
             </table>
         </div>
     );
-
 }
