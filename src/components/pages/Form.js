@@ -15,7 +15,7 @@ export default function Form(){
         Citizen.lastName=data.lastName;
         Citizen.mailAddress=data.email;
         Citizen.phoneNumber=data.phoneNumber;
-       navigate('/description');
+       navigate('/summary');
     }
     return(
         <div className='Container'>
@@ -38,20 +38,18 @@ export default function Form(){
                 <td>
                     
                     <input
-                        { ...register('firstName')}
+                        { ...register('firstName', { required: true, maxLength: 20, pattern: /^[A-Za-z]+$/i})}
                         type='text'
                         className="textbox Vorname-TextBox"
                         placeholder="Vorname"
-                        required='true'
                     />
                 </td>
                 <td>
                     <input
-                        { ...register('lastName')}
+                        { ...register('lastName', { required: true, maxLength: 30, pattern: /^[A-Za-z]+$/i})}
                         type='text'
                         className="textbox Nachname-TextBox"
                         placeholder="Nachname"
-                        required='true'
                     /> 
                 </td>
             </tr>
@@ -66,7 +64,7 @@ export default function Form(){
             <tr>
                 <td>
                     <input
-                        { ...register('email')}
+                        { ...register('email', { required: true, maxLength: 40})}
                         type='email'
                         className="textbox Email-TextBox"
                         placeholder="Email"
@@ -75,7 +73,7 @@ export default function Form(){
                 </td>
                 <td>
                     <input
-                        { ...register('phoneNumber')}
+                        { ...register('phoneNumber', { maxLength: 14 ,pattern: /^[0-9]+$/i})}
                         type='text'
                         className="textbox Telefonnummer-TextBox"
                         placeholder="Telefonnummer"
@@ -86,7 +84,7 @@ export default function Form(){
                 (*)Pflichtfelder
             </tr>
             <tr>
-                <input type='submit' value='Submit' />
+                <input type='submit' value='Weiter' />
             </tr>
             </table>
             </form>

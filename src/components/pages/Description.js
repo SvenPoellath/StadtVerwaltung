@@ -14,7 +14,7 @@ export default function Description(){
     const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
        Report.description = data.description;
-       navigate('/summary');
+       navigate('/form');
     }
     const fileSelectedHandler = event => {
         file=event.target.files[0];
@@ -26,8 +26,9 @@ export default function Description(){
             <table>
             <tr>
                 <td>
-                    <label className='label Beschreibung-Text'>Beschreibung*</label>
+                    <label className='label Beschreibung-Text'>Beschreiben Sie den Mängel*</label>
                 </td>
+                    <label className='label'>Sie können auch ein Bild hinzufügen</label>
             </tr>
             <tr>
                 <td>
@@ -47,7 +48,7 @@ export default function Description(){
                 (*)Pflichtfelder
             </tr>
             <tr>
-                <input type='submit' value='Submit' />
+                <input type='submit' value='Weiter' />
             </tr>
             </table>
             </form>

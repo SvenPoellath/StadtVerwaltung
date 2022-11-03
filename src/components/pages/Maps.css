@@ -1,5 +1,6 @@
 .container{
-    background: url('/public/images/img-home.jpg') center center/cover no-repeat;
+    background: url('/public/images/bridge-197788.jpg') center center/cover no-repeat;
+    opacity: 0.75;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

@@ -60,14 +60,14 @@ const setSearchMarker = (latLng) => {
       if(mylocation.loaded && !mylocation.error){
           Report.latitude=mylocation.coordinates.lat;
           Report.longitude=mylocation.coordinates.lng;
-          navigate('/form')
+          navigate('/products')
       }else{
         alert(mylocation.error.message);
       }
     }else if(searchMarker != null){
         Report.latitude=searchMarker[0];
         Report.longitude=searchMarker[1];
-        navigate('/form')
+        navigate('/products')
       }
       else{
         alert('Markieren Sie den Standort an dem Sie einen Mängel festgestellt haben!')
