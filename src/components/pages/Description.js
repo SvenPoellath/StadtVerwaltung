@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Form.css'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Report from '../globalVariables/Report';
+import File from '../globalVariables/File';
+import Summary from './Summary';
 
 export default function Description(){
-    
-    var file;
+    const [image, setImage] = useState(null);
     window.addEventListener('beforeunload', function (e) {
         e.preventDefault();
     });
@@ -16,9 +17,11 @@ export default function Description(){
        Report.description = data.description;
        navigate('/form');
     }
-    const fileSelectedHandler = event => {
-        file=event.target.files[0];
-        console.log(file)
+    const fileSelectedHandler = (event) => {
+        if (event.target.files && event.target.files[0]){
+            setImage(URL.createObjectURL(event.target.files[0]));
+            File = image;
+        }
     }
     return(
         <div className='Container'>
@@ -49,6 +52,7 @@ export default function Description(){
             </tr>
             <tr>
                 <input type='submit' value='Weiter' />
+                <img src={image} alt='alt' />
             </tr>
             </table>
             </form>

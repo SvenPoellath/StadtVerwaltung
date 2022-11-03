@@ -14,7 +14,7 @@
     align-items: center;
     text-align: center;
 }
-.leaflet-container{
+.initMap{
     width: 400px;
     display:flex;
     margin-top: 50px;
