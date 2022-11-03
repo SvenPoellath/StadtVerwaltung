@@ -5,8 +5,8 @@ public class Citizen {
     public String id;
     public String firstName;
     public String lastName;
-    public String phoneNumber;
-    public String mailAddress;
+    public String phone_number;
+    public String email_address;
 
     public Citizen() {}
 
