@@ -10,9 +10,10 @@ import Maps from './components/pages/Maps';
 import Login from './components/pages/Login';
 import Form from './components/pages/Form';
 import Summary from './components/pages/Summary';
+import Description from './components/pages/Description';
+
 
 function App() {
-  var dataEntry;
   return (
     <>
       <Router>
@@ -26,6 +27,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/form' element={<Form />}/>
           <Route path='/summary' element={<Summary/>}/>
+          <Route path='/description' element={<Description/>}/>
         </Routes>
       </Router>
     </>
