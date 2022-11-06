@@ -37,3 +37,6 @@ build/
 ### Database ###
 *.sqlite
 
+### Image Files and Folder ###
+/images
+
