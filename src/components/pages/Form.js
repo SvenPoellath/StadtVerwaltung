@@ -19,6 +19,7 @@ export default function Form(){
     }
     return(
         <div className='Container'>
+            <img src='icons/Stage 2.png' className='img-header'/>
             <form onSubmit={handleSubmit(onSubmit)}>
             <table>
             <tr>

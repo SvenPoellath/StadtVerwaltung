@@ -6,29 +6,17 @@
   .report-container > h1 {
     color: #fff;
     font-size: 50px;
-    margin-top: -250px;
+    margin-top: -40vh;
   }
-  
-  
-  .report-btns {
-    margin-top: -20%;
-    display: grid;
+  .img-header{
     align-self: center;
-    margin-bottom: 400px;
-    margin-right: 20%;
-    margin-left: 20%;
+    justify-self: center;
+    width: 50vw;
   }
   
-  .report-btns .btn {
-    padding: auto;
-    box-sizing: border-box;
-    width: 100%;
-    margin: 6px;
-    align-self: center;
-  }
   
-  .fa-play-circle {
-  }
+  
+
   
   @media screen and (max-width: 960px) {
     .report-container > h1 {

@@ -17,19 +17,18 @@ h1 {
 }
 
 .cards__wrapper {
-  position: relative;
-  margin: 50px 0 45px;
+  border: #252e48 5px;
 }
 
-.cards__items {
-  margin-bottom: 24px;
-}
+
 
 .cards__item {
   display: flex;
   flex: 1;
-  margin: 0 1rem;
+  margin: 0 30px;
   border-radius: 10px;
+  margin-top: -50vh;
+  background-color: white;
 }
 
 .cards__item__link {
@@ -47,7 +46,7 @@ h1 {
 .cards__item__pic-wrap {
   position: relative;
   width: 100%;
-  padding-top: 67%;
+  padding-top: 77%;
   overflow: hidden;
 }
 
@@ -66,7 +65,6 @@ h1 {
   font-size: 12px;
   font-weight: 700;
   color: #fff;
-  background-color: #1f98f4;
   box-sizing: border-box;
 }
 
@@ -91,12 +89,16 @@ h1 {
 
 .cards__item__info {
   padding: 20px 30px 30px;
+  align-items: center;
+  justify-content: center;
 }
 
 .cards__item__text {
   color: #252e48;
   font-size: 18px;
   line-height: 24px;
+  align-self: center;
+  text-align: center;
 }
 
 @media only screen and (min-width: 1200px) {

@@ -6,24 +6,23 @@
     background-repeat: no-repeat;
     color: #fff;
     font-size: 25px;
-    height: 100vh;
-    display:grid;
+    height: 110vh;
+    width: 100vw;
+    display:table;
     align-content: center;
     justify-content: center;
     align-self: center;
     align-items: center;
     text-align: center;
 }
+
 .initMap{
     width: 400px;
     display:flex;
-    margin-top: 50px;
+    margin-left: 14.5vw;
     align-self: center;
-    margin-left: 100px;
-    margin-right: 100px;
 }
 .checkbox{
-    margin-right: 350px;
     font-size: 16px;
 }
 input[type=checkbox]{

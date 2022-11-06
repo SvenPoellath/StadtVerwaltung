@@ -93,11 +93,25 @@ const setSearchMarker = (latLng) => {
     }
   }
   return (
+
     <div className='container'>
-      <h1>
+     <img className='img-header'src='icons/Stage 5.png'/> 
+      <table className='map-table'>
+        <tr>
+          <td>
+          
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <h1>
         Wo befindet sich der schaden?
       </h1>
-    <Map className='initMap' center={[49.4774, 8.4452]} zoom={13} style={{ height: "400px" }}>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <Map className='initMap' center={[49.4774, 8.4452]} zoom={13} style={{ height: "400px" }}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -140,7 +154,11 @@ const setSearchMarker = (latLng) => {
           </Marker>
         )}
     </Map>
-    <label className='checkbox'>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <label className='checkbox'>
       <input
       type='checkbox'
       onChange={() => setIsChecked((prev) => !prev)}
@@ -148,7 +166,11 @@ const setSearchMarker = (latLng) => {
     />
       Mein Standort verwenden
     </label>
-      <button
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <button
           className='btns btn-normal'
           buttonStyle='btn--outline'
           buttonSize='btn--large'
@@ -156,6 +178,9 @@ const setSearchMarker = (latLng) => {
         >
           Weiter
       </button>
+          </td>
+        </tr>
+      </table>
 
 
     </div>

@@ -1,7 +1,7 @@
 .Container{
     background: url('/public/images/pedestrians-400811.jpg') center center/cover no-repeat;
     opacity: 0.85;
-    display: table;
+    display: grid;
     justify-content: center;
     align-items: center;
     width: 100vw;
@@ -9,10 +9,9 @@
     color: #fff;
 }
 table{
-    margin-top: 20%;
     display: table;
     width: 50vw;
-    margin-left: 25vw;
+    margin-top: -30vh;
     justify-content: center;
     align-items: center;
     background-color: gray;

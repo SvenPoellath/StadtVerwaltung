@@ -25,6 +25,7 @@ export default function Description(){
     }
     return(
         <div className='Container'>
+            <img src='icons/Stage 3.png' className='img-header'/>
             <form onSubmit={handleSubmit(onSubmit)}>
             <table>
             <tr>

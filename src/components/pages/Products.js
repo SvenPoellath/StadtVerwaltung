@@ -1,39 +1,33 @@
 import React from 'react';
 import '../../App.css';
 import './Products.css'
+import '../Cards.css'
+import CardItem from '../CardItem';
 import { Button } from '../Button';
 export default function Products() {
   return (
   <div className='report-container'>
+    <img src='icons/Stage 4.png' className='img-header'/>
     <h1 className='products'>Was möchten Sie melden?</h1>
-    <div className='report-btns'>
-        <Button
-          className='btns'
-          buttonStyle='btn--outline'
-          buttonSize='btn--long'
-          buttonLink='/description'
-          kindOfReport='Defekt oder Schaden'
-        >
-          Defekt oder Schaden
-        </Button>
-        <Button
-          className='btns'
-          buttonStyle='btn--outline'
-          buttonSize='btn--long'
-          buttonLink='/description'
-          kindOfReport='Verunreinigung'
-        >
-          Verunreinigung
-        </Button>
-        <Button
-          className='btns'
-          buttonStyle='btn--outline'
-          buttonSize='btn--long'
-          buttonLink='/description'
-          kindOfReport='Parkverstoß'
-        >
-          Parkverstoß
-        </Button>
+    
+    <div className='cards-wrapper'>
+          <ul className='cards__items'>
+            <CardItem
+              src='icons/Schaden.png'
+              text='Defekt oder Schaden'
+              path='/description'
+            />
+            <CardItem
+              src='icons/Verunreinigung.png'
+              text='Verunreinigung'
+              path='/description'
+            />
+            <CardItem
+              src='icons/Parkverstoß.png'
+              text='Parkverstoß'
+              path='/description'
+            />
+          </ul>
       </div>
   </div>
   );

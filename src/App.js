@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import Impressum from './components/pages/Impressum';
 import Datenschutz from './components/pages/Datenschutz';
 import Nutzungsbedingungen from './components/pages/Nutzungsbedingungen';
+import IdInfoPage from './components/pages/IdPage';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path='/impressum' element={<Impressum/>}/>
           <Route path='/datenschutz' element={<Datenschutz/>}/>
           <Route path='/nutzungsbedingungen' element={<Nutzungsbedingungen/>}/>
+          <Route path='/idinfopage' element={<IdInfoPage/>}/>
         </Routes>
         <Footer/>
       </Router>

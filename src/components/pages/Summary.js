@@ -5,8 +5,11 @@ import Citizen from "../globalVariables/Citizen";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import File from "../globalVariables/File";
 import Description from "./Description";
+import HCaptcha from "react-hcaptcha";
+import { useNavigate } from "react-router-dom";
 
 export default function Summary() {
+  const navigate = useNavigate();
   window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
   });
@@ -17,18 +20,17 @@ export default function Summary() {
     postRequest.setRequestHeader('content-type','application/json' )
     postRequest.send(JSON.stringify(Report))
     Report.id = postRequest.responseText;
-    var imageRequest = new XMLHttpRequest();
-    var formdata = new FormData();
-    formdata.append('imageFile', Description.image);
-    imageRequest.open("POST","http://localhost:8080/images", false);
-    imageRequest.setRequestHeader('content-type', 'multipart/form-data' );
-    imageRequest.send(formdata);
-    console.log(imageRequest.responseText);
-    
+    navigate('/idinfopage');
   }
-
+  const print = () => {
+    window.print();
+  }
+  const onVerifyCaptcha = (token) => {
+    console.log('Verified')
+  }
   return (
     <div className="Container">
+      <img src='icons/Stage 1.png' className='img-header'/>
       <table>
         <tr>
           <th>
@@ -105,10 +107,16 @@ export default function Summary() {
         </tr>
         <tr>
           <td>
-            <button className="SummaryButton" onClick={onClick}>Abschicken</button>
+            <button className="PrintButton" onClick={print}>Seite Drucken</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <button className="SummaryButton" onClick={onClick}>Abschicken</button>
           </td>
         </tr>
       </table>
     </div>
   );
 }
+/* <HCaptcha sitekey='49755cd2-2c21-40c3-ab7d-fe8ba9dd0d73' onVerify={onVerifyCaptcha}/> */

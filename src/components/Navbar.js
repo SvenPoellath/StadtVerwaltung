@@ -50,7 +50,7 @@ function Navbar() {
                 className='nav-links'
                 onClick={closeMobileMenu}
               >
-                Über Uns
+                Fall Suchen
               </Link>
             </li>
             <li className='nav-item'>
