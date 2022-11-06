@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import Logo from './Stadt_Ludwgishafen_logo.png'
+import Logo from './Stadt_Ludwigshafen_logo.png'
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -32,7 +32,7 @@ function Navbar() {
         <div className='navbar-container'>
         <img src={Logo} className='logo-image' alt='Lu' />
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-            <h1>Ludwigshaven am Rhein</h1>
+            <h1>Ludwigshafen am Rhein</h1>
             <h3 className='stadt'>Stadt Verwaltung</h3>
           </Link>
           <div className='menu-icon' onClick={handleClick}>
@@ -55,7 +55,7 @@ function Navbar() {
             </li>
             <li className='nav-item'>
               <Link
-                to='/products'
+                to='/maps'
                 className='nav-links'
                 onClick={closeMobileMenu}
               >

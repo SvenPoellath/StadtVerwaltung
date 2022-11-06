@@ -1,5 +1,6 @@
 .Container{
-    background: url('/public/images/img-6.jpg') center center/cover no-repeat;
+    background: url('/public/images/pedestrians-400811.jpg') center center/cover no-repeat;
+    opacity: 0.85;
     display: table;
     justify-content: center;
     align-items: center;
@@ -14,8 +15,18 @@ table{
     margin-left: 25vw;
     justify-content: center;
     align-items: center;
+    background-color: gray;
+    box-sizing: border-box;
+    border-radius: 20px;
+    padding: 50px 50px;
 }
-
+.leaflet-container{
+    width: 400px;
+    display:table;
+    align-items: center;
+    align-self: center;
+    align-self: center;
+}
 label{
     color: #fff;
 }
@@ -42,10 +53,18 @@ input[type=email]{
     margin: 8px;
     border-radius: 25px;
 }
-
+input[type=submit]{
+    padding: 4px 12px;
+    background-color: #fff;
+    border: none;
+    margin: 20px 8px;
+}
 .header{
     margin: 30px 0px;
     font-size: 20px;
+}
+.dataEntry{
+    color:#ccc;
 }
 
 

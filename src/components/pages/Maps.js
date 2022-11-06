@@ -9,10 +9,13 @@ import {
 import { Button } from '../Button';
 import L, { LatLng } from 'leaflet';
 import Search from 'react-leaflet-search'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Report from '../globalVariables/Report';
 
 
  export default function Maps() {
+  const navigate = useNavigate();
+  var searchMarker
   var checked
   const defaultChecked = checked ? checked : false;
   const [isChecked, setIsChecked] = useState(defaultChecked);
@@ -37,6 +40,7 @@ const onError = (error) => {
     loaded: true, error,
   });
 }
+
   useEffect(() => {
     if (!("geolocation" in navigator)) {
       onError({
@@ -48,9 +52,27 @@ const onError = (error) => {
   }, []);
   return location;
 };
-  const handleScrollDown = () => {
-    window.scrollTo( { top: 40000, behavior: 'smooth'})
-  }
+const setSearchMarker = (latLng) => {
+  searchMarker = latLng;
+}
+  const setLocation = () => {
+    if(isChecked){
+      if(mylocation.loaded && !mylocation.error){
+          Report.latitude=mylocation.coordinates.lat;
+          Report.longitude=mylocation.coordinates.lng;
+          navigate('/products')
+      }else{
+        alert(mylocation.error.message);
+      }
+    }else if(searchMarker != null){
+        Report.latitude=searchMarker[0];
+        Report.longitude=searchMarker[1];
+        navigate('/products')
+      }
+      else{
+        alert('Markieren Sie den Standort an dem Sie einen Mängel festgestellt haben!')
+      }
+    }
   
   var loadReportsRequest = new XMLHttpRequest();
   loadReportsRequest.open("GET","http://localhost:8080/reports",false);
@@ -75,7 +97,7 @@ const onError = (error) => {
       <h1>
         Wo befindet sich der schaden?
       </h1>
-    <Map center={[49.4774, 8.4452]} zoom={13} style={{ height: "400px" }}>
+    <Map className='initMap' center={[49.4774, 8.4452]} zoom={13} style={{ height: "400px" }}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -109,7 +131,7 @@ const onError = (error) => {
 
         >
           {(info) => (
-            <Marker position={info?.latLng}></Marker>
+            <Marker position={info?.latLng} onadd={setSearchMarker(info?.latLng)}></Marker>
           )}
         </Search>
         {mylocation.loaded && !mylocation.error && (
@@ -126,16 +148,14 @@ const onError = (error) => {
     />
       My Location
     </label>
-    <Link to='/form'>
       <button
           className='btns btn-normal'
           buttonStyle='btn--outline'
           buttonSize='btn--large'
-          onClick={handleScrollDown}
+          onClick={setLocation}
         >
           Weiter
       </button>
-    </Link>
 
 
     </div>

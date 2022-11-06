@@ -1,40 +1,26 @@
 import React from 'react';
 import './Form.css'
 import { useForm } from 'react-hook-form';
-import App from '../../App'
 import { useNavigate } from 'react-router-dom';
+import Citizen from '../globalVariables/Citizen';
 
 export default function Form(){
+    window.addEventListener('beforeunload', function (e) {
+        e.preventDefault();
+    });
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
-       App.dataEntry = JSON.stringify(data);
+        Citizen.firstName = data.firstName;
+        Citizen.lastName=data.lastName;
+        Citizen.mailAddress=data.email;
+        Citizen.phoneNumber=data.phoneNumber;
        navigate('/summary');
     }
     return(
         <div className='Container'>
             <form onSubmit={handleSubmit(onSubmit)}>
             <table>
-            <tr>
-                <td>
-                    <label className='label Beschreibung-Text'>Beschreibung*</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <textarea
-                        { ...register('description')}
-                        type='textarea'
-                        className="textbox Beschreibung-TextBox"
-                        placeholder="Beschreibung"
-                        required='true'
-                        value={App.Beschreibung}
-                    />
-                </td>
-                <td>
-
-                </td>
-            </tr>
             <tr>
                 <td>
                     <h3 className='header'>Kontakt Information</h3>
@@ -52,20 +38,18 @@ export default function Form(){
                 <td>
                     
                     <input
-                        { ...register('firstname')}
+                        { ...register('firstName', { required: true, maxLength: 20, pattern: /^[A-Za-z]+$/i})}
                         type='text'
                         className="textbox Vorname-TextBox"
                         placeholder="Vorname"
-                        required='true'
                     />
                 </td>
                 <td>
                     <input
-                        { ...register('lastname')}
+                        { ...register('lastName', { required: true, maxLength: 30, pattern: /^[A-Za-z]+$/i})}
                         type='text'
                         className="textbox Nachname-TextBox"
                         placeholder="Nachname"
-                        required='true'
                     /> 
                 </td>
             </tr>
@@ -80,7 +64,7 @@ export default function Form(){
             <tr>
                 <td>
                     <input
-                        { ...register('email')}
+                        { ...register('email', { required: true, maxLength: 40})}
                         type='email'
                         className="textbox Email-TextBox"
                         placeholder="Email"
@@ -89,7 +73,7 @@ export default function Form(){
                 </td>
                 <td>
                     <input
-                        { ...register('phonenumber')}
+                        { ...register('phoneNumber', { maxLength: 14 ,pattern: /^[0-9]+$/i})}
                         type='text'
                         className="textbox Telefonnummer-TextBox"
                         placeholder="Telefonnummer"
@@ -100,7 +84,7 @@ export default function Form(){
                 (*)Pflichtfelder
             </tr>
             <tr>
-                <input type='submit' value='Submit' />
+                <input type='submit' value='Weiter' />
             </tr>
             </table>
             </form>
