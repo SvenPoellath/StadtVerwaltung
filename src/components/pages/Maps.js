@@ -146,7 +146,7 @@ const setSearchMarker = (latLng) => {
       onChange={() => setIsChecked((prev) => !prev)}
       onClick={showMyLocation}
     />
-      My Location
+      Mein Standort verwenden
     </label>
       <button
           className='btns btn-normal'

@@ -11,6 +11,10 @@ import Login from './components/pages/Login';
 import Form from './components/pages/Form';
 import Summary from './components/pages/Summary';
 import Description from './components/pages/Description';
+import Footer from './components/Footer';
+import Impressum from './components/pages/Impressum';
+import Datenschutz from './components/pages/Datenschutz';
+import Nutzungsbedingungen from './components/pages/Nutzungsbedingungen';
 
 
 function App() {
@@ -28,7 +32,11 @@ function App() {
           <Route path='/form' element={<Form />}/>
           <Route path='/summary' element={<Summary/>}/>
           <Route path='/description' element={<Description/>}/>
+          <Route path='/impressum' element={<Impressum/>}/>
+          <Route path='/datenschutz' element={<Datenschutz/>}/>
+          <Route path='/nutzungsbedingungen' element={<Nutzungsbedingungen/>}/>
         </Routes>
+        <Footer/>
       </Router>
     </>
   );

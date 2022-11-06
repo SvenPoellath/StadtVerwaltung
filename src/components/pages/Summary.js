@@ -10,6 +10,22 @@ export default function Summary() {
   window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
   });
+  const onClick = () => {
+    console.log(JSON.stringify(Report));
+    var postRequest = new XMLHttpRequest();
+    postRequest.open("POST", "http://localhost:8080/reports", false);
+    postRequest.setRequestHeader('content-type','application/json' )
+    postRequest.send(JSON.stringify(Report))
+    Report.id = postRequest.responseText;
+    var imageRequest = new XMLHttpRequest();
+    var formdata = new FormData();
+    formdata.append('imageFile', Description.image);
+    imageRequest.open("POST","http://localhost:8080/images", false);
+    imageRequest.setRequestHeader('content-type', 'multipart/form-data' );
+    imageRequest.send(formdata);
+    console.log(imageRequest.responseText);
+    
+  }
 
   return (
     <div className="Container">
@@ -47,7 +63,7 @@ export default function Summary() {
             <label className="dataEntry">{Report.description}</label>
           </td>
           <td>
-            <img src={Description.image} alt='your image' />
+            <img src={Description.image} alt='img' />
           </td>
         </tr>
         <tr>
@@ -85,6 +101,11 @@ export default function Summary() {
           </td>
           <td>
             <label className="dataEntry">{Citizen.phoneNumber}</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button className="SummaryButton" onClick={onClick}>Abschicken</button>
           </td>
         </tr>
       </table>

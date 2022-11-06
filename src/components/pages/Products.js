@@ -12,6 +12,7 @@ export default function Products() {
           buttonStyle='btn--outline'
           buttonSize='btn--long'
           buttonLink='/description'
+          kindOfReport='Defekt oder Schaden'
         >
           Defekt oder Schaden
         </Button>
@@ -20,6 +21,7 @@ export default function Products() {
           buttonStyle='btn--outline'
           buttonSize='btn--long'
           buttonLink='/description'
+          kindOfReport='Verunreinigung'
         >
           Verunreinigung
         </Button>
@@ -28,6 +30,7 @@ export default function Products() {
           buttonStyle='btn--outline'
           buttonSize='btn--long'
           buttonLink='/description'
+          kindOfReport='Parkverstoß'
         >
           Parkverstoß
         </Button>

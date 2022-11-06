@@ -12,7 +12,8 @@
 
 import React from 'react';
 import './Button.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Report from './globalVariables/Report';
 
 const STYLES = ['btn--primary', 'btn--outline', 'btn--test'];
 
@@ -23,19 +24,23 @@ const LINKS = ['/sign-up', '/home', '/services', '/products', '/maps', '/login',
 export const Button = ({
   children,
   type,
-  onClick,
+  kindOfReport,
   buttonStyle,
   buttonSize,
   buttonLink
 }) => {
+  const navigate = useNavigate();
   const checkButtonStyle = STYLES.includes(buttonStyle)
     ? buttonStyle
     : STYLES[0];
 
   const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0];
   const checkLink = LINKS.includes(buttonLink) ? buttonLink : LINKS[0];
+  const onClick = () => {
+    Report.kindOfReport = kindOfReport;
+    navigate(checkLink);
+  }
   return (
-    <Link to={`${checkLink}`} className='btn-mobile'>
       <button
         className={`btn ${checkButtonStyle} ${checkButtonSize}`}
         onClick={onClick}
@@ -43,6 +48,5 @@ export const Button = ({
       >
         {children}
       </button>
-    </Link>
   );
 };
