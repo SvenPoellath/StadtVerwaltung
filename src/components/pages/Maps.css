@@ -15,12 +15,16 @@
     align-items: center;
     text-align: center;
 }
-
+.img-header{
+    align-self: center;
+    justify-self: center;
+    width: 50vw;
+  }
 .initMap{
     width: 400px;
     display:flex;
-    margin-left: 14.5vw;
     align-self: center;
+    margin-left: 110px;
 }
 .checkbox{
     font-size: 16px;

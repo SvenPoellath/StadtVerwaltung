@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Maps.css';
+import './Products.css'
 import {
     Map,
     TileLayer,
@@ -95,7 +96,7 @@ const setSearchMarker = (latLng) => {
   return (
 
     <div className='container'>
-     <img className='img-header'src='icons/Stage 5.png'/> 
+     <img className='img-header' src='icons/Stage 5.png' alt='img'/> 
       <table className='map-table'>
         <tr>
           <td>
