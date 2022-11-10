@@ -31,7 +31,7 @@ public class ReportController {
     }
 
     @GetMapping(value = "/report", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Report> getReport(@RequestParam String id) {
+    public ResponseEntity<Report> getReport(@RequestBody String id) {
         Report report;
         try {
             report = reportPersistence.getReportFromDB(id);
