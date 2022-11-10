@@ -66,8 +66,8 @@ const setSearchMarker = (latLng) => {
         alert(mylocation.error.message);
       }
     }else if(searchMarker != null){
-        Report.latitude=searchMarker[0];
-        Report.longitude=searchMarker[1];
+        Report.latitude=searchMarker.lat;
+        Report.longitude=searchMarker.lng;
         navigate('/products')
       }
       else{
