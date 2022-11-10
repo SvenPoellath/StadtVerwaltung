@@ -96,13 +96,8 @@ const setSearchMarker = (latLng) => {
   return (
 
     <div className='container'>
-     <img className='img-header' src='icons/Stage 5.png' alt='img'/> 
+     <img className='img-header img-header-map' src='icons/Stage 5.png' alt='img'/> 
       <table className='map-table'>
-        <tr>
-          <td>
-          
-          </td>
-        </tr>
         <tr>
           <td>
           <h1>

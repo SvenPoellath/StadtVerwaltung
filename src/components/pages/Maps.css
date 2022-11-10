@@ -20,6 +20,9 @@
     justify-self: center;
     width: 50vw;
   }
+.img-header-map{
+    margin-bottom: 30vh;
+}
 .initMap{
     width: 400px;
     display:flex;

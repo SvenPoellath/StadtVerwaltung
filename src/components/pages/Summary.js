@@ -30,7 +30,7 @@ export default function Summary() {
   }
   return (
     <div className="Container">
-      <img src='icons/Stage 1.png' className='img-header'/>
+      <img src='icons/Stage 1.png' className='img-header img-header-map'/>
       <table>
         <tr>
           <th>
