@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import "./Form.css";
-import Report from "../globalVariables/Report";
-import Citizen from "../globalVariables/Citizen";
+import Report from "../../globalVariables/Report";
+import Citizen from "../../globalVariables/Citizen";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
-import File from "../globalVariables/File";
+import File from "../../globalVariables/File";
 import Description from "./Description";
 import HCaptcha from "react-hcaptcha";
 import { useNavigate } from "react-router-dom";
