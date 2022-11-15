@@ -7,11 +7,11 @@ import {
     Marker,
     Popup
   } from 'react-leaflet'
-import { Button } from '../Button';
+import { Button } from '../../Button';
 import L, { LatLng } from 'leaflet';
 import Search from 'react-leaflet-search'
 import { useNavigate } from 'react-router-dom';
-import Report from '../globalVariables/Report';
+import Report from '../../globalVariables/Report';
 
 
  export default function Maps() {

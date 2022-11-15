@@ -1,9 +1,7 @@
 import React from 'react';
-import '../../App.css';
 import './Products.css'
-import '../Cards.css'
-import CardItem from '../CardItem';
-import { Button } from '../Button';
+import '../../Cards.css'
+import CardItem from '../../CardItem';
 export default function Products() {
   return (
   <div className='report-container'>

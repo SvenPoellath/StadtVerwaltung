@@ -1,5 +1,5 @@
 import Search from 'react-leaflet-search/lib';
-import Report from '../globalVariables/Report';
+import Report from '../../globalVariables/Report';
 import { useForm } from 'react-hook-form';
 import './InfoPages.css'
 function IdSearchPage() {

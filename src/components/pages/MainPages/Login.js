@@ -38,7 +38,7 @@ export default function Login() {
             </td>
           </tr>
           <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary btn--medium btn-login">
               Login
             </button>
           </div>

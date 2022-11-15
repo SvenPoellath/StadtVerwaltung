@@ -1,22 +1,20 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import './App.css';
-import Home from './components/pages/Home';
+import Home from './components/pages/MainPages/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Services from './components/pages/Services';
-import Products from './components/pages/Products';
-import SignUp from './components/pages/SignUp';
-import Maps from './components/pages/Maps';
-import Login from './components/pages/Login';
-import Form from './components/pages/Form';
-import Summary from './components/pages/Summary';
-import Description from './components/pages/Description';
+import Products from './components/pages/MainPages/Products';
+import Maps from './components/pages/MainPages/Maps';
+import Login from './components/pages/MainPages/Login';
+import Form from './components/pages/SubPages/Form';
+import Summary from './components/pages/SubPages/Summary';
+import Description from './components/pages/SubPages/Description';
 import Footer from './components/Footer';
-import Impressum from './components/pages/Impressum';
-import Datenschutz from './components/pages/Datenschutz';
-import Nutzungsbedingungen from './components/pages/Nutzungsbedingungen';
-import IdInfoPage from './components/pages/IdPage';
-import IdSearchPage from './components/pages/InfoSearch';
+import Impressum from './components/pages/InfoPages/Impressum';
+import Datenschutz from './components/pages/InfoPages/Datenschutz';
+import Nutzungsbedingungen from './components/pages/InfoPages/Nutzungsbedingungen';
+import IdInfoPage from './components/pages/InfoPages/IdPage';
+import IdSearchPage from './components/pages/InfoPages/InfoSearch';
 
 
 function App() {
@@ -26,9 +24,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' exact element={<Home />} />
-          <Route path='/services' element={<Services />} />
           <Route path='/products' element={<Products />} />
-          <Route path='/sign-up' element={<SignUp />} />
           <Route path='/maps' element={<Maps />} />
           <Route path='/login' element={<Login />} />
           <Route path='/form' element={<Form />}/>

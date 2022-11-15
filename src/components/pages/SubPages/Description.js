@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import './Form.css'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Report from '../globalVariables/Report';
-import File from '../globalVariables/File';
+import Report from '../../globalVariables/Report';
+import File from '../../globalVariables/File';
 import Summary from './Summary';
 
 export default function Description(){
@@ -53,7 +53,6 @@ export default function Description(){
             </tr>
             <tr>
                 <input type='submit' value='Weiter' />
-                <img src={image} alt='alt' />
             </tr>
             </table>
             </form>

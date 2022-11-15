@@ -1,5 +1,5 @@
-import Report from '../globalVariables/Report';
-import './InfoPages.css'
+import Report from '../../globalVariables/Report';
+import '../InfoPages/InfoPages.css'
 function IdInfoPage() {
     const print = () => {
         window.print();
