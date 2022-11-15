@@ -8,7 +8,9 @@ function IdSearchPage() {
 
     const searchReport = (data) => {
         var postRequest = new XMLHttpRequest();
-        postRequest.open("GET", "http://localhost:8080/reports", false);
+        var url = "http://localhost:8080/report?id=" + data.FallID;
+        postRequest.open("GET", url, false);
+        postRequest.setRequestHeader('content-type','text/plain')
         postRequest.send(data.FallID)
         console.log(postRequest.responseText);
         //navigate('/summary');
@@ -27,7 +29,7 @@ function IdSearchPage() {
                 <td>
                 <p>Geben Sie die Fall ID ein die Sie Suchen möchen<br />
 <br />
-Ihre Fall ID: <input { ...register('FallID', { required: true, maxLength: 20, pattern: /^[A-Za-z]+$/i})} type='text' placeholder='Fall ID'/><br /><br/>
+Ihre Fall ID: <input { ...register('FallID', { required: true, maxLength: 20})} type='text' placeholder='Fall ID'/><br /><br/>
 </p>
                   </td>
             </tr>
