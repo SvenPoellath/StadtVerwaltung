@@ -7,7 +7,7 @@ public class JSONController {
 
     public JSONController(){}
 
-    public static Gson getGson() {
+    public Gson getGson() {
         return gson;
     }
 }
