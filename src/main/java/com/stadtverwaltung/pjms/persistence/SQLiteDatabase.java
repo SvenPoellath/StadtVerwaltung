@@ -54,6 +54,8 @@ public class SQLiteDatabase {
         String employeeTable = """
                 CREATE TABLE IF NOT EXISTS employees (
                  id             text(12) PRIMARY KEY,
+                 password       text,
+                 salt           text,
                  firstName       text     NOT NULL,     \s
                  lastName        text     NOT NULL,     \s
                  email_address   text             ,     \s

@@ -14,24 +14,29 @@ import java.util.List;
 public class ReportController {
     private ReportPersistence reportPersistence = new ReportPersistence();
     private JSONController jsonController = new JSONController();
+    private AuthorizationController authorizationController = new AuthorizationController();
 
     @GetMapping(value = "/reports", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Report>> getReports() {
-        List<Report> reports = null;
-        try {
-            reports = reportPersistence.getReportsFromDB();
-        } catch (SQLException e) {
+    public ResponseEntity<List<Report>> getReports(@RequestHeader String employeeID, @RequestHeader String sessionID) {
+        if (authorizationController.hasAuthorization(employeeID, sessionID)) {
+            List<Report> reports = null;
+            try {
+                reports = reportPersistence.getReportsFromDB();
+            } catch (SQLException e) {
 
-        }
-        if (reports == null) {
-            return ResponseEntity.notFound().build();
+            }
+            if (reports == null) {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok(reports);
+            }
         } else {
-            return ResponseEntity.ok(reports);
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @GetMapping(value = "/report", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Report> getReport(@RequestBody String id) {
+    public ResponseEntity<Report> getReport(@RequestParam String id) {
         Report report;
         try {
             report = reportPersistence.getReportFromDB(id);
@@ -48,7 +53,7 @@ public class ReportController {
 
     @PostMapping(value = "/reports", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> postReport(@RequestBody String json) {
-        Report report = JSONController.getGson().fromJson(json,Report.class);
+        Report report = jsonController.getGson().fromJson(json,Report.class);
         String persist;
         try {
             persist = reportPersistence.persistReport(report);
