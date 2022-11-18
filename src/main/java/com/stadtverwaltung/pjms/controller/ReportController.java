@@ -17,8 +17,7 @@ public class ReportController {
     private AuthorizationController authorizationController = new AuthorizationController();
 
     @GetMapping(value = "/reports", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Report>> getReports(@RequestHeader String employeeID, @RequestHeader String sessionID) {
-        if (authorizationController.hasAuthorization(employeeID, sessionID)) {
+    public ResponseEntity<List<Report>> getReports() {
             List<Report> reports = null;
             try {
                 reports = reportPersistence.getReportsFromDB();
@@ -30,9 +29,6 @@ public class ReportController {
             } else {
                 return ResponseEntity.ok(reports);
             }
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
     }
 
     @GetMapping(value = "/report", produces = MediaType.APPLICATION_JSON_VALUE)
