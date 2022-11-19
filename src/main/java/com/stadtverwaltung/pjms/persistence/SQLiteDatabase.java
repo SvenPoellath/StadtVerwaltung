@@ -51,9 +51,14 @@ public class SQLiteDatabase {
                 );""";
         executeSQL(citizensTable);
 
+
+
+
         String employeeTable = """
                 CREATE TABLE IF NOT EXISTS employees (
-                 id             text(12) PRIMARY KEY,
+                 id              text(12) PRIMARY KEY,
+                 password        text,
+                 salt            text,
                  firstName       text     NOT NULL,     \s
                  lastName        text     NOT NULL,     \s
                  email_address   text             ,     \s
@@ -68,6 +73,7 @@ public class SQLiteDatabase {
                   longitude real,
                   kindOfReport text,
                   description text,
+                  status      text,
                   pictureID text(12),
                   citizenID text(12),
                   employeeID text(12),
@@ -75,6 +81,18 @@ public class SQLiteDatabase {
                   FOREIGN KEY (employeeID) REFERENCES employees(id)
                 );""";
         executeSQL(reportsTable);
+
+        String commentsTable = """
+                CREATE TABLE IF NOT EXISTS comments (
+                id          text(12) PRIMARY KEY,
+                content     text,
+                timestamp   text,
+                employeeID  text(12),
+                reportID    text(12),
+                FOREIGN KEY (employeeID) REFERENCES employees(id),
+                FOREIGN KEY (reportID) REFERENCES reports(id)
+                );""";
+        executeSQL(commentsTable);
         logger.info("Tables created");
     }
 

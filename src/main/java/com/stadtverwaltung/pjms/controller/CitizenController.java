@@ -18,7 +18,7 @@ public class CitizenController {
 
     @PostMapping(value = "/citizens", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> postCitizen(@RequestBody String json) {
-        Citizen citizen = JSONController.getGson().fromJson(json, Citizen.class);
+        Citizen citizen = jsonController.getGson().fromJson(json, Citizen.class);
         String persist;
         try {
             persist = citizenPersistence.persistCitizen(citizen);
