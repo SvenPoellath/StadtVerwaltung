@@ -1,12 +1,32 @@
-import React from "react"
-import './Login.css'
-import { useForm } from 'react-hook-form';
+import React from "react";
+import "./Login.css";
+import { useForm } from "react-hook-form";
+import Session from "../../globalVariables/Session";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    const anmeldedaten = {
+      employeeID: data.username,
+      password: data.password,
+    };
+    console.log(JSON.stringify(anmeldedaten));
+    var postRequest = new XMLHttpRequest();
+    postRequest.open("POST", "http://localhost:8080/doLogin", false);
+    postRequest.setRequestHeader("content-type", "application/json");
+    postRequest.send(JSON.stringify(anmeldedaten));
+    if (postRequest.responseText != null) {
+      Session.token = postRequest.responseText;
+      navigate("/reportoverview");
+    } else {
+      alert("Wrong Password or Username");
+    }
+  };
   return (
     <div className="Auth-form-container">
-      <form className="Auth-form">
+      <form className="Auth-form" onSubmit={handleSubmit(onSubmit)}>
         <table className="Auth-form-content">
           <tr>
             <th>
@@ -18,11 +38,12 @@ export default function Login() {
               <label>UserID</label>
             </td>
             <td>
-            <input
-              type="username"
-              className="form-control mt-1"
-              placeholder="Enter UserID"
-            />
+              <input
+                {...register("username", { required: true, maxLength: 20 })}
+                type="username"
+                className="form-control mt-1"
+                placeholder="Enter UserID"
+              />
             </td>
           </tr>
           <tr className="form-group mt-3">
@@ -30,20 +51,23 @@ export default function Login() {
               <label>Password</label>
             </td>
             <td>
-            <input
-              type="password"
-              className="form-control mt-1"
-              placeholder="Enter password"
-            />
+              <input
+                {...register("password", { required: true, maxLength: 20 })}
+                type="password"
+                className="form-control mt-1"
+                placeholder="Enter password"
+              />
             </td>
           </tr>
           <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary btn--medium btn-login">
-              Login
-            </button>
+            <input
+              type="submit"
+              className="btn btn-primary btn--medium btn-login"
+              value="Login"
+            />
           </div>
         </table>
       </form>
     </div>
-  )
-  }
+  );
+}

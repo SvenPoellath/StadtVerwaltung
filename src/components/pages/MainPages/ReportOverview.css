@@ -1,5 +1,23 @@
 .overview-table{
     margin-top: 10vh;
-    height: 100vh;
+    margin-left: 20vw;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+}
+.Overview-Page{
+    background: url('/public/images/bridge-197788.jpg') center center/cover no-repeat;
+    opacity: 0.75;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    height: 110vh;
     width: 100vw;
+    display:table;
+    align-content: center;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    text-align: center;
 }

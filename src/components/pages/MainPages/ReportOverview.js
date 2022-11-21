@@ -7,6 +7,8 @@ import {
   defaultColumn,
   useAsyncDebounce,
   useFilters,
+  useRowSelect,
+  usePagination,
 } from "react-table";
 import { matchSorter } from "match-sorter";
 export default function ReportOverview() {
@@ -192,11 +194,22 @@ export default function ReportOverview() {
       getTableBodyProps,
       headerGroups,
       rows,
+      page,
+      canPreviousPage,
+      canNextPage,
+      pageOptions,
+      pageCount,
+      gotoPage,
+      nextPage,
+      previousPage,
+      setPageSize,
       prepareRow,
       state,
+      state: { selectedRowIds, pageIndex, pageSize },
       visibleColumns,
       preGlobalFilteredRows,
       setGlobalFilter,
+      selectedFlatRows,
     } = useTable(
       {
         columns,
@@ -205,9 +218,51 @@ export default function ReportOverview() {
         filterTypes,
       },
       useFilters, // useFilters!
-      useGlobalFilter // useGlobalFilter!
-    );
+      useGlobalFilter, // useGlobalFilter!
+      usePagination,
+      useRowSelect,
 
+      (hooks) => {
+        hooks.visibleColumns.push((columns) => [
+          {
+            id: "selection",
+            // The header can use the table's getToggleAllRowsSelectedProps method
+            // to render a checkbox
+            Header: ({ getToggleAllPageRowsSelectedProps }) => (
+              <div>
+                <IndeterminateCheckbox
+                  {...getToggleAllPageRowsSelectedProps()}
+                />
+              </div>
+            ),
+            // The cell can use the individual row's getToggleRowSelectedProps method
+            // to the render a checkbox
+            Cell: ({ row }) => (
+              <div>
+                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+              </div>
+            ),
+          },
+          ...columns,
+        ]);
+      }
+    );
+    const IndeterminateCheckbox = React.forwardRef(
+      ({ indeterminate, ...rest }, ref) => {
+        const defaultRef = React.useRef();
+        const resolvedRef = ref || defaultRef;
+
+        React.useEffect(() => {
+          resolvedRef.current.indeterminate = indeterminate;
+        }, [resolvedRef, indeterminate]);
+
+        return (
+          <>
+            <input type="checkbox" ref={resolvedRef} {...rest} />
+          </>
+        );
+      }
+    );
     // We don't want to render all of the rows for this example, so cap
     // it for this use case
     const firstPageRows = rows.slice(0, 10);
@@ -216,15 +271,6 @@ export default function ReportOverview() {
       <>
         <table {...getTableProps()} className="overview-table">
           <thead>
-            <tr>
-              <th>
-                <GlobalFilter
-                  preGlobalFilteredRows={preGlobalFilteredRows}
-                  globalFilter={state.globalFilter}
-                  setGlobalFilter={setGlobalFilter}
-                />
-              </th>
-            </tr>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
@@ -236,14 +282,6 @@ export default function ReportOverview() {
                     }}
                   >
                     {column.render("Header")}
-                    {/* Render the columns filter UI */}
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                        : ""}
-                    </span>
                     <div>
                       {column.canFilter ? column.render("Filter") : null}
                     </div>
@@ -285,9 +323,25 @@ export default function ReportOverview() {
             })}
           </tbody>
         </table>
+        <code>
+          {JSON.stringify(
+            {
+              selectedRowIds: selectedRowIds,
+              "selectedFlatRows[].original": selectedFlatRows.map(
+                (d) => d.original
+              ),
+            },
+            null,
+            2
+          )}
+        </code>
       </>
     );
   }
 
-  return <Table columns={columns} data={data} />;
+  return (
+    <div className="Overview-Page">
+      <Table columns={columns} data={data} />
+    </div>
+  );
 }
