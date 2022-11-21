@@ -18,7 +18,7 @@ public class CommentController {
     private CommentPersistence commentPersistence = new CommentPersistence();
 
     @GetMapping(value = "/comments", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Comment>> getComments(@RequestHeader String reportID) {
+    public ResponseEntity<List<Comment>> getComments(@RequestParam String reportID) {
         List<Comment> commentList = null;
         try {
             commentList = commentPersistence.loadCommentsFromDB(reportID);
@@ -33,7 +33,7 @@ public class CommentController {
     }
 
     @PostMapping(value = "/comment", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> postComment(String json, @RequestHeader String employeeID, @RequestHeader String sessionID) {
+    public ResponseEntity<String> postComment(@RequestBody String json, @RequestHeader String employeeID, @RequestHeader String sessionID) {
         if (authorizationController.hasAuthorization(employeeID, sessionID)) {
             Comment comment = jsonController.getGson().fromJson(json, Comment.class);
             String id = null;

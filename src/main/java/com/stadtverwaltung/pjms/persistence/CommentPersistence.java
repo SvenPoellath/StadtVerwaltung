@@ -14,7 +14,7 @@ public class CommentPersistence {
 
     public List<Comment> loadCommentsFromDB(String reportID) throws SQLException {
         List<Comment> commentList = new ArrayList<>();
-        PreparedStatement selectStatement = sqLiteDatabase.getConnection().prepareStatement("SELECT * FROM comments WHERE reportID = ? ORDER BY timestamp ASCENDING");
+        PreparedStatement selectStatement = sqLiteDatabase.getConnection().prepareStatement("SELECT * FROM comments WHERE reportID = ? ORDER BY timestamp ASC");
         selectStatement.setString(1,reportID);
         ResultSet resultSet = selectStatement.executeQuery();
 
@@ -35,7 +35,7 @@ public class CommentPersistence {
     }
 
     public String persistComment(Comment comment) throws SQLException {
-        PreparedStatement insertStatement = sqLiteDatabase.getConnection().prepareStatement("INSERT INTO comments (id, content, timestamp, reportID, employeeID");
+        PreparedStatement insertStatement = sqLiteDatabase.getConnection().prepareStatement("INSERT INTO comments (id, content, timestamp, reportID, employeeID) VALUES (?,?,?,?,?)");
         String id = sqLiteDatabase.generateID("comments");
         insertStatement.setString(1,id);
         insertStatement.setString(2,comment.content);
