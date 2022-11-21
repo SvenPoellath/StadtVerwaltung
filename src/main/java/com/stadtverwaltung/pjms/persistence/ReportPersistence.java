@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReportPersistence {
-    private SQLiteDatabase sqliteDatabase = new SQLiteDatabase();
+    private final SQLiteDatabase sqliteDatabase = new SQLiteDatabase();
 
     public List<Report> getReportsFromDB() throws SQLException {
         List<Report> reportList = new ArrayList<>();
@@ -35,7 +35,7 @@ public class ReportPersistence {
 
     public String persistReport(Report report) throws SQLException {
 
-        PreparedStatement insertStatement = sqliteDatabase.getConnection().prepareStatement("INSERT INTO reports (id,latitude,longitude,kindOfReport,description,citizenID) VALUES (?,?,?,?,?,?)");
+        PreparedStatement insertStatement = sqliteDatabase.getConnection().prepareStatement("INSERT INTO reports (id,latitude,longitude,kindOfReport,description,citizenID,status) VALUES (?,?,?,?,?,?,?)");
         String id = sqliteDatabase.generateID("reports");
         insertStatement.setString(1,id);
         insertStatement.setDouble(2,report.latitude);
@@ -43,6 +43,7 @@ public class ReportPersistence {
         insertStatement.setString(4,report.kindOfReport);
         insertStatement.setString(5, report.description);
         insertStatement.setString(6,report.citizenID);
+        insertStatement.setString(7,"Unbearbeitet");
         int done = insertStatement.executeUpdate();
 
         if (done == 1) {
@@ -61,6 +62,8 @@ public class ReportPersistence {
         returnReport.pictureID = resultSet.getString("pictureID");
         returnReport.description = resultSet.getString("description");
         returnReport.citizenID = resultSet.getString("citizenID");
+        returnReport.status = resultSet.getString("status");
+        returnReport.employeeID = resultSet.getString("employeeID");
         return returnReport;
     }
 }
