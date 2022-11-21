@@ -10,5 +10,9 @@ public class Report {
     public String description;
     public String citizenID;
 
+    public String employeeID;
+
+    public String status;
+
     public Report() {}
 }
