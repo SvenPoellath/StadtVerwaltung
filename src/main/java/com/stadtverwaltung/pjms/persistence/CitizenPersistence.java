@@ -11,13 +11,13 @@ import java.util.List;
 public class CitizenPersistence {
     private final SQLiteDatabase sqliteDatabase = new SQLiteDatabase();
     public String persistCitizen(Citizen citizen) throws SQLException {
-        PreparedStatement insertStatement = sqliteDatabase.getConnection().prepareStatement("INSERT INTO citizens (id,firstName,lastName,email_address,phone_number) VALUES (?,?,?,?,?)");
-        String id = sqliteDatabase.generateID("citizens");
+        PreparedStatement insertStatement = sqliteDatabase.getConnection().prepareStatement("INSERT INTO citizens (citizenID,citizenFirstName,citizenLastName,citizenEmailAddress,citizenPhoneNumber) VALUES (?,?,?,?,?)");
+        String id = sqliteDatabase.generateID("citizen");
         insertStatement.setString(1,id);
-        insertStatement.setString(2, citizen.firstName);
-        insertStatement.setString(3, citizen.lastName);
-        insertStatement.setString(4,citizen.email_address);
-        insertStatement.setString(5, citizen.phone_number);
+        insertStatement.setString(2, citizen.citizenFirstName);
+        insertStatement.setString(3, citizen.citizenLastName);
+        insertStatement.setString(4,citizen.citizenEmailAddress);
+        insertStatement.setString(5, citizen.citizenPhoneNumber);
         int done = insertStatement.executeUpdate();
         if (done ==1) {
             return id;
@@ -40,11 +40,11 @@ public class CitizenPersistence {
 
     private Citizen mapCitizen(ResultSet resultSet) throws SQLException {
         Citizen returnCitizen = new Citizen();
-        returnCitizen.id = resultSet.getString("id");
-        returnCitizen.firstName=resultSet.getString("firstName");
-        returnCitizen.lastName=resultSet.getString("lastName");
-        returnCitizen.email_address=resultSet.getString("email_address");
-        returnCitizen.phone_number=resultSet.getString("phone_number");
+        returnCitizen.citizenID = resultSet.getString("citizenID");
+        returnCitizen.citizenFirstName =resultSet.getString("citizenFirstName");
+        returnCitizen.citizenLastName =resultSet.getString("citizenLastName");
+        returnCitizen.citizenEmailAddress =resultSet.getString("citizenEmailAddress");
+        returnCitizen.citizenPhoneNumber =resultSet.getString("citizenPhoneNumber");
         return returnCitizen;
     }
 

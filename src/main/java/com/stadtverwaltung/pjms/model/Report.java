@@ -2,17 +2,15 @@ package com.stadtverwaltung.pjms.model;
 
 public class Report {
 
-    public String id;
+    public String reportID;
     public double latitude;
     public double longitude;
     public String kindOfReport;
     public String pictureID;
     public String description;
-    public String citizenID;
-
-    public String employeeID;
-
     public String status;
+    public Citizen citizen = new Citizen();
+    public Employee employee = new Employee();
 
     public Report() {}
 }

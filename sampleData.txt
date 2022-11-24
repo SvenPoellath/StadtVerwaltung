@@ -1,6 +1,6 @@
 INSERT INTO citizens VALUES ("kxmM5uylCW8D","Max","Mustermann","max.mustermann@icloud.com","");
 INSERT INTO citizens VALUES ("O119nDfjSASI","Karl","Marx","karl.marx@cm.com","+4918180505");
-INSERT INTO citizens VALUES ("081UXe84LMqE","Friedricht","Engels","friedrich.engels@cm.com","+4918201128");
+INSERT INTO citizens VALUES ("081UXe84LMqE","Friedrich","Engels","friedrich.engels@cm.com","+4918201128");
 INSERT INTO employees VALUES ("M4AlwVugvxrH","3ArRDU75+Z2Um0iqlyekRQAUS0DKecjlNWtYc45DtAk=","3dlqr1yfyd5s19PjPb31dD2JRvOIQDi4","Olaf","Scholz","olaf.scholz@bundesrepublik.de","+4919580614");
 INSERT INTO employees VALUES ("QRTyU1qatu4E","fFSMsqK//vW+EadQPT1gihuJWzI0DTaYJxvuaf4lv8E=","M0ZEW1xVtw0IvW98NRKEntHyRrnBTDml","Karl","Lauterbach","karl.lauterbach@bundesrepublik.de","+4919630221");
 INSERT INTO employees VALUES ("Wt6f7ncuaBUw","7ccxABUjNap7EGJQP+qYcoxdhkJL40fzu45yhqvGybs=","5iBKnyOQDgjJI9bZHZUR9Qykkq6zbPvC","Christian","Lindner","christian.lindner@fdp.de","+4919790107");
