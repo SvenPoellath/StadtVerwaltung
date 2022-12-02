@@ -12,72 +12,44 @@ import {
 } from "react-table";
 import { matchSorter } from "match-sorter";
 export default function ReportOverview() {
+  var loadReportsRequest = new XMLHttpRequest();
+  loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
+  loadReportsRequest.send();
+
   const data = React.useMemo(
-    () => [
-      {
-        id: "sFaSB198a5dF",
-        latitude: 49.47743213303505,
-        longitude: 8.42211620924414,
-        kindOfReport: "defect",
-        pictureID: "Q6etnFsPizqq",
-        description: "Kaputter Hydrant",
-        citizenID: "kxmM5uylCW8D",
-      },
-      {
-        id: "ePFVIVwzh3uC",
-        latitude: 49.47330276797773,
-        longitude: 8.423570517338486,
-        kindOfReport: "pollution",
-        pictureID: "pgbp2Q9cqaE2",
-        description: "MÃ¼ll nicht weggeschmissen",
-        citizenID: "O119nDfjSASI",
-      },
-      {
-        id: "Syy5hjSOL4zf",
-        latitude: 49.47865049905125,
-        longitude: 8.456384842327548,
-        kindOfReport: "parkingViolation",
-        pictureID: "jwjyhWJ13UYv",
-        description: "Hier steht jemand auf dem Behinderten Parkplatz",
-        citizenID: "081UXe84LMqE",
-      },
-      {
-        id: "zj4ogSacqLnP",
-        latitude: 49.4815932,
-        longitude: 8.4467264,
-        kindOfReport: null,
-        pictureID: null,
-        description: "dasdfasdfa",
-        citizenID: null,
-      },
-    ],
+    () => JSON.parse(loadReportsRequest.responseText),
     []
   );
+
   const columns = React.useMemo(
     () => [
       {
         Header: "ID",
-        accessor: "id", // accessor is the "key" in the data
+        accessor: "reportID", // accessor is the "key" in the data
       },
       {
-        Header: "latitude",
-        accessor: "latitude",
-      },
-      {
-        Header: "kindOfReport",
+        Header: "Schadensart",
         accessor: "kindOfReport",
       },
       {
-        Header: "pictureID",
-        accessor: "pictureID",
+        Header: "Status",
+        accessor: "status",
       },
       {
-        Header: "Description",
+        Header: "Beschreibung",
         accessor: "description",
       },
       {
-        Header: "citizenID",
-        accessor: "citizenID",
+        Header: "Telefonnummer",
+        accessor: "citizen.citizenPhoneNumber",
+      },
+      {
+        Header: "E-Mailadresse",
+        accessor: "citizen.citizenEmailAddress",
+      },
+      {
+        Header: "Nachname",
+        accessor: "citizen.citizenLastName",
       },
     ],
     []
@@ -94,6 +66,9 @@ export default function ReportOverview() {
           setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
         }}
         placeholder={`Search ${count} records...`}
+        style={{
+          width: "70px",
+        }}
       />
     );
   }
@@ -279,6 +254,7 @@ export default function ReportOverview() {
                     style={{
                       border: "solid 2px black",
                       padding: "10px",
+                      width: "500px",
                     }}
                   >
                     {column.render("Header")}
@@ -294,7 +270,6 @@ export default function ReportOverview() {
                 colSpan={visibleColumns.length}
                 style={{
                   textAlign: "left",
-                  border: "solid 2px black",
                   padding: "10px",
                 }}
               ></th>
