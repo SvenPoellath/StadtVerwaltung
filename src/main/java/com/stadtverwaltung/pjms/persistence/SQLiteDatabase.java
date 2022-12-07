@@ -43,11 +43,11 @@ public class SQLiteDatabase {
     private void createTables() {
         String citizensTable = """
                 CREATE TABLE IF NOT EXISTS citizens (
-                 id              text(12) PRIMARY KEY,  \s
-                 firstName       text     NOT NULL,     \s
-                 lastName        text     NOT NULL,     \s
-                 email_address   text             ,     \s
-                 phone_number    text                   \s
+                 citizenID              text(12) PRIMARY KEY,  \s
+                 citizenFirstName       text     NOT NULL,     \s
+                 citizenLastName        text     NOT NULL,     \s
+                 citizenEmailAddress   text             ,     \s
+                 citizenPhoneNumber    text                   \s
                 );""";
         executeSQL(citizensTable);
 
@@ -56,19 +56,19 @@ public class SQLiteDatabase {
 
         String employeeTable = """
                 CREATE TABLE IF NOT EXISTS employees (
-                 id              text(12) PRIMARY KEY,
-                 password        text,
-                 salt            text,
-                 firstName       text     NOT NULL,     \s
-                 lastName        text     NOT NULL,     \s
-                 email_address   text             ,     \s
-                 phone_number    text                   \s
+                 employeeID              text(12) PRIMARY KEY,
+                 employeePassword        text,
+                 employeeSalt            text,
+                 employeeFirstName       text     NOT NULL,     \s
+                 employeeLastName        text     NOT NULL,     \s
+                 employeeEmailAddress   text             ,     \s
+                 employeePhoneNumber    text                   \s
                 );""";
         executeSQL(employeeTable);
 
         String reportsTable = """
                 CREATE TABLE IF NOT EXISTS reports (
-                  id  text(12) PRIMARY KEY,
+                  reportID  text(12) PRIMARY KEY,
                   latitude real,
                   longitude real,
                   kindOfReport text,
@@ -77,20 +77,20 @@ public class SQLiteDatabase {
                   pictureID text(12),
                   citizenID text(12),
                   employeeID text(12),
-                  FOREIGN KEY (citizenID) REFERENCES citizens(id),
-                  FOREIGN KEY (employeeID) REFERENCES employees(id)
+                  FOREIGN KEY (citizenID) REFERENCES citizens(citizenID),
+                  FOREIGN KEY (employeeID) REFERENCES employees(employeeID)
                 );""";
         executeSQL(reportsTable);
 
         String commentsTable = """
                 CREATE TABLE IF NOT EXISTS comments (
-                id          text(12) PRIMARY KEY,
+                commentID          text(12) PRIMARY KEY,
                 content     text,
                 timestamp   text,
                 employeeID  text(12),
                 reportID    text(12),
-                FOREIGN KEY (employeeID) REFERENCES employees(id),
-                FOREIGN KEY (reportID) REFERENCES reports(id)
+                FOREIGN KEY (employeeID) REFERENCES employees(employeeID),
+                FOREIGN KEY (reportID) REFERENCES reports(reportID)
                 );""";
         executeSQL(commentsTable);
         logger.info("Tables created");
@@ -156,7 +156,7 @@ public class SQLiteDatabase {
         ResultSet resultSet;
         try {
             selectStatement = connection.createStatement();
-            resultSet = selectStatement.executeQuery("SELECT * FROM " + sqlSelect + " WHERE id = \"" + generatedId + "\"");
+            resultSet = selectStatement.executeQuery("SELECT * FROM " + sqlSelect + "s WHERE " + sqlSelect + "ID = \"" + generatedId + "\"");
             return resultSet.next();
         } catch (SQLException e) {
             throw new RuntimeException(e);

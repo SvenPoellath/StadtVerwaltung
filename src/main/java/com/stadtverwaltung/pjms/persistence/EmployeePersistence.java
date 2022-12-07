@@ -15,14 +15,14 @@ public class EmployeePersistence {
         String securePassword = null;
         String salt = null;
 
-        PreparedStatement preparedStatement = sqLiteDatabase.getConnection().prepareStatement("SELECT password, salt FROM employees WHERE id = ?");
+        PreparedStatement preparedStatement = sqLiteDatabase.getConnection().prepareStatement("SELECT employeePassword, employeeSalt FROM employees WHERE employeeID = ?");
         preparedStatement.setString(1,loginData.employeeID);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while(resultSet.next()) {
-            securePassword = resultSet.getString("password");
-            salt = resultSet.getString("salt");
+            securePassword = resultSet.getString("employeePassword");
+            salt = resultSet.getString("employeeSalt");
         }
 
         if(sha512PasswordPersistence.verifyUserPassword(loginData.password,securePassword,salt)) {

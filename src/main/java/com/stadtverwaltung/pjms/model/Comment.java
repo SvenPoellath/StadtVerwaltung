@@ -1,9 +1,9 @@
 package com.stadtverwaltung.pjms.model;
 
 public class Comment {
-    public String id;
+    public String commentID;
     public String content;
-    public String employeeID;
-    public String reportID;
+    public Employee employee = new Employee();
+    public Report report = new Report();
     public String timestamp;
 }
