@@ -3,6 +3,11 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useState } from "react";
 import "./ReportOverview.css";
+import Employee from "../../globalVariables/Employee";
+import Citizen from "../../globalVariables/Citizen";
+import Report from "../../globalVariables/Report";
+import { Map, TileLayer, Marker } from "react-leaflet";
+import Select from "react-select";
 import {
   useTable,
   useGlobalFilter,
@@ -19,14 +24,31 @@ export default function ReportOverview() {
   loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
   loadReportsRequest.send();
   var popup;
-  const defaultPopup = popup ? popup : true;
-  const [isPopup, setPopup] = useState(defaultPopup);
-
+  const [isPopup, setPopup] = useState(false);
+  const togglePopup = () => setPopup(!isPopup);
   const data = React.useMemo(
     () => JSON.parse(loadReportsRequest.responseText),
     []
   );
-
+  const options = [
+    { value: "Bearbeitet", label: "Bearbeitet" },
+    { value: "Unbearbeitet", label: "Unbearbeitet" },
+    { value: "In Bearbeitung", label: "In Bearbeitung" },
+  ];
+  const popupHandler = (rowProps) => {
+    console.log(rowProps);
+    Report.id = rowProps.reportID;
+    Report.kindOfReport = rowProps.kindOfReport;
+    Report.status = rowProps.status;
+    Report.description = rowProps.description;
+    Report.latitude = rowProps.latitude;
+    Report.longitude = rowProps.longitude;
+    Citizen.firstName = rowProps.citizen.citizenFirstName;
+    Citizen.lastName = rowProps.citizen.citizenLastName;
+    Citizen.mailAddress = rowProps.citizen.citizenEmailAddress;
+    Citizen.phoneNumber = rowProps.citizen.citizenPhoneNumber;
+    togglePopup();
+  };
   const columns = React.useMemo(
     () => [
       {
@@ -78,36 +100,7 @@ export default function ReportOverview() {
       />
     );
   }
-  function SelectColumnFilter({
-    column: { filterValue, setFilter, preFilteredRows, id },
-  }) {
-    // Calculate the options for filtering
-    // using the preFilteredRows
-    const options = React.useMemo(() => {
-      const options = new Set();
-      preFilteredRows.forEach((row) => {
-        options.add(row.values[id]);
-      });
-      return [...options.values()];
-    }, [id, preFilteredRows]);
 
-    // Render a multi-select box
-    return (
-      <select
-        value={filterValue}
-        onChange={(e) => {
-          setFilter(e.target.value || undefined);
-        }}
-      >
-        <option value="">All</option>
-        {options.map((option, i) => (
-          <option key={i} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    );
-  }
   function fuzzyTextFilterFn(rows, id, filterValue) {
     return matchSorter(rows, filterValue, { keys: [(row) => row.values[id]] });
   }
@@ -201,63 +194,12 @@ export default function ReportOverview() {
       useFilters, // useFilters!
       useGlobalFilter, // useGlobalFilter!
       usePagination,
-      useRowSelect,
-
-      (hooks) => {
-        hooks.visibleColumns.push((columns) => [
-          {
-            id: "selection",
-            // The header can use the table's getToggleAllRowsSelectedProps method
-            // to render a checkbox
-            Header: ({ getToggleAllPageRowsSelectedProps }) => (
-              <div>
-                <IndeterminateCheckbox
-                  {...getToggleAllPageRowsSelectedProps()}
-                />
-              </div>
-            ),
-            // The cell can use the individual row's getToggleRowSelectedProps method
-            // to the render a checkbox
-            Cell: ({ row }) => (
-              <div>
-                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-              </div>
-            ),
-          },
-          ...columns,
-        ]);
-      }
-    );
-    const IndeterminateCheckbox = React.forwardRef(
-      ({ indeterminate, ...rest }, ref) => {
-        const defaultRef = React.useRef();
-        const resolvedRef = ref || defaultRef;
-
-        React.useEffect(() => {
-          resolvedRef.current.indeterminate = indeterminate;
-        }, [resolvedRef, indeterminate]);
-
-        return (
-          <>
-            <input
-              type="checkbox"
-              className="btns"
-              value="Bearbeiten"
-              onClick={buttonHandler}
-              ref={resolvedRef}
-              {...rest}
-            />
-          </>
-        );
-      }
+      useRowSelect
     );
 
     // We don't want to render all of the rows for this example, so cap
     // it for this use case
     const firstPageRows = rows.slice(0, 10);
-    const buttonHandler = () => {
-      console.log(selectedRowIds);
-    };
     return (
       <>
         <table {...getTableProps()} className="overview-table">
@@ -297,7 +239,7 @@ export default function ReportOverview() {
               return (
                 <tr
                   {...row.getRowProps()}
-                  onClick={() => console.log(row.original)}
+                  onClick={() => popupHandler(row.original)}
                 >
                   {row.cells.map((cell) => {
                     return (
@@ -317,23 +259,119 @@ export default function ReportOverview() {
             })}
           </tbody>
         </table>
-        <div className="Button-div">
-          <input
-            type="button"
-            value="Löschen"
-            className="btns btn-normal btn-overview"
-          />
-          <input
-            type="button"
-            value="Bearbeiten"
-            className="btns btn-normal btn-overview"
-            onClick={buttonHandler}
-          />
-        </div>
-        {popup ? (
-          <Popup text="popup" closePopup={setPopup(false)}>
-            popup
-          </Popup>
+        {isPopup ? (
+          <div className="popup">
+            <div className="popup_inner">
+              <table>
+                <tr>
+                  <th>
+                    <h2>Zusammenfassung</h2>
+                  </th>
+                </tr>
+                <tr>
+                  <td>
+                    <label>Fall ID</label>
+                  </td>
+                  <td>
+                    <label>Status</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label className="dataEntry">{Report.id}</label>
+                  </td>
+                  <td>
+                    <Select
+                      options={options}
+                      defaultValue={{ value: "one", label: Report.status }}
+                      theme={(theme) => ({
+                        ...theme,
+                        borderRadius: 0,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "black",
+                          primary: "black",
+                          neutral0: "grey",
+                        },
+                      })}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <Map
+                      className="summaryMap"
+                      center={[Report.latitude, Report.longitude]}
+                      zoom={13}
+                      style={{ height: "200px" }}
+                    >
+                      <TileLayer
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      />
+                      <Marker position={[Report.latitude, Report.longitude]}>
+                        <Popup>Ihre Standort-Angabe</Popup>
+                      </Marker>
+                    </Map>
+                  </td>
+                  <td>"(image)"</td>
+                </tr>
+                <tr>
+                  <td>
+                    <label className="label Beschreibung-Text">
+                      Beschreibung
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label className="dataEntry">{Report.description}</label>
+                  </td>
+                  <td>(comment)</td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3 className="header">Kontakt Information</h3>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label className="label">Vorname</label>
+                  </td>
+                  <td>
+                    <label className="label">Nachname</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label className="dataEntry">{Citizen.firstName}</label>
+                  </td>
+                  <td>
+                    <label className="dataEntry">{Citizen.lastName}</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label className="label">E-Mail</label>
+                  </td>
+                  <td>
+                    <label className="label">Telefonnummer</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label className="dataEntry">{Citizen.mailAddress}</label>
+                  </td>
+                  <td>
+                    <label className="dataEntry">{Citizen.phoneNumber}</label>
+                  </td>
+                </tr>
+                <button className="btns" onClick={togglePopup}>
+                  close
+                </button>
+              </table>
+            </div>
+          </div>
         ) : null}
       </>
     );

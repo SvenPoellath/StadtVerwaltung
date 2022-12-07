@@ -16,6 +16,7 @@ import Nutzungsbedingungen from "./components/pages/InfoPages/Nutzungsbedingunge
 import IdInfoPage from "./components/pages/InfoPages/IdPage";
 import IdSearchPage from "./components/pages/InfoPages/InfoSearch";
 import ReportOverview from "./components/pages/MainPages/ReportOverview";
+import SearchResult from "./components/pages/InfoPages/SearchResult";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/idinfopage" element={<IdInfoPage />} />
           <Route path="/idsearch" element={<IdSearchPage />} />
           <Route path="/reportoverview" element={<ReportOverview />} />
+          <Route path="/searchresult" element={<SearchResult />} />
         </Routes>
         <Footer />
       </Router>
