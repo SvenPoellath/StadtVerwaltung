@@ -1,4 +1,7 @@
 import React from "react";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import { useState } from "react";
 import "./ReportOverview.css";
 import {
   useTable,
@@ -15,6 +18,9 @@ export default function ReportOverview() {
   var loadReportsRequest = new XMLHttpRequest();
   loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
   loadReportsRequest.send();
+  var popup;
+  const defaultPopup = popup ? popup : true;
+  const [isPopup, setPopup] = useState(defaultPopup);
 
   const data = React.useMemo(
     () => JSON.parse(loadReportsRequest.responseText),
@@ -233,15 +239,25 @@ export default function ReportOverview() {
 
         return (
           <>
-            <input type="checkbox" ref={resolvedRef} {...rest} />
+            <input
+              type="checkbox"
+              className="btns"
+              value="Bearbeiten"
+              onClick={buttonHandler}
+              ref={resolvedRef}
+              {...rest}
+            />
           </>
         );
       }
     );
+
     // We don't want to render all of the rows for this example, so cap
     // it for this use case
     const firstPageRows = rows.slice(0, 10);
-
+    const buttonHandler = () => {
+      console.log(selectedRowIds);
+    };
     return (
       <>
         <table {...getTableProps()} className="overview-table">
@@ -279,7 +295,10 @@ export default function ReportOverview() {
             {firstPageRows.map((row, i) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
+                <tr
+                  {...row.getRowProps()}
+                  onClick={() => console.log(row.original)}
+                >
                   {row.cells.map((cell) => {
                     return (
                       <td
@@ -298,18 +317,24 @@ export default function ReportOverview() {
             })}
           </tbody>
         </table>
-        <code>
-          {JSON.stringify(
-            {
-              selectedRowIds: selectedRowIds,
-              "selectedFlatRows[].original": selectedFlatRows.map(
-                (d) => d.original
-              ),
-            },
-            null,
-            2
-          )}
-        </code>
+        <div className="Button-div">
+          <input
+            type="button"
+            value="Löschen"
+            className="btns btn-normal btn-overview"
+          />
+          <input
+            type="button"
+            value="Bearbeiten"
+            className="btns btn-normal btn-overview"
+            onClick={buttonHandler}
+          />
+        </div>
+        {popup ? (
+          <Popup text="popup" closePopup={setPopup(false)}>
+            popup
+          </Popup>
+        ) : null}
       </>
     );
   }
