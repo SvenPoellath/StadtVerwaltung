@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./Form.css";
 import Report from "../../globalVariables/Report";
 import Citizen from "../../globalVariables/Citizen";
@@ -17,20 +17,20 @@ export default function Summary() {
     console.log(JSON.stringify(Report));
     var postRequest = new XMLHttpRequest();
     postRequest.open("POST", "http://localhost:8080/reports", false);
-    postRequest.setRequestHeader('content-type','application/json' )
-    postRequest.send(JSON.stringify(Report))
+    postRequest.setRequestHeader("content-type", "application/json");
+    postRequest.send(JSON.stringify(Report));
     Report.id = postRequest.responseText;
-    navigate('/idinfopage');
-  }
+    navigate("/idinfopage");
+  };
   const print = () => {
     window.print();
-  }
+  };
   const onVerifyCaptcha = (token) => {
-    console.log('Verified')
-  }
+    console.log("Verified");
+  };
   return (
     <div className="Container">
-      <img src='icons/Stage 1.png' className='img-header img-header-map'/>
+      <img src="icons/Stage 1.png" className="img-header img-header-map" />
       <table>
         <tr>
           <th>
@@ -65,7 +65,7 @@ export default function Summary() {
             <label className="dataEntry">{Report.description}</label>
           </td>
           <td>
-            <img src={Description.image} alt='img' />
+            <img src={Description.image} alt="img" />
           </td>
         </tr>
         <tr>
@@ -107,12 +107,16 @@ export default function Summary() {
         </tr>
         <tr>
           <td>
-            <button className="PrintButton" onClick={print}>Seite Drucken</button>
+            <button className="PrintButton" onClick={print}>
+              Seite Drucken
+            </button>
           </td>
         </tr>
         <tr>
           <td>
-              <button className="SummaryButton" onClick={onClick}>Abschicken</button>
+            <button className="SummaryButton" onClick={onClick}>
+              Abschicken
+            </button>
           </td>
         </tr>
       </table>
