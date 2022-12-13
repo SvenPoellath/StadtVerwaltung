@@ -14,7 +14,12 @@ export default function Summary() {
     e.preventDefault();
   });
   const onClick = () => {
-    console.log(JSON.stringify(Report));
+    var citizenRequest = new XMLHttpRequest();
+    citizenRequest.open("POST", "http://localhost:8080/citizens", false);
+    citizenRequest.setRequestHeader("content-type", "application/json");
+    citizenRequest.send(JSON.stringify(Citizen));
+    Citizen.citizenID = citizenRequest.responseText;
+    console.log(JSON.stringify(Citizen));
     var postRequest = new XMLHttpRequest();
     postRequest.open("POST", "http://localhost:8080/reports", false);
     postRequest.setRequestHeader("content-type", "application/json");
@@ -83,10 +88,10 @@ export default function Summary() {
         </tr>
         <tr>
           <td>
-            <label className="dataEntry">{Citizen.firstName}</label>
+            <label className="dataEntry">{Citizen.citizenFirstName}</label>
           </td>
           <td>
-            <label className="dataEntry">{Citizen.lastName}</label>
+            <label className="dataEntry">{Citizen.citizenLastName}</label>
           </td>
         </tr>
         <tr>
@@ -99,10 +104,10 @@ export default function Summary() {
         </tr>
         <tr>
           <td>
-            <label className="dataEntry">{Citizen.mailAddress}</label>
+            <label className="dataEntry">{Citizen.citizenEmailAddress}</label>
           </td>
           <td>
-            <label className="dataEntry">{Citizen.phoneNumber}</label>
+            <label className="dataEntry">{Citizen.citizenPhoneNumber}</label>
           </td>
         </tr>
         <tr>

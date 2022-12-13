@@ -1,3 +1,4 @@
+import Citizen from "./Citizen";
 const Report = {
   id: null,
   latitude: null,
@@ -7,5 +8,6 @@ const Report = {
   description: null,
   comment: null,
   status: null,
+  citizen: Citizen,
 };
 export default Report;

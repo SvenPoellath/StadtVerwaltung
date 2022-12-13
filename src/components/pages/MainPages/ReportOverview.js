@@ -43,10 +43,10 @@ export default function ReportOverview() {
     Report.description = rowProps.description;
     Report.latitude = rowProps.latitude;
     Report.longitude = rowProps.longitude;
-    Citizen.firstName = rowProps.citizen.citizenFirstName;
-    Citizen.lastName = rowProps.citizen.citizenLastName;
-    Citizen.mailAddress = rowProps.citizen.citizenEmailAddress;
-    Citizen.phoneNumber = rowProps.citizen.citizenPhoneNumber;
+    Citizen.citizenFirstName = rowProps.citizen.citizenFirstName;
+    Citizen.citizenLastName = rowProps.citizen.citizenLastName;
+    Citizen.citizenEmailAddress = rowProps.citizen.citizenEmailAddress;
+    Citizen.citizenEmailAddress = rowProps.citizen.citizenPhoneNumber;
     togglePopup();
   };
   const columns = React.useMemo(
