@@ -8,3 +8,5 @@ INSERT INTO reports VALUES ("sFaSB198a5dF",49.47743213303505, 8.42211620924414,"
 INSERT INTO reports VALUES ("ePFVIVwzh3uC",49.47330276797773, 8.423570517338486,"pollution","Müll nicht weggeschmissen","In Bearbeitung","pgbp2Q9cqaE2","O119nDfjSASI","QRTyU1qatu4E");
 INSERT INTO reports VALUES ("Syy5hjSOL4zf",49.47865049905125, 8.456384842327548,"parkingViolation","Hier steht jemand auf dem Behinderten Parkplatz","Bearbeitet","jwjyhWJ13UYv","081UXe84LMqE","Wt6f7ncuaBUw");
 INSERT INTO comments VALUES ("wn5jpgt0w3r6", "Kommentar 1", "20221211","M4AlwVugvxrH","sFaSB198a5dF");
+INSERT INTO comments VALUES ("gkhtdr97oFtz", "Kommentar 2", "20221212","M4AlwVugvxrH","sFaSB198a5dF");
+INSERT INTO comments VALUES ("al3e5Kgo7J12", "Kommentar 3", "20221213","M4AlwVugvxrH","sFaSB198a5dF");
