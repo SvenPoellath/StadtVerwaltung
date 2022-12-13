@@ -33,6 +33,7 @@ export default function Summary() {
   const onVerifyCaptcha = (token) => {
     console.log("Verified");
   };
+
   return (
     <div className="Container">
       <img src="icons/Stage 1.png" className="img-header img-header-map" />
@@ -70,7 +71,7 @@ export default function Summary() {
             <label className="dataEntry">{Report.description}</label>
           </td>
           <td>
-            <img src={Description.image} alt="img" />
+            <img src='localhost:8080/image?id=KZQ1GeMx0bra' alt="img" />
           </td>
         </tr>
         <tr>
