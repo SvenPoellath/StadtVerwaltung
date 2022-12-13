@@ -1,5 +1,6 @@
 import Search from "react-leaflet-search/lib";
 import Report from "../../globalVariables/Report";
+import Comment from "../../globalVariables/Comment";
 import "./InfoPages.css";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 function SearchResult() {
@@ -51,12 +52,17 @@ function SearchResult() {
             <td>
               <label className="label Beschreibung-Text">Beschreibung</label>
             </td>
+            <td>
+              <label className="label Beschreibung-Text">Kommentar</label>
+            </td>
           </tr>
           <tr>
             <td>
               <label className="dataEntry">{Report.description}</label>
             </td>
-            <td className="dataEntry">(comment)</td>
+            <td>
+              <label className="dataEntry">{Comment.content}</label>
+            </td>
           </tr>
         </table>
       </div>

@@ -2,11 +2,14 @@ import React from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import "./ReportOverview.css";
 import Employee from "../../globalVariables/Employee";
 import Citizen from "../../globalVariables/Citizen";
 import Report from "../../globalVariables/Report";
+import Comment from "../../globalVariables/Comment";
 import { Map, TileLayer, Marker } from "react-leaflet";
+import Session from "../../globalVariables/Session";
 import Select from "react-select";
 import {
   useTable,
@@ -20,10 +23,10 @@ import {
 } from "react-table";
 import { matchSorter } from "match-sorter";
 export default function ReportOverview() {
+  const [status, changeStatus] = useState("");
   var loadReportsRequest = new XMLHttpRequest();
   loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
   loadReportsRequest.send();
-  var popup;
   const [isPopup, setPopup] = useState(false);
   const togglePopup = () => setPopup(!isPopup);
   const data = React.useMemo(
@@ -35,6 +38,14 @@ export default function ReportOverview() {
     { value: "Unbearbeitet", label: "Unbearbeitet" },
     { value: "In Bearbeitung", label: "In Bearbeitung" },
   ];
+  const sendChanges = (data) => {
+    Comment.content = data.comment;
+    Report.status = status.label;
+    var request = XMLHttpRequest();
+    request.open("POST", "http://localhost:8080/comment", false);
+    request.send(JSON.stringify(Comment));
+    togglePopup();
+  };
   const popupHandler = (rowProps) => {
     console.log(rowProps);
     Report.id = rowProps.reportID;
@@ -47,6 +58,16 @@ export default function ReportOverview() {
     Citizen.citizenLastName = rowProps.citizen.citizenLastName;
     Citizen.citizenEmailAddress = rowProps.citizen.citizenEmailAddress;
     Citizen.citizenEmailAddress = rowProps.citizen.citizenPhoneNumber;
+    var commentRequest = new XMLHttpRequest();
+    commentRequest.open(
+      "GET",
+      "http://localhost:8080/comments?reportID=" + Report.id,
+      false
+    );
+    commentRequest.send();
+    var comment = JSON.parse(commentRequest.responseText);
+    Comment.content = comment[0].content;
+    console.log(Session.isSet);
     togglePopup();
   };
   const columns = React.useMemo(
@@ -200,6 +221,7 @@ export default function ReportOverview() {
     // We don't want to render all of the rows for this example, so cap
     // it for this use case
     const firstPageRows = rows.slice(0, 10);
+    const { register, handleSubmit } = useForm();
     return (
       <>
         <table {...getTableProps()} className="overview-table">
@@ -258,114 +280,140 @@ export default function ReportOverview() {
         {isPopup ? (
           <div className="popup">
             <div className="popup_inner">
-              <table>
-                <tr>
-                  <th>
-                    <h2>Zusammenfassung</h2>
-                  </th>
-                </tr>
-                <tr>
-                  <td>
-                    <label>Fall ID</label>
-                  </td>
-                  <td>
-                    <label>Status</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label className="dataEntry">{Report.id}</label>
-                  </td>
-                  <td>
-                    <Select
-                      options={options}
-                      defaultValue={{ value: "one", label: Report.status }}
-                      theme={(theme) => ({
-                        ...theme,
-                        borderRadius: 0,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "black",
-                          primary: "black",
-                          neutral0: "grey",
-                        },
-                      })}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <Map
-                      className="summaryMap"
-                      center={[Report.latitude, Report.longitude]}
-                      zoom={13}
-                      style={{ height: "200px" }}
-                    >
-                      <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              <form onSubmit={handleSubmit(sendChanges)}>
+                <table>
+                  <tr>
+                    <th>
+                      <h2>Zusammenfassung</h2>
+                    </th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Fall ID</label>
+                    </td>
+                    <td>
+                      <label>Status</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label className="dataEntry">{Report.id}</label>
+                    </td>
+                    <td>
+                      <Select
+                        onChange={(choice) => changeStatus(choice)}
+                        options={options}
+                        defaultValue={{ value: "one", label: Report.status }}
+                        theme={(theme) => ({
+                          ...theme,
+                          borderRadius: 0,
+                          colors: {
+                            ...theme.colors,
+                            primary25: "black",
+                            primary: "black",
+                            neutral0: "grey",
+                          },
+                        })}
                       />
-                      <Marker position={[Report.latitude, Report.longitude]}>
-                        <Popup>Ihre Standort-Angabe</Popup>
-                      </Marker>
-                    </Map>
-                  </td>
-                  <td>"(image)"</td>
-                </tr>
-                <tr>
-                  <td>
-                    <label className="label Beschreibung-Text">
-                      Beschreibung
-                    </label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label className="dataEntry">{Report.description}</label>
-                  </td>
-                  <td>(comment)</td>
-                </tr>
-                <tr>
-                  <td>
-                    <h3 className="header">Kontakt Information</h3>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label className="label">Vorname</label>
-                  </td>
-                  <td>
-                    <label className="label">Nachname</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label className="dataEntry">{Citizen.firstName}</label>
-                  </td>
-                  <td>
-                    <label className="dataEntry">{Citizen.lastName}</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label className="label">E-Mail</label>
-                  </td>
-                  <td>
-                    <label className="label">Telefonnummer</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label className="dataEntry">{Citizen.mailAddress}</label>
-                  </td>
-                  <td>
-                    <label className="dataEntry">{Citizen.phoneNumber}</label>
-                  </td>
-                </tr>
-                <button className="btns" onClick={togglePopup}>
-                  close
-                </button>
-              </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <Map
+                        className="summaryMap"
+                        center={[Report.latitude, Report.longitude]}
+                        zoom={13}
+                        style={{ height: "200px" }}
+                      >
+                        <TileLayer
+                          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker position={[Report.latitude, Report.longitude]}>
+                          <Popup>Ihre Standort-Angabe</Popup>
+                        </Marker>
+                      </Map>
+                    </td>
+                    <td>"(image)"</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label className="label Beschreibung-Text">
+                        Beschreibung
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label className="dataEntry">{Report.description}</label>
+                    </td>
+                    <td>
+                      <textarea
+                        {...register("comment", {
+                          pattern: /^[a-zA-ZäöüÄÖÜß.,:;!?()-]*$/,
+                        })}
+                        type="textarea"
+                        className="textbox Vorname-TextBox"
+                        value={Comment.content}
+                      ></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h3 className="header">Kontakt Information</h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label className="label">Vorname</label>
+                    </td>
+                    <td>
+                      <label className="label">Nachname</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label className="dataEntry">{Citizen.firstName}</label>
+                    </td>
+                    <td>
+                      <label className="dataEntry">{Citizen.lastName}</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label className="label">E-Mail</label>
+                    </td>
+                    <td>
+                      <label className="label">Telefonnummer</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label className="dataEntry">{Citizen.mailAddress}</label>
+                    </td>
+                    <td>
+                      <label className="dataEntry">{Citizen.phoneNumber}</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <button
+                        className="btns btn--outline"
+                        onClick={togglePopup}
+                      >
+                        close
+                      </button>
+                    </td>
+                    <td>
+                      <input
+                        className="btns btn--outline"
+                        type="submit"
+                        value="Save"
+                      />
+                    </td>
+                  </tr>
+                </table>
+              </form>
             </div>
           </div>
         ) : null}

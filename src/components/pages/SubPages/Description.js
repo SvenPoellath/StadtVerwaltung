@@ -23,7 +23,6 @@ export default function Description() {
       fileToSend = event.target.files[0];
     }
 
-        
     let formData = new FormData();
     formData.append("imageFile", fileToSend);
 
@@ -53,7 +52,9 @@ export default function Description() {
           <tr>
             <td>
               <textarea
-                {...register("description")}
+                {...register("description", {
+                  pattern: /^[a-zA-ZäöüÄÖÜß.,:;!?()-]*$/,
+                })}
                 type="textarea"
                 className="textbox Beschreibung-TextBox"
                 placeholder="Beschreibung"

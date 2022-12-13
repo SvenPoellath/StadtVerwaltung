@@ -19,6 +19,8 @@ export default function Login() {
     postRequest.send(JSON.stringify(anmeldedaten));
     if (postRequest.responseText != null) {
       Session.token = postRequest.responseText;
+      Session.isSet = true;
+      console.log(Session.isSet);
       navigate("/reportoverview");
     } else {
       alert("Wrong Password or Username");

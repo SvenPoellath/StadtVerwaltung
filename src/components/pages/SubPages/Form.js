@@ -41,7 +41,7 @@ export default function Form() {
                 {...register("firstName", {
                   required: true,
                   maxLength: 20,
-                  pattern: /^[A-Za-z]+$/i,
+                  pattern: /^[A-Za-zÄÖÜäöüß]+$/,
                 })}
                 type="text"
                 className="textbox Vorname-TextBox"
@@ -53,7 +53,7 @@ export default function Form() {
                 {...register("lastName", {
                   required: true,
                   maxLength: 30,
-                  pattern: /^[A-Za-z]+$/i,
+                  pattern: /^[A-Za-zÄÖÜäöüß]+$/,
                 })}
                 type="text"
                 className="textbox Nachname-TextBox"
@@ -72,7 +72,11 @@ export default function Form() {
           <tr>
             <td>
               <input
-                {...register("email", { required: true, maxLength: 40 })}
+                {...register("email", {
+                  required: true,
+                  maxLength: 40,
+                  pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                })}
                 type="email"
                 className="textbox Email-TextBox"
                 placeholder="Email"
@@ -83,7 +87,7 @@ export default function Form() {
               <input
                 {...register("phoneNumber", {
                   maxLength: 14,
-                  pattern: /^[0-9]+$/i,
+                  pattern: /^\+?49[\s.-]?\d{2,4}[\s.-]?\d{6,8}$/,
                 })}
                 type="text"
                 className="textbox Telefonnummer-TextBox"
@@ -93,7 +97,7 @@ export default function Form() {
           </tr>
           <tr>(*)Pflichtfelder</tr>
           <tr>
-            <input type="submit" value="Weiter" />
+            <input className="btns btn--outline" type="submit" value="Weiter" />
           </tr>
         </table>
       </form>

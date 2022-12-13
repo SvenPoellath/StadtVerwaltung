@@ -71,7 +71,7 @@ export default function Summary() {
             <label className="dataEntry">{Report.description}</label>
           </td>
           <td>
-            <img src='localhost:8080/image?id=KZQ1GeMx0bra' alt="img" />
+            <img src="localhost:8080/image?id=KZQ1GeMx0bra" alt="img" />
           </td>
         </tr>
         <tr>
@@ -113,18 +113,25 @@ export default function Summary() {
         </tr>
         <tr>
           <td>
-            <button className="PrintButton" onClick={print}>
+            <button
+              className="btns btn--outline"
+              onClick={print}
+              style={{ marginTop: "20px" }}
+            >
               Seite Drucken
             </button>
           </td>
-        </tr>
-        <tr>
           <td>
-            <button className="SummaryButton" onClick={onClick}>
+            <button
+              className="btns btn--outline"
+              onClick={onClick}
+              style={{ marginTop: "20px" }}
+            >
               Abschicken
             </button>
           </td>
         </tr>
+        <tr></tr>
       </table>
     </div>
   );

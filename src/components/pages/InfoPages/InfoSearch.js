@@ -1,5 +1,6 @@
 import Search from "react-leaflet-search/lib";
 import Report from "../../globalVariables/Report";
+import Comment from "../../globalVariables/Comment";
 import { useForm } from "react-hook-form";
 import "./InfoPages.css";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
@@ -16,7 +17,17 @@ function IdSearchPage() {
     postRequest.setRequestHeader("content-type", "text/plain");
     postRequest.send(data.FallID);
     console.log(postRequest.responseText);
+    var commentRequest = new XMLHttpRequest();
+    var url = "http://localhost:8080/comments?reportID=" + data.FallID;
+    commentRequest.open("GET", url, false);
+    commentRequest.setRequestHeader("content-type", "text/plain");
+    commentRequest.send(data.FallID);
+    console.log(commentRequest.responseText);
     var response = JSON.parse(postRequest.responseText);
+    var comment = JSON.parse(commentRequest.responseText);
+    console.log(comment[0].content);
+    console.log(commentRequest.responseText.content);
+    Comment.content = comment[0].content;
     Report.id = response.reportID;
     Report.kindOfReport = response.kindOfReport;
     Report.status = response.status;
