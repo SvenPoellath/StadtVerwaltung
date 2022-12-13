@@ -18,16 +18,20 @@ export default function Description() {
     navigate("/form");
   };
   const fileSelectedHandler = (event) => {
+    var fileToSend;
     if (event.target.files && event.target.files[0]) {
-      setImage(URL.createObjectURL(event.target.files[0]));
+      fileToSend = event.target.files[0];
     }
+
+        
     let formData = new FormData();
-    formData.append("file", image);
+    formData.append("imageFile", fileToSend);
 
     axios
-      .post("http://localhost:8080/images", image)
+      .post("http://localhost:8080/image", formData)
       .then(function (response) {
         console.log(response.data);
+        Report.pictureID = response.data;
       })
       .catch(function (error) {
         console.log(error);

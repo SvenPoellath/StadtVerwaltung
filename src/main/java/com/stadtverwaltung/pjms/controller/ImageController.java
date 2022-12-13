@@ -7,13 +7,32 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.attribute.standard.Media;
+import java.io.IOException;
+
 @RestController
 @CrossOrigin
 public class ImageController {
 
     private final ImagePersistence imagePersistence = new ImagePersistence();
 
-    @PostMapping(value = "/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getImage(@RequestParam String id) {
+        byte[] image = null;
+
+        try {
+           image = imagePersistence.getImage(id);
+        } catch(IOException ioException) {
+        }
+
+        if (image != null) {
+            return ResponseEntity.ok(image);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping(value = "/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> postImage(@RequestParam MultipartFile imageFile) {
         String persist = imagePersistence.persistImage(imageFile);
         if (persist != null) {

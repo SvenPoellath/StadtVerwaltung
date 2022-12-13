@@ -1,10 +1,11 @@
 package com.stadtverwaltung.pjms.persistence;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -49,8 +50,16 @@ public class ImagePersistence {
         return id;
     }
 
-    private boolean checkIfExists(String generatedId) {
-        return Files.exists(Path.of("images/" + generatedId + ".jpeg"));
+    private boolean
+    checkIfExists(String id) {
+        return Files.exists(Path.of("images/" + id + ".jpeg"));
     }
 
+    public byte[] getImage(String id) throws IOException {
+        byte[] returnBytes = null;
+        if (checkIfExists(id)) {
+            returnBytes = Files.readAllBytes(Path.of("images").resolve(id + ".jpeg"));
+        }
+        return returnBytes;
+    }
 }
