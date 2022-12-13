@@ -30,7 +30,7 @@ export default function Login() {
         <table className="Auth-form-content">
           <tr>
             <th>
-              <h3 className="Auth-form-title">Log In</h3>
+              <h3 className="Auth-form-title">Mitarbeiter Login</h3>
             </th>
           </tr>
           <tr className="form-group mt-3">
@@ -42,20 +42,20 @@ export default function Login() {
                 {...register("username", { required: true, maxLength: 20 })}
                 type="username"
                 className="form-control mt-1"
-                placeholder="Enter UserID"
+                placeholder="UserID eingeben"
               />
             </td>
           </tr>
           <tr className="form-group mt-3">
             <td>
-              <label>Password</label>
+              <label>Passwort</label>
             </td>
             <td>
               <input
                 {...register("password", { required: true, maxLength: 20 })}
                 type="password"
                 className="form-control mt-1"
-                placeholder="Enter password"
+                placeholder="Passwort eingeben"
               />
             </td>
           </tr>
@@ -63,7 +63,7 @@ export default function Login() {
             <input
               type="submit"
               className="btn btn-primary btn--medium btn-login"
-              value="Login"
+              value="Anmelden"
             />
           </div>
         </table>

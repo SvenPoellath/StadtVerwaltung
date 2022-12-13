@@ -196,7 +196,7 @@ export default function ReportOverview() {
       usePagination,
       useRowSelect
     );
-
+    const changeBackground = () => {};
     // We don't want to render all of the rows for this example, so cap
     // it for this use case
     const firstPageRows = rows.slice(0, 10);
@@ -210,9 +210,8 @@ export default function ReportOverview() {
                   <th
                     {...column.getHeaderProps()}
                     style={{
-                      border: "solid 2px black",
                       padding: "10px",
-                      width: "500px",
+                      borderRadius: "5px",
                     }}
                   >
                     {column.render("Header")}
@@ -223,15 +222,6 @@ export default function ReportOverview() {
                 ))}
               </tr>
             ))}
-            <tr>
-              <th
-                colSpan={visibleColumns.length}
-                style={{
-                  textAlign: "left",
-                  padding: "10px",
-                }}
-              ></th>
-            </tr>
           </thead>
           <tbody {...getTableBodyProps()}>
             {firstPageRows.map((row, i) => {
@@ -240,14 +230,20 @@ export default function ReportOverview() {
                 <tr
                   {...row.getRowProps()}
                   onClick={() => popupHandler(row.original)}
+                  onMouseOver="this.style.color='black'"
+                  style={{
+                    boxShadow: "0 0 3px #ddd",
+                    borderRadius: "20px",
+                  }}
                 >
                   {row.cells.map((cell) => {
                     return (
                       <td
+                        className="overview-row"
                         {...cell.getCellProps()}
                         style={{
-                          border: "solid 2px black",
-                          padding: "10px",
+                          padding: "5px",
+                          borderRadius: "20px",
                         }}
                       >
                         {cell.render("Cell")}

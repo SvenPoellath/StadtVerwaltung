@@ -1,6 +1,10 @@
 .overview-table{
     width: 100%;
 }
+tbody > tr:hover{
+  background-color: white;
+  color: black;
+}
 .Overview-Page{
     background: url('/public/images/bridge-197788.jpg') center center/cover no-repeat;
     opacity: 0.75;
@@ -57,4 +61,3 @@ h1 {
   .react-select__option{
     color: rgb(0, 0, 0);
   }
-  
