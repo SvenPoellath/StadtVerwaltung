@@ -40,7 +40,7 @@ export default function Description() {
     <div className="Container">
       <img src="icons/Stage 3.png" className="img-header" />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <table>
+        <table className="map-table">
           <tr>
             <td>
               <label className="label Beschreibung-Text">
@@ -67,7 +67,7 @@ export default function Description() {
           </tr>
           <tr>(*)Pflichtfelder</tr>
           <tr>
-            <input type="submit" value="Weiter" />
+            <input className="btns btn--outline" type="submit" value="Weiter" />
           </tr>
         </table>
       </form>

@@ -37,9 +37,6 @@ export default function ReportOverview() {
     { value: "Unbearbeitet", label: "Unbearbeitet" },
     { value: "In Bearbeitung", label: "In Bearbeitung" },
   ];
-  const handleChange = (e) => {
-    changeStatus(e.target.value);
-  };
   const sendChanges = (data) => {
     console.log(status);
     Comment.content = data.comment;
@@ -225,7 +222,7 @@ export default function ReportOverview() {
     const changeBackground = () => {};
     // We don't want to render all of the rows for this example, so cap
     // it for this use case
-    const firstPageRows = rows.slice(0, 10);
+    const firstPageRows = rows.slice(0, 100);
     const { register, handleSubmit } = useForm();
     return (
       <>
@@ -305,10 +302,10 @@ export default function ReportOverview() {
                     </td>
                     <td>
                       <Select
-                        //onChange={(choice) => changeStatus(choice)}
-                        handleChange={(e) => changeStatus(e.target.value)}
+                        onChange={(choice) => changeStatus(choice)}
+                        //onChange={(e) => changeStatus(e.target.value)}
                         options={options}
-                        defaultValue={{ value: status, label: status }}
+                        defaultValue={status}
                         theme={(theme) => ({
                           ...theme,
                           borderRadius: 0,
@@ -376,10 +373,14 @@ export default function ReportOverview() {
                   </tr>
                   <tr>
                     <td>
-                      <label className="dataEntry">{Citizen.firstName}</label>
+                      <label className="dataEntry">
+                        {Citizen.citizenFirstName}
+                      </label>
                     </td>
                     <td>
-                      <label className="dataEntry">{Citizen.lastName}</label>
+                      <label className="dataEntry">
+                        {Citizen.citizenLastName}
+                      </label>
                     </td>
                   </tr>
                   <tr>
@@ -392,10 +393,14 @@ export default function ReportOverview() {
                   </tr>
                   <tr>
                     <td>
-                      <label className="dataEntry">{Citizen.mailAddress}</label>
+                      <label className="dataEntry">
+                        {Citizen.citizenEmailAddress}
+                      </label>
                     </td>
                     <td>
-                      <label className="dataEntry">{Citizen.phoneNumber}</label>
+                      <label className="dataEntry">
+                        {Citizen.citizenPhoneNumber}
+                      </label>
                     </td>
                   </tr>
                   <tr>

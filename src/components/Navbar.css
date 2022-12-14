@@ -71,6 +71,7 @@
 
 .fa-bars {
   color: #fff;
+  font-size: 3rem;
 }
 
 .nav-links-mobile {
@@ -82,12 +83,9 @@
 }
 
 @media screen and (max-width: 960px) {
-  .NavbarItems {
-    position: relative;
-  }
   .logo-image{
-    width: 32px;
-    height: 32px;
+    position: absolute;
+    left: 0;
   }
   .h1{
     font-size: 5px;
@@ -98,7 +96,7 @@
     width: 100%;
     height: 90vh;
     position: absolute;
-    top: 80px;
+    top: 110px;
     left: -100%;
     opacity: 1;
     transition: all 0.5s ease;
@@ -127,9 +125,7 @@
 
   .navbar-logo {
     position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(25%, 50%);
+    left: 100px;
   }
 
   .menu-icon {
@@ -144,7 +140,7 @@
 
   .fa-times {
     color: #fff;
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
   .nav-links-mobile {

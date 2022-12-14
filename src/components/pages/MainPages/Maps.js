@@ -128,10 +128,7 @@ export default function Maps() {
               {(Object.entries(json) || []).map(([key, data]) => {
                 return (
                   <div key={key}>
-                    <Marker
-                      position={[data.latitude, data.longitude]}
-                      icon={L.icon.glyph({ prefix: "mdi", glyph: "school" })}
-                    >
+                    <Marker position={[data.latitude, data.longitude]}>
                       <Popup>
                         Schadensart: {data.kindOfReport} <br /> Beschreibung:{" "}
                         {data.description} <br /> Status: {data.status}

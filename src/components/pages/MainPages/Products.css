@@ -21,14 +21,14 @@
   @media screen and (max-width: 960px) {
     .report-container > h1 {
       font-size: 50px;
-      margin-top: -250px;
+      margin-top: -350px;
     }
   }
   
   @media screen and (max-width: 768px) {
     .report-container > h1 {
       font-size: 40px;
-      margin-top: -300px;
+      margin-top: -400px;
     }
   
     .report-container > p {

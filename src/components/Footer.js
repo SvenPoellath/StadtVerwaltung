@@ -10,19 +10,19 @@ function Footer() {
         <div className="footer-link-wrapper">
           <div className="footer-link-items">
             <Link to="/nutzungsbedingungen">
-              <h2>Nutzungsbedingungen</h2>
+              <p>Nutzungsbedingungen</p>
             </Link>
           </div>
           <div className="footer-link-items">
             <Link to="/datenschutz">
-              <h2>Datenschutz</h2>
+              <p>Datenschutz</p>
             </Link>
           </div>
         </div>
         <div className="footer-link-wrapper">
           <div className="footer-link-items">
             <Link to="/impressum">
-              <h2>Impressum</h2>
+              <p>Impressum</p>
             </Link>
           </div>
         </div>

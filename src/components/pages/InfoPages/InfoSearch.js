@@ -3,12 +3,9 @@ import Report from "../../globalVariables/Report";
 import Comment from "../../globalVariables/Comment";
 import { useForm } from "react-hook-form";
 import "./InfoPages.css";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function IdSearchPage() {
   const { register, handleSubmit } = useForm();
-  var FallID;
   const navigate = useNavigate();
   const searchReport = (data) => {
     var postRequest = new XMLHttpRequest();
@@ -36,8 +33,6 @@ function IdSearchPage() {
     Report.longitude = response.longitude;
     navigate("/searchresult");
   };
-  const [isPopup, setPopup] = useState(false);
-  const togglePopup = () => setPopup(!isPopup);
   return (
     <div className="InfoPage-container">
       <form onSubmit={handleSubmit(searchReport)}>
