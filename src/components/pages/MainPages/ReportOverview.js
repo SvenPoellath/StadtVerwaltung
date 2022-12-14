@@ -23,7 +23,6 @@ import {
 } from "react-table";
 import { matchSorter } from "match-sorter";
 export default function ReportOverview() {
-  const [status, changeStatus] = useState("");
   var loadReportsRequest = new XMLHttpRequest();
   loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
   loadReportsRequest.send();
@@ -38,10 +37,14 @@ export default function ReportOverview() {
     { value: "Unbearbeitet", label: "Unbearbeitet" },
     { value: "In Bearbeitung", label: "In Bearbeitung" },
   ];
+  const handleChange = (e) => {
+    changeStatus(e.target.value);
+  };
   const sendChanges = (data) => {
+    console.log(status);
     Comment.content = data.comment;
     Report.status = status.label;
-    var request = XMLHttpRequest();
+    var request = new XMLHttpRequest();
     request.open("POST", "http://localhost:8080/comment", false);
     request.send(JSON.stringify(Comment));
     togglePopup();
@@ -68,8 +71,10 @@ export default function ReportOverview() {
     var comment = JSON.parse(commentRequest.responseText);
     Comment.content = comment[0].content;
     console.log(Session.isSet);
+    changeStatus(Report.status);
     togglePopup();
   };
+  const [status, changeStatus] = useState(Report.status);
   const columns = React.useMemo(
     () => [
       {
@@ -252,7 +257,6 @@ export default function ReportOverview() {
                 <tr
                   {...row.getRowProps()}
                   onClick={() => popupHandler(row.original)}
-                  onMouseOver="this.style.color='black'"
                   style={{
                     boxShadow: "0 0 3px #ddd",
                     borderRadius: "20px",
@@ -301,9 +305,10 @@ export default function ReportOverview() {
                     </td>
                     <td>
                       <Select
-                        onChange={(choice) => changeStatus(choice)}
+                        //onChange={(choice) => changeStatus(choice)}
+                        handleChange={(e) => changeStatus(e.target.value)}
                         options={options}
-                        defaultValue={{ value: "one", label: Report.status }}
+                        defaultValue={{ value: status, label: status }}
                         theme={(theme) => ({
                           ...theme,
                           borderRadius: 0,
@@ -349,12 +354,10 @@ export default function ReportOverview() {
                     </td>
                     <td>
                       <textarea
-                        {...register("comment", {
-                          pattern: /^[a-zA-ZäöüÄÖÜß.,:;!?()-]*$/,
-                        })}
+                        {...register("comment")}
                         type="textarea"
                         className="textbox Vorname-TextBox"
-                        value={Comment.content}
+                        defaultValue={Comment.content}
                       ></textarea>
                     </td>
                   </tr>

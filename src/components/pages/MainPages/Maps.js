@@ -3,7 +3,7 @@ import "./Maps.css";
 import "./Products.css";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { Button } from "../../Button";
-import L, { LatLng } from "leaflet";
+import L, { icon, LatLng } from "leaflet";
 import Search from "react-leaflet-search";
 import { useNavigate } from "react-router-dom";
 import Report from "../../globalVariables/Report";
@@ -15,6 +15,17 @@ export default function Maps() {
   const defaultChecked = checked ? checked : false;
   const [isChecked, setIsChecked] = useState(defaultChecked);
   const mapRef = useRef();
+  const schadenIcon = new L.Icon({
+    iconUrl: require("../../iconSchaden.png"),
+    iconRetinaUrl: require("../../iconSchaden.png"),
+    iconAnchor: null,
+    popupAnchor: null,
+    shadowUrl: null,
+    shadowSize: null,
+    shadowAnchor: null,
+    iconSize: new L.Point(60, 75),
+    className: "leaflet-div-icon",
+  });
   const useGeoLocation = () => {
     const [location, setLocation] = useState({
       loaded: false,
@@ -117,9 +128,13 @@ export default function Maps() {
               {(Object.entries(json) || []).map(([key, data]) => {
                 return (
                   <div key={key}>
-                    <Marker position={[data.latitude, data.longitude]}>
+                    <Marker
+                      position={[data.latitude, data.longitude]}
+                      icon={L.icon.glyph({ prefix: "mdi", glyph: "school" })}
+                    >
                       <Popup>
-                        {data.kindOfCase} <br /> {data.description}
+                        Schadensart: {data.kindOfReport} <br /> Beschreibung:{" "}
+                        {data.description} <br /> Status: {data.status}
                       </Popup>
                     </Marker>
                   </div>
