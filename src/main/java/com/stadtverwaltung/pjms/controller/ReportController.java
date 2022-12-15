@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.Media;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -63,6 +64,65 @@ public class ReportController {
             return ResponseEntity.badRequest().build();
         }
 
+    }
+
+    @PostMapping(value = "comment", consumes = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<Report> postComment (@RequestParam String id, @RequestBody String comment, @RequestHeader String employeeID, @RequestHeader String sessionID) {
+        if (authorizationController.hasAuthorization(employeeID,sessionID)) {
+            String returnID = null;
+            try {
+                returnID = reportPersistence.updateComment(id,comment);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (returnID != null) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.badRequest().build();
+            }
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping(value = "/comment", consumes = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<Report> lupdateComment(@RequestParam String id, @RequestBody String comment, @RequestHeader String employeeID, @RequestHeader String sessionID) {
+        if (authorizationController.hasAuthorization(employeeID,sessionID)) {
+            String returnID = null;
+            try {
+                returnID = reportPersistence.updateComment(id,comment);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (returnID != null) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.badRequest().build();
+            }
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping(value = "/status", consumes = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<Report> putReportStatus(@RequestParam String id, @RequestBody String status, @RequestHeader String employeeID, @RequestHeader String sessionID) {
+        if (authorizationController.hasAuthorization(employeeID,sessionID)) {
+            String returnID = null;
+            try {
+                returnID = reportPersistence.updateStatus(id,status);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            if (returnID != null) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.badRequest().build();
+            }
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }
