@@ -74,6 +74,7 @@ public class SQLiteDatabase {
                   kindOfReport text,
                   description text,
                   status      text,
+                  comment     text,
                   pictureID text(12),
                   citizenID text(12),
                   employeeID text(12),
@@ -82,17 +83,6 @@ public class SQLiteDatabase {
                 );""";
         executeSQL(reportsTable);
 
-        String commentsTable = """
-                CREATE TABLE IF NOT EXISTS comments (
-                commentID          text(12) PRIMARY KEY,
-                content     text,
-                timestamp   text,
-                employeeID  text(12),
-                reportID    text(12),
-                FOREIGN KEY (employeeID) REFERENCES employees(employeeID),
-                FOREIGN KEY (reportID) REFERENCES reports(reportID)
-                );""";
-        executeSQL(commentsTable);
         logger.info("Tables created");
     }
 

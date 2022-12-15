@@ -9,6 +9,7 @@ public class Report {
     public String pictureID;
     public String description;
     public String status;
+    public String comment;
     public Citizen citizen = new Citizen();
     public Employee employee = new Employee();
 

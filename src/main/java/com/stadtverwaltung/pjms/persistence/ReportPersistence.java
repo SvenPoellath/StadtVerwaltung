@@ -1,5 +1,6 @@
 package com.stadtverwaltung.pjms.persistence;
 
+import com.stadtverwaltung.pjms.controller.AuthorizationController;
 import com.stadtverwaltung.pjms.model.Report;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +63,42 @@ public class ReportPersistence {
         }
     }
 
+    public String updateStatus(String id, String status) throws SQLException {
+        PreparedStatement updateStatement = sqliteDatabase.getConnection().prepareStatement("UPDATE reports SET status = ? WHERE reportID = ?");
+        updateStatement.setString(1,status);
+        updateStatement.setString(2,id);
+        int done = 0;
+        try {
+            done = updateStatement.executeUpdate();
+        } catch (SQLException sqlException) {
+            logger.error(sqlException.getMessage());
+        }
+
+        if (done == 1) {
+            return id;
+        } else {
+            return null;
+        }
+    }
+    public String updateComment(String id, String comment) throws SQLException {
+        PreparedStatement updateStatement = sqliteDatabase.getConnection().prepareStatement("UPDATE reports SET comment = ? WHERE reportID = ?");
+        updateStatement.setString(1,comment);
+        updateStatement.setString(2,id);
+        int done = 0;
+
+        try {
+            done = updateStatement.executeUpdate();
+        } catch (SQLException sqlException) {
+            logger.error(sqlException.getMessage());
+        }
+
+        if (done == 1) {
+            return id;
+        } else {
+            return null;
+        }
+    }
+
     private Report mapReport(ResultSet resultSet) throws SQLException {
         Report returnReport = new Report();
         returnReport.reportID = resultSet.getString("reportID");
@@ -70,6 +107,7 @@ public class ReportPersistence {
         returnReport.kindOfReport = resultSet.getString("kindOfReport");
         returnReport.pictureID = resultSet.getString("pictureID");
         returnReport.description = resultSet.getString("description");
+        returnReport.comment = resultSet.getString("comment");
         returnReport.citizen.citizenID = resultSet.getString("citizenID");
         returnReport.citizen.citizenFirstName = resultSet.getString("citizenFirstName");
         returnReport.citizen.citizenLastName = resultSet.getString("citizenLastName");
