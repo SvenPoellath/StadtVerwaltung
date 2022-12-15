@@ -9,7 +9,6 @@ import Citizen from "../../globalVariables/Citizen";
 import Report from "../../globalVariables/Report";
 import Comment from "../../globalVariables/Comment";
 import { Map, TileLayer, Marker } from "react-leaflet";
-import Session from "../../globalVariables/Session";
 import Select from "react-select";
 import {
   useTable,
@@ -22,28 +21,58 @@ import {
   usePagination,
 } from "react-table";
 import { matchSorter } from "match-sorter";
+import Session from "../../globalVariables/Session";
 export default function ReportOverview() {
   var loadReportsRequest = new XMLHttpRequest();
   loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
   loadReportsRequest.send();
+
   const [isPopup, setPopup] = useState(false);
   const togglePopup = () => setPopup(!isPopup);
-  const data = React.useMemo(
-    () => JSON.parse(loadReportsRequest.responseText),
-    []
-  );
+  const data = JSON.parse(loadReportsRequest.responseText);
   const options = [
     { value: "Bearbeitet", label: "Bearbeitet" },
     { value: "Unbearbeitet", label: "Unbearbeitet" },
     { value: "In Bearbeitung", label: "In Bearbeitung" },
   ];
   const sendChanges = (data) => {
-    console.log(status);
-    Comment.content = data.comment;
-    Report.status = status.label;
+    console.log(data.comment);
+    console.log(Session.token);
     var request = new XMLHttpRequest();
-    request.open("POST", "http://localhost:8080/comment", false);
-    request.send(JSON.stringify(Comment));
+    if (Report.comment != "") {
+      request.open(
+        "PUT",
+        "http://localhost:8080/comment?id=" + Report.id,
+        false
+      );
+      request.setRequestHeader("sessionID", Session.token);
+      request.setRequestHeader("employeeID", Employee.id);
+      request.setRequestHeader("Content-Type", "text/plain");
+      request.send(data.comment);
+    } else {
+      request.open(
+        "POST",
+        "http://localhost:8080/comment?id=" + Report.id,
+        false
+      );
+      request.setRequestHeader("sessionID", Session.token);
+      request.setRequestHeader("employeeID", Employee.id);
+      request.setRequestHeader("Content-Type", "text/plain");
+      request.send(data.comment);
+    }
+    console.log(request.responseText);
+    var statusupdate = new XMLHttpRequest();
+    statusupdate.open(
+      "PUT",
+      "http://localhost:8080/status?id=" + Report.id,
+      false
+    );
+    statusupdate.setRequestHeader("sessionID", Session.token);
+    statusupdate.setRequestHeader("employeeID", Employee.id);
+    statusupdate.send(status.label);
+    console.log(statusupdate.responseText);
+    Report.comment = data.comment;
+    Report.status = status.label;
     togglePopup();
   };
   const popupHandler = (rowProps) => {
@@ -54,21 +83,14 @@ export default function ReportOverview() {
     Report.description = rowProps.description;
     Report.latitude = rowProps.latitude;
     Report.longitude = rowProps.longitude;
+    Report.comment = rowProps.comment;
     Citizen.citizenFirstName = rowProps.citizen.citizenFirstName;
     Citizen.citizenLastName = rowProps.citizen.citizenLastName;
     Citizen.citizenEmailAddress = rowProps.citizen.citizenEmailAddress;
     Citizen.citizenEmailAddress = rowProps.citizen.citizenPhoneNumber;
-    var commentRequest = new XMLHttpRequest();
-    commentRequest.open(
-      "GET",
-      "http://localhost:8080/comments?reportID=" + Report.id,
-      false
-    );
-    commentRequest.send();
-    var comment = JSON.parse(commentRequest.responseText);
-    Comment.content = comment[0].content;
-    console.log(Session.isSet);
-    changeStatus(Report.status);
+    console.log(Report);
+    changeStatus({ value: Report.status, label: Report.status });
+    console.log(status);
     togglePopup();
   };
   const [status, changeStatus] = useState(Report.status);
@@ -313,7 +335,7 @@ export default function ReportOverview() {
                             ...theme.colors,
                             primary25: "black",
                             primary: "black",
-                            neutral0: "grey",
+                            neutral0: "white",
                           },
                         })}
                       />
@@ -354,7 +376,7 @@ export default function ReportOverview() {
                         {...register("comment")}
                         type="textarea"
                         className="textbox Vorname-TextBox"
-                        defaultValue={Comment.content}
+                        defaultValue={Report.comment}
                       ></textarea>
                     </td>
                   </tr>
