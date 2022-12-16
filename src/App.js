@@ -9,7 +9,6 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import { Redirect } from "@reach/router";
 import Products from "./components/pages/MainPages/Products";
 import Maps from "./components/pages/MainPages/Maps";
 import Login from "./components/pages/MainPages/Login";
@@ -24,11 +23,12 @@ import IdInfoPage from "./components/pages/InfoPages/IdPage";
 import IdSearchPage from "./components/pages/InfoPages/InfoSearch";
 import ReportOverview from "./components/pages/MainPages/ReportOverview";
 import SearchResult from "./components/pages/InfoPages/SearchResult";
-import Session from "./components/globalVariables/Session";
+import { useCookies } from "react-cookie";
 
 function App() {
+  const [cookies, setCookie] = useCookies(["session"]);
   const PrivateRoutes = () => {
-    return Session.isSet ? <Outlet /> : <Navigate to="/" />;
+    return cookies.session ? <Outlet /> : <Navigate to="/" />;
   };
   return (
     <>
