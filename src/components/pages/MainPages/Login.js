@@ -4,8 +4,14 @@ import { useForm } from "react-hook-form";
 import Session from "../../globalVariables/Session";
 import { useNavigate } from "react-router-dom";
 import Employee from "../../globalVariables/Employee";
+import { useCookies } from "react-cookie";
 
 export default function Login() {
+  const [cookies, setCookie, removeCookies] = useCookies([
+    "sessionID",
+    "session",
+    "employeeID",
+  ]);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
@@ -22,7 +28,12 @@ export default function Login() {
       Employee.id = data.username;
       Session.token = postRequest.responseText;
       Session.isSet = true;
-      console.log(Session.isSet);
+      removeCookies("sessionID");
+      setCookie("session", true, { path: "/" });
+      setCookie("sessionID", Session.token, { path: "/" });
+      setCookie("employeeID", Employee.id, { path: "/" });
+      console.log(cookies.employeeID);
+      console.log(cookies.sessionID);
       navigate("/reportoverview");
     } else {
       alert("Wrong Password or Username");

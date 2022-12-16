@@ -3,8 +3,17 @@ import { Button } from "./Button";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Logo from "./Stadt_Ludwigshafen_logo.png";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import Session from "./globalVariables/Session";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const [cookies, setCookie, removeCookies] = useCookies([
+    "session",
+    "sessionID",
+    "employeeID",
+  ]);
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
@@ -18,7 +27,21 @@ function Navbar() {
       setButton(true);
     }
   };
-
+  const mitarbeiterLogging = () => {
+    if (Session.isSet) {
+      removeCookies("employeeID", { path: "/" });
+      removeCookies("sessionID", { path: "/" });
+      setCookie("session", false, { path: "/" });
+      Session.isSet = false;
+      console.log(cookies.session);
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  };
+  const loginButtonChange = () => {
+    return cookies.session ? "Logout" : "Mitarbeiter anmeldung";
+  };
   useEffect(() => {
     showButton();
   }, []);
@@ -69,9 +92,12 @@ function Navbar() {
             </li>
           </ul>
           {button && (
-            <Button buttonStyle="btn--outline" buttonLink="/login">
-              Mitarbeiter anmeldung{" "}
-            </Button>
+            <button
+              className="btns btn--outline btn--medium"
+              onClick={mitarbeiterLogging}
+            >
+              {Session.isSet ? "Ausloggen" : "Mitarbeiter anmeldung"}
+            </button>
           )}
         </div>
       </nav>
