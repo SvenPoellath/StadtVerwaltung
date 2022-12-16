@@ -92,8 +92,11 @@ function Navbar() {
             </li>
           </ul>
           {button && (
-            <button className="btns btn--outline" onClick={mitarbeiterLogging}>
-              {Session.isSet ? "Logout" : "Mitarbeiter anmeldung"}
+            <button
+              className="btns btn--outline btn--medium"
+              onClick={mitarbeiterLogging}
+            >
+              {Session.isSet ? "Ausloggen" : "Mitarbeiter anmeldung"}
             </button>
           )}
         </div>

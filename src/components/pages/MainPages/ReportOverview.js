@@ -141,7 +141,7 @@ export default function ReportOverview() {
         onChange={(e) => {
           setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
         }}
-        placeholder={`Search ${count} records...`}
+        placeholder={`Filtern`}
         style={{
           width: "70px",
         }}
