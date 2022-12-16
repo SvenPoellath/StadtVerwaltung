@@ -3,6 +3,7 @@ import "./Login.css";
 import { useForm } from "react-hook-form";
 import Session from "../../globalVariables/Session";
 import { useNavigate } from "react-router-dom";
+import Employee from "../../globalVariables/Employee";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function Login() {
     postRequest.setRequestHeader("content-type", "application/json");
     postRequest.send(JSON.stringify(anmeldedaten));
     if (postRequest.responseText != null) {
+      Employee.id = data.username;
       Session.token = postRequest.responseText;
       Session.isSet = true;
       console.log(Session.isSet);
