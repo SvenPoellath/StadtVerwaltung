@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Form.css";
 import Report from "../../globalVariables/Report";
 import Citizen from "../../globalVariables/Citizen";
@@ -33,6 +33,24 @@ export default function Summary() {
   const onVerifyCaptcha = (token) => {
     console.log("Verified");
   };
+
+  const [imageData, setImageData] = useState(null);
+  useEffect(() => {
+    const imageRequest = new XMLHttpRequest();
+    imageRequest.onload = function() {
+      console.log("Server response: " + imageRequest.response);
+      setImageData(imageRequest.response);
+    };
+    imageRequest.responseType = 'arraybuffer';
+    imageRequest.open('GET', 'http://localhost:8080/image?id=' + Report.pictureID);
+    imageRequest.send();
+  }, []);
+  console.log("ImageData before creating blob: " + imageData);
+  const blob = new Blob([imageData], { type: 'image/jpeg' });
+  console.log("Created blob: " + blob);
+  const imageUrl = URL.createObjectURL(blob);
+  console.log("Created imageURL: " + imageUrl);
+
 
   return (
     <div className="Container">
@@ -71,7 +89,7 @@ export default function Summary() {
             <label className="dataEntry">{Report.description}</label>
           </td>
           <td>
-            <img src="localhost:8080/image?id=KZQ1GeMx0bra" alt="img" />
+            <img src={imageUrl} alt="img" width='600px'/>
           </td>
         </tr>
         <tr>
