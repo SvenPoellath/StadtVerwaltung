@@ -61,7 +61,7 @@ function SearchResult() {
               <label className="dataEntry">{Report.description}</label>
             </td>
             <td>
-              <label className="dataEntry">{Comment.content}</label>
+              <label className="dataEntry">{Report.comment}</label>
             </td>
           </tr>
         </table>
