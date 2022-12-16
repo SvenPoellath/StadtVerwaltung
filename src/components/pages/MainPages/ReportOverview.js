@@ -4,6 +4,7 @@ import "reactjs-popup/dist/index.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "./ReportOverview.css";
+import { useCookies } from "react-cookie";
 import Employee from "../../globalVariables/Employee";
 import Citizen from "../../globalVariables/Citizen";
 import Report from "../../globalVariables/Report";
@@ -26,7 +27,7 @@ export default function ReportOverview() {
   var loadReportsRequest = new XMLHttpRequest();
   loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
   loadReportsRequest.send();
-
+  const [cookies, setCookie] = useCookies(["sessionID", "employeeID"]);
   const [isPopup, setPopup] = useState(false);
   const togglePopup = () => setPopup(!isPopup);
   const data = JSON.parse(loadReportsRequest.responseText);
@@ -45,8 +46,8 @@ export default function ReportOverview() {
         "http://localhost:8080/comment?id=" + Report.id,
         false
       );
-      request.setRequestHeader("sessionID", Session.token);
-      request.setRequestHeader("employeeID", Employee.id);
+      request.setRequestHeader("sessionID", cookies.sessionID);
+      request.setRequestHeader("employeeID", cookies.employeeID);
       request.setRequestHeader("Content-Type", "text/plain");
       request.send(data.comment);
     } else {
@@ -55,8 +56,8 @@ export default function ReportOverview() {
         "http://localhost:8080/comment?id=" + Report.id,
         false
       );
-      request.setRequestHeader("sessionID", Session.token);
-      request.setRequestHeader("employeeID", Employee.id);
+      request.setRequestHeader("sessionID", cookies.sessionID);
+      request.setRequestHeader("employeeID", cookies.employeeID);
       request.setRequestHeader("Content-Type", "text/plain");
       request.send(data.comment);
     }
@@ -67,8 +68,8 @@ export default function ReportOverview() {
       "http://localhost:8080/status?id=" + Report.id,
       false
     );
-    statusupdate.setRequestHeader("sessionID", Session.token);
-    statusupdate.setRequestHeader("employeeID", Employee.id);
+    statusupdate.setRequestHeader("sessionID", cookies.sessionID);
+    statusupdate.setRequestHeader("employeeID", cookies.employeeID);
     statusupdate.send(status.label);
     console.log(statusupdate.responseText);
     Report.comment = data.comment;
@@ -76,6 +77,8 @@ export default function ReportOverview() {
     togglePopup();
   };
   const popupHandler = (rowProps) => {
+    console.log("hallo");
+    console.log(cookies.sessionID);
     console.log(rowProps);
     Report.id = rowProps.reportID;
     Report.kindOfReport = rowProps.kindOfReport;
