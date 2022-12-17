@@ -91,7 +91,7 @@ export default function Form() {
                 })}
                 type="text"
                 className="textbox Telefonnummer-TextBox"
-                placeholder="Telefonnummer"
+                placeholder="Telefonnummer mit Vorwahl +49"
               />
             </td>
           </tr>

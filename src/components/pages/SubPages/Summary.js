@@ -7,6 +7,7 @@ import File from "../../globalVariables/File";
 import Description from "./Description";
 import HCaptcha from "react-hcaptcha";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../../Button";
 
 export default function Summary() {
   const navigate = useNavigate();
@@ -113,8 +114,13 @@ export default function Summary() {
         </tr>
         <tr>
           <td>
+            <Button buttonStyle="btn--outline" buttonLink="/maps">
+              Zurück
+            </Button>
+          </td>
+          <td>
             <button
-              className="btns btn--outline"
+              className="btn btn--outline"
               onClick={print}
               style={{ marginTop: "20px" }}
             >
@@ -123,7 +129,7 @@ export default function Summary() {
           </td>
           <td>
             <button
-              className="btns btn--outline"
+              className="btn btn--outline"
               onClick={onClick}
               style={{ marginTop: "20px" }}
             >

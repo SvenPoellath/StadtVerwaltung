@@ -140,7 +140,7 @@ export default function Maps() {
               <Search
                 className="Search-Box"
                 position="topright"
-                inputPlaceholder="Search location"
+                inputPlaceholder="Standort Suchen"
                 showMarker={false}
                 zoom={13}
                 closeResultsOnClick={true}

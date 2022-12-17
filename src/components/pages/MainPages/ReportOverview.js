@@ -90,7 +90,7 @@ export default function ReportOverview() {
     Citizen.citizenFirstName = rowProps.citizen.citizenFirstName;
     Citizen.citizenLastName = rowProps.citizen.citizenLastName;
     Citizen.citizenEmailAddress = rowProps.citizen.citizenEmailAddress;
-    Citizen.citizenEmailAddress = rowProps.citizen.citizenPhoneNumber;
+    Citizen.citizenPhoneNumber = rowProps.citizen.citizenPhoneNumber;
     console.log(Report);
     changeStatus({ value: Report.status, label: Report.status });
     console.log(status);
@@ -338,7 +338,7 @@ export default function ReportOverview() {
                             ...theme.colors,
                             primary25: "black",
                             primary: "black",
-                            neutral0: "white",
+                            neutral0: "grey",
                           },
                         })}
                       />
@@ -434,14 +434,14 @@ export default function ReportOverview() {
                         className="btns btn--outline"
                         onClick={togglePopup}
                       >
-                        close
+                        Schließen
                       </button>
                     </td>
                     <td>
                       <input
                         className="btns btn--outline"
                         type="submit"
-                        value="Save"
+                        value="Speichern"
                       />
                     </td>
                   </tr>
