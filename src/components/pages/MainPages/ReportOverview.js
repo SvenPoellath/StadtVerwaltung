@@ -27,6 +27,9 @@ export default function ReportOverview() {
   var loadReportsRequest = new XMLHttpRequest();
   loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
   loadReportsRequest.send();
+  const [imageResponseStatus, setImageResponseStatus] = useState(false);
+  const [imageURL, setImageURL] = useState(null);
+  const [imageData, setImageData] = useState(null);
   const [cookies, setCookie] = useCookies(["sessionID", "employeeID"]);
   const [isPopup, setPopup] = useState(false);
   const togglePopup = () => setPopup(!isPopup);
@@ -36,6 +39,19 @@ export default function ReportOverview() {
     { value: "Unbearbeitet", label: "Unbearbeitet" },
     { value: "In Bearbeitung", label: "In Bearbeitung" },
   ];
+  const deleteReport = (data) => {
+    console.log(cookies.sessionID);
+    var deleteRequest = new XMLHttpRequest();
+    deleteRequest.open(
+      "DELETE",
+      "http://localhost:8080/report?id=" + Report.id,
+      false
+    );
+    deleteRequest.setRequestHeader("sessionID", cookies.sessionID);
+    deleteRequest.setRequestHeader("employeeID", cookies.employeeID);
+    deleteRequest.send();
+    togglePopup();
+  };
   const sendChanges = (data) => {
     console.log(data.comment);
     console.log(Session.token);
@@ -87,6 +103,7 @@ export default function ReportOverview() {
     Report.latitude = rowProps.latitude;
     Report.longitude = rowProps.longitude;
     Report.comment = rowProps.comment;
+    Report.pictureID = rowProps.pictureID;
     Citizen.citizenFirstName = rowProps.citizen.citizenFirstName;
     Citizen.citizenLastName = rowProps.citizen.citizenLastName;
     Citizen.citizenEmailAddress = rowProps.citizen.citizenEmailAddress;
@@ -94,6 +111,28 @@ export default function ReportOverview() {
     console.log(Report);
     changeStatus({ value: Report.status, label: Report.status });
     console.log(status);
+    const imageRequest = new XMLHttpRequest();
+    imageRequest.responseType = "arraybuffer";
+    imageRequest.open(
+      "GET",
+      "http://localhost:8080/image?id=" + Report.pictureID
+    );
+    imageRequest.onload = function () {
+      console.log("Server response: " + imageRequest.response);
+      setImageData(imageRequest.response);
+    };
+    imageRequest.send();
+    console.log(imageRequest.status);
+    if (imageRequest.status != 0) {
+      setImageResponseStatus(true);
+    } else {
+      setImageResponseStatus(false);
+    }
+    console.log("ImageData before creating blob: " + imageData);
+    const blob = new Blob([imageData], { type: "image/jpeg" });
+    console.log("Created blob: " + blob);
+    setImageURL(URL.createObjectURL(blob));
+    console.log("Created imageURL: " + imageURL);
     togglePopup();
   };
   const [status, changeStatus] = useState(Report.status);
@@ -361,7 +400,18 @@ export default function ReportOverview() {
                         </Marker>
                       </Map>
                     </td>
-                    <td>"(image)"</td>
+                    <td>
+                      {imageResponseStatus ? (
+                        <img
+                          src={imageURL}
+                          alt="img"
+                          width="500px"
+                          height="400px"
+                        />
+                      ) : (
+                        <label></label>
+                      )}
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -443,6 +493,14 @@ export default function ReportOverview() {
                         type="submit"
                         value="Speichern"
                       />
+                    </td>
+                    <td>
+                      <button
+                        className="btns btn--outline"
+                        onClick={handleSubmit(deleteReport)}
+                      >
+                        Löschen
+                      </button>
                     </td>
                   </tr>
                 </table>
