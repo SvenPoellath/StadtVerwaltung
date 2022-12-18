@@ -28,7 +28,7 @@ public class ImagePersistence {
     public String persistImage(MultipartFile image) {
         String id = generateID();
         try {
-            Files.copy(image.getInputStream(), Path.of("images").resolve(id + ".jpeg"));
+            Files.copy(image.getInputStream(), generatePath(id));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -50,16 +50,29 @@ public class ImagePersistence {
         return id;
     }
 
+    private Path generatePath(String id) {
+        return Path.of("images/" + id + ".jpeg");
+    }
+
     private boolean
     checkIfExists(String id) {
-        return Files.exists(Path.of("images/" + id + ".jpeg"));
+        return Files.exists(generatePath(id));
     }
 
     public byte[] getImage(String id) throws IOException {
         byte[] returnBytes = null;
         if (checkIfExists(id)) {
-            returnBytes = Files.readAllBytes(Path.of("images").resolve(id + ".jpeg"));
+            returnBytes = Files.readAllBytes(generatePath(id));
         }
         return returnBytes;
+    }
+
+    public String deleteImage(String id) throws IOException {
+        if (checkIfExists(id)) {
+            Files.delete(generatePath(id));
+            return id;
+        } else {
+            return null;
+        }
     }
 }
