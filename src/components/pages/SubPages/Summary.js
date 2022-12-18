@@ -81,6 +81,9 @@ export default function Summary() {
               </Marker>
             </Map>
           </td>
+          <td>
+            <img src={imageUrl} alt="img" className="summaryImage" />
+          </td>
         </tr>
         <tr>
           <td>
@@ -90,9 +93,6 @@ export default function Summary() {
         <tr>
           <td>
             <label className="dataEntry">{Report.description}</label>
-          </td>
-          <td>
-            <img src={imageUrl} alt="img" width="600px" />
           </td>
         </tr>
         <tr>
@@ -140,7 +140,7 @@ export default function Summary() {
           </td>
           <td>
             <button
-              className="btn btn--outline"
+              className="btn btn--outline btn--medium"
               onClick={print}
               style={{ marginTop: "20px" }}
             >
@@ -149,7 +149,7 @@ export default function Summary() {
           </td>
           <td>
             <button
-              className="btn btn--outline"
+              className="btn btn--outline btn--medium"
               onClick={onClick}
               style={{ marginTop: "20px" }}
             >

@@ -13,6 +13,13 @@ function HeroSection() {
         der Landeshauptstadt Mainz die zweitgrößte Stadt in Rheinland-Pfalz und
         nach Mannheim die zweitgrößte Stadt der Metropolregion Rhein-Neckar.
       </p>
+      <h2>Neues Update</h2>
+      <p>
+        Ab sofort können Sie Defekte und Schäden, Verunreinigungen und auch
+        Parkverstöße direkt bei uns auf der Seite melden und wir kümmern uns
+        dann darum, dass diese so schnell wie möglich behoben werden. Sie haben
+        auch gleich einen Schaden zu melden?
+      </p>
       <div className="hero-btns">
         <Button
           className="btns"

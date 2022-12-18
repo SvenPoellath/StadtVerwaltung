@@ -18,23 +18,26 @@ export default function Description() {
     navigate("/form");
   };
   const fileSelectedHandler = (event) => {
-    var fileToSend;
     if (event.target.files && event.target.files[0]) {
-      fileToSend = event.target.files[0];
+      setImage(event.target.files[0]);
     }
+  };
+  const uploadImage = () => {
+    if (image != null) {
+      console.log("ist passiert");
+      let formData = new FormData();
+      formData.append("imageFile", image);
 
-    let formData = new FormData();
-    formData.append("imageFile", fileToSend);
-
-    axios
-      .post("http://localhost:8080/image", formData)
-      .then(function (response) {
-        console.log(response.data);
-        Report.pictureID = response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      axios
+        .post("http://localhost:8080/image", formData)
+        .then(function (response) {
+          console.log(response.data);
+          Report.pictureID = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
   return (
     <div className="Container">
@@ -62,7 +65,21 @@ export default function Description() {
               />
             </td>
             <td>
-              <input type="file" onChange={fileSelectedHandler} />
+              <input
+                name="Bild auswählen"
+                type="file"
+                onChange={fileSelectedHandler}
+              />
+              <input
+                type="button"
+                style={{
+                  background: "white",
+                  padding: 0,
+                  borderRadius: "5px",
+                }}
+                value="Hochladen"
+                onClick={uploadImage}
+              />
             </td>
           </tr>
           <tr>(*)Pflichtfelder</tr>

@@ -183,6 +183,8 @@ export default function ReportOverview() {
         placeholder={`Filtern`}
         style={{
           width: "70px",
+          borderRadius: "10px",
+          paddingLeft: "5px",
         }}
       />
     );
@@ -216,6 +218,7 @@ export default function ReportOverview() {
           style={{
             fontSize: "1.1rem",
             border: "0",
+            borderRadius: "10px",
           }}
         />
       </span>
@@ -481,7 +484,7 @@ export default function ReportOverview() {
                   <tr>
                     <td>
                       <button
-                        className="btns btn--outline"
+                        className="btns btn--outlin btn--medium"
                         onClick={togglePopup}
                       >
                         Schließen
@@ -496,7 +499,7 @@ export default function ReportOverview() {
                     </td>
                     <td>
                       <button
-                        className="btns btn--outline"
+                        className="btns btn--outline btn--medium"
                         onClick={handleSubmit(deleteReport)}
                       >
                         Löschen

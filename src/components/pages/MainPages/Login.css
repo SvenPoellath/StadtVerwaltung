@@ -10,10 +10,7 @@
     width: 100vw;
     height: 100vh;
   }
-  input{
-    border-radius: 20px;
-    padding-left: 10px;
-  }
+
   .Auth-form {
     display: table;
     justify-content: center;
