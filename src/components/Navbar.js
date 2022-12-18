@@ -55,7 +55,7 @@ function Navbar() {
           <img src={Logo} className="logo-image" alt="Lu" />
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             <h1>Ludwigshafen am Rhein</h1>
-            <h3 className="stadt">Stadt Verwaltung</h3>
+            <h3 className="stadt">Stadtverwaltung</h3>
           </Link>
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
@@ -87,7 +87,7 @@ function Navbar() {
                 className="nav-links-mobile"
                 onClick={closeMobileMenu}
               >
-                Mitarbeiter anmeldung
+                Mitarbeiter Anmeldung
               </Link>
             </li>
           </ul>
