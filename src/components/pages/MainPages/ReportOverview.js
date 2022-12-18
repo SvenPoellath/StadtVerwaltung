@@ -435,7 +435,7 @@ export default function ReportOverview() {
                   </tr>
                   <tr>
                     <td>
-                      <h3 className="header">Kontakt Information</h3>
+                      <h3 className="header">Kontaktinformation</h3>
                     </td>
                   </tr>
                   <tr>

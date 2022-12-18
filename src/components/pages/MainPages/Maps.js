@@ -110,7 +110,7 @@ export default function Maps() {
       <table className="map-table">
         <tr>
           <td>
-            <h1>Wo befindet sich der schaden?</h1>
+            <h1>Wo befindet sich der Schaden?</h1>
           </td>
         </tr>
         <tr>
