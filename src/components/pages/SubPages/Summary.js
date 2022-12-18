@@ -38,20 +38,22 @@ export default function Summary() {
   const [imageData, setImageData] = useState(null);
   useEffect(() => {
     const imageRequest = new XMLHttpRequest();
-    imageRequest.onload = function() {
+    imageRequest.onload = function () {
       console.log("Server response: " + imageRequest.response);
       setImageData(imageRequest.response);
     };
-    imageRequest.responseType = 'arraybuffer';
-    imageRequest.open('GET', 'http://localhost:8080/image?id=' + Report.pictureID);
+    imageRequest.responseType = "arraybuffer";
+    imageRequest.open(
+      "GET",
+      "http://localhost:8080/image?id=" + Report.pictureID
+    );
     imageRequest.send();
   }, []);
   console.log("ImageData before creating blob: " + imageData);
-  const blob = new Blob([imageData], { type: 'image/jpeg' });
+  const blob = new Blob([imageData], { type: "image/jpeg" });
   console.log("Created blob: " + blob);
   const imageUrl = URL.createObjectURL(blob);
   console.log("Created imageURL: " + imageUrl);
-
 
   return (
     <div className="Container">
@@ -90,12 +92,12 @@ export default function Summary() {
             <label className="dataEntry">{Report.description}</label>
           </td>
           <td>
-            <img src={imageUrl} alt="img" width='600px'/>
+            <img src={imageUrl} alt="img" width="600px" />
           </td>
         </tr>
         <tr>
           <td>
-            <h3 className="header">Kontakt Information</h3>
+            <h3 className="header">Kontaktinformation</h3>
           </td>
         </tr>
         <tr>
