@@ -77,7 +77,7 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <Link to="/maps" className="nav-links" onClick={closeMobileMenu}>
-                Probleme Melden
+                Problem Melden
               </Link>
             </li>
 

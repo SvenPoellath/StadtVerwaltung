@@ -24,7 +24,8 @@ export default function Login() {
     postRequest.open("POST", "http://localhost:8080/doLogin", false);
     postRequest.setRequestHeader("content-type", "application/json");
     postRequest.send(JSON.stringify(anmeldedaten));
-    if (postRequest.responseText != null) {
+    console.log(postRequest.responseText);
+    if (postRequest.responseText != "") {
       Employee.id = data.username;
       Session.token = postRequest.responseText;
       Session.isSet = true;

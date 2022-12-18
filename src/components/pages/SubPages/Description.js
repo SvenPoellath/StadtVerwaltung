@@ -53,7 +53,7 @@ export default function Description() {
             <td>
               <textarea
                 {...register("description", {
-                  pattern: /^[a-zA-ZäöüÄÖÜß.,:;!?()-]*$/,
+                  pattern: /^[a-zA-ZäöüÄÖÜß.,:;!?() -]*$/,
                 })}
                 type="textarea"
                 className="textbox Beschreibung-TextBox"
