@@ -125,4 +125,21 @@ public class ReportController {
         }
     }
 
+    @DeleteMapping(value = "/report")
+    public ResponseEntity<String> deleteReport(@RequestParam String id, @RequestHeader String employeeID, @RequestHeader String sessionID) {
+        String returnID = null;
+        if (authorizationController.hasAuthorization(employeeID,sessionID)) {
+            try {
+                returnID= reportPersistence.deleteReport(id);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (returnID!=null) {
+            return ResponseEntity.ok(returnID);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }
