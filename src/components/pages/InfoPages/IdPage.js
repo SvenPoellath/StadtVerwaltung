@@ -9,16 +9,17 @@ function IdInfoPage() {
       <table className="InfoPage-Text">
         <tr>
           <th>
-            <h1>Wichitge Information</h1>
+            <h1>Wichtige Information</h1>
             <br></br>
           </th>
         </tr>
         <tr>
           <td>
             <p>
-              Wenn Sie Ihren Fall spezifisch mit allen Informationen finden
-              wollen hilft ihnen Ihre Fall ID diese Können sie dann im Fall
-              Suchen Bereich angeben und Ihr Fall wird Ihnen angezeigt
+              Wenn Sie Ihren Fall und damit alle Informationen die Sie uns
+              gegeben haben noch einmal aufrufen wollen oder nachsehen möchten
+              ob dieser schon bearbeitet wurde, können Sie die folgende Fall ID
+              im Bereich "Fall Suchen" eingeben.
               <br />
               <br />
               Ihre Fall ID: {Report.id}

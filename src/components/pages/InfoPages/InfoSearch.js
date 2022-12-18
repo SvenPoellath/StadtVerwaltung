@@ -30,14 +30,14 @@ function IdSearchPage() {
         <table className="InfoPage-Text">
           <tr>
             <th>
-              <h1>Fall Suche</h1>
+              <h1>Fall Suchen</h1>
               <br></br>
             </th>
           </tr>
           <tr>
             <td>
               <p>
-                Geben Sie die Fall ID ein die Sie Suchen möchen
+                Geben Sie die Fall ID ein die Sie Suchen möchten
                 <br />
                 <br />
                 Ihre Fall ID:{" "}
@@ -53,7 +53,7 @@ function IdSearchPage() {
           </tr>
           <tr>
             <td>
-              <input type="submit" value="Suchen" />
+              <input type="submit" value="Fall Suchen" />
             </td>
           </tr>
         </table>

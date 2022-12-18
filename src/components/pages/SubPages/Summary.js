@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../Button";
 
 export default function Summary() {
+  const [imageResponseStatus, setImageResponseStatus] = useState(false);
   const navigate = useNavigate();
   window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
@@ -48,6 +49,11 @@ export default function Summary() {
       "http://localhost:8080/image?id=" + Report.pictureID
     );
     imageRequest.send();
+    if (imageRequest.status != 0) {
+      setImageResponseStatus(true);
+    } else {
+      setImageResponseStatus(false);
+    }
   }, []);
   console.log("ImageData before creating blob: " + imageData);
   const blob = new Blob([imageData], { type: "image/jpeg" });
@@ -82,7 +88,11 @@ export default function Summary() {
             </Map>
           </td>
           <td>
-            <img src={imageUrl} alt="img" className="summaryImage" />
+            {imageResponseStatus ? (
+              <img src={imageUrl} alt="img" className="summaryImage" />
+            ) : (
+              <label></label>
+            )}
           </td>
         </tr>
         <tr>
