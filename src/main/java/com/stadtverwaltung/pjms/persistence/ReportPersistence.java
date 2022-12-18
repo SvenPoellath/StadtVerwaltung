@@ -121,4 +121,15 @@ public class ReportPersistence {
         returnReport.status = resultSet.getString("status");
         return returnReport;
     }
+
+    public String deleteReport(String id) throws SQLException {
+        PreparedStatement deleteStatement = sqliteDatabase.getConnection().prepareStatement("DELETE FROM reports WHERE reportID = ?");
+        deleteStatement.setString(1,id);
+        int done = deleteStatement.executeUpdate();
+        if (done == 1) {
+            return id;
+        } else {
+            return null;
+        }
+    }
 }
