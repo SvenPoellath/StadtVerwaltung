@@ -57,6 +57,12 @@ export default function Summary() {
     imageRequest.onload = function () {
       console.log("Server response: " + imageRequest.response);
       setImageData(imageRequest.response);
+      console.log("Request Status: " + imageRequest.status);
+    if (imageRequest.status === 200) {
+      setImageResponseStatus(true);
+    } else {
+      setImageResponseStatus(false);
+    }
     };
     console.log(cookies.pictureID);
     imageRequest.responseType = "arraybuffer";
@@ -65,12 +71,7 @@ export default function Summary() {
       "http://localhost:8080/image?id=" + cookies.pictureID
     );
     imageRequest.send();
-    console.log("Request Status: " + imageRequest.status);
-    if (imageRequest.status === 200) {
-      setImageResponseStatus(true);
-    } else {
-      setImageResponseStatus(false);
-    }
+    
   }, []);
   console.log("ImageData before creating blob: " + imageData);
   const blob = new Blob([imageData], { type: "image/jpeg" });
