@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import "./App.css";
 import Home from "./components/pages/MainPages/Home";
@@ -24,11 +24,36 @@ import IdSearchPage from "./components/pages/InfoPages/InfoSearch";
 import ReportOverview from "./components/pages/MainPages/ReportOverview";
 import SearchResult from "./components/pages/InfoPages/SearchResult";
 import { useCookies } from "react-cookie";
+import Report from "./components/globalVariables/Report";
 
 function App() {
-  const [cookies, setCookie] = useCookies(["session"]);
+  const [cookies, setCookie] = useCookies([
+    "session",
+    "latitude",
+    "kindOfReport",
+    "description",
+    "citizenFirstName",
+  ]);
   const PrivateRoutes = () => {
-    return cookies.session ? <Outlet /> : <Navigate to="/" />;
+    console.log(cookies.session);
+    if (cookies.session !== "false") {
+      return <Outlet />;
+    } else {
+      return <Navigate to="/" />;
+    }
+  };
+  const CriticalRoutes = () => {
+    console.log(cookies.latitude);
+    if (
+      cookies.latitude !== undefined &&
+      cookies.citizenFirstName !== undefined &&
+      cookies.kindOfReport !== undefined &&
+      cookies.description !== undefined
+    ) {
+      return <Outlet />;
+    } else {
+      return <Navigate to="/" />;
+    }
   };
   return (
     <>
@@ -37,10 +62,13 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/maps" element={<Maps />} />
           <Route path="/login" element={<Login />} />
           <Route path="/form" element={<Form />} />
-          <Route path="/summary" element={<Summary />} />
+          <Route path="/searchresult" element={<SearchResult />} />
+          <Route element={<CriticalRoutes />}>
+            <Route path="/summary" element={<Summary />} />
+          </Route>
+          <Route path="/maps" element={<Maps />} />
           <Route path="/description" element={<Description />} />
           <Route path="/impressum" element={<Impressum />} />
           <Route path="/datenschutz" element={<Datenschutz />} />
@@ -53,7 +81,6 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path="/reportoverview" element={<ReportOverview />} />
           </Route>
-          <Route path="/searchresult" element={<SearchResult />} />
         </Routes>
         <Footer />
       </Router>
