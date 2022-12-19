@@ -30,6 +30,10 @@ export default function Summary() {
   });
   const onClick = () => {
     removeCookies("citizenFirstName", { path: "/" });
+    removeCookies("pictureID", { path: "/" });
+    removeCookies("description", { path: "/" });
+    removeCookies("kindOfReport", { path: "/" });
+    removeCookies("latitude", { path: "/" });
     console.log(cookies.latitude);
     var citizenRequest = new XMLHttpRequest();
     citizenRequest.open("POST", "http://localhost:8080/citizens", false);
