@@ -1,9 +1,12 @@
 import React from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import Report from "./globalVariables/Report";
 
 function CardItem(props) {
+  const [cookies, setCookie] = useCookies(["kindOfReport"]);
   const onClick = () => {
+    setCookie("kindOfReport", props.text, { path: "/" });
     Report.kindOfReport = props.text;
   };
   return (

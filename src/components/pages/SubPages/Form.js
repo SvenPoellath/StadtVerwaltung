@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Form.css";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Citizen from "../../globalVariables/Citizen";
+import { useCookies } from "react-cookie";
 
 export default function Form() {
+  const [cookies, setCookie] = useCookies([
+    "citizenFirstName",
+    "citizenLastName",
+    "citizenEmailAddress",
+    "citizenPhoneNumber",
+  ]);
   window.addEventListener("beforeunload", function (e) {
-    e.preventDefault();
+    navigate("/maps");
   });
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
+    setCookie("citizenFirstName", data.firstName, { path: "/" });
+    setCookie("citizenLastName", data.lastName, { path: "/" });
+    setCookie("citizenEmailAddress", data.email, { path: "/" });
+    setCookie("citizenPhoneNumber", data.phoneNumber, { path: "/" });
     Citizen.citizenFirstName = data.firstName;
     Citizen.citizenLastName = data.lastName;
     Citizen.citizenEmailAddress = data.email;

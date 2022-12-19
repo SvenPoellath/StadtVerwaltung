@@ -32,10 +32,12 @@ function Navbar() {
       removeCookies("employeeID", { path: "/" });
       removeCookies("sessionID", { path: "/" });
       setCookie("session", false, { path: "/" });
+      setCookie("session", false, { path: "/" });
       Session.isSet = false;
       console.log(cookies.session);
       navigate("/");
     } else {
+      console.log(cookies.session);
       navigate("/login");
     }
   };

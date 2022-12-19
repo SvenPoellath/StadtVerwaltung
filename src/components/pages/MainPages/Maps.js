@@ -7,6 +7,7 @@ import L, { icon, LatLng } from "leaflet";
 import Search from "react-leaflet-search";
 import { useNavigate } from "react-router-dom";
 import Report from "../../globalVariables/Report";
+import { useCookies } from "react-cookie";
 
 export default function Maps() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function Maps() {
   var checked;
   const defaultChecked = checked ? checked : false;
   const [isChecked, setIsChecked] = useState(defaultChecked);
+  const [cookies, setCookie] = useCookies(["latitude", "longitude", "site"]);
   const mapRef = useRef();
   const schadenIcon = new L.Icon({
     iconUrl: require("../../iconSchaden.png"),
@@ -63,8 +65,11 @@ export default function Maps() {
     searchMarker = latLng;
   };
   const setLocation = () => {
+    setCookie("site", "true", { path: "/" });
     if (isChecked) {
       if (mylocation.loaded && !mylocation.error) {
+        setCookie("latitude", mylocation.coordinates.lat, { path: "/" });
+        setCookie("longitude", mylocation.coordinates.lng, { path: "/" });
         Report.latitude = mylocation.coordinates.lat;
         Report.longitude = mylocation.coordinates.lng;
         navigate("/products");
@@ -72,6 +77,8 @@ export default function Maps() {
         alert(mylocation.error.message);
       }
     } else if (searchMarker != null) {
+      setCookie("latitude", searchMarker.lat, { path: "/" });
+      setCookie("longitude", searchMarker.lng, { path: "/" });
       Report.latitude = searchMarker.lat;
       Report.longitude = searchMarker.lng;
       navigate("/products");

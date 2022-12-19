@@ -6,7 +6,9 @@ import Report from "../../globalVariables/Report";
 import File from "../../globalVariables/File";
 import Summary from "./Summary";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 export default function Description() {
+  const [cookies, setCookie] = useCookies(["description"]);
   const [image, setImage] = useState(null);
   window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
@@ -14,6 +16,7 @@ export default function Description() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
+    setCookie("description", data.description, { path: "/" });
     Report.description = data.description;
     navigate("/form");
   };

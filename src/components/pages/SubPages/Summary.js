@@ -6,16 +6,33 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import File from "../../globalVariables/File";
 import Description from "./Description";
 import HCaptcha from "react-hcaptcha";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Button } from "../../Button";
+import { useCookies } from "react-cookie";
 
 export default function Summary() {
   const [imageResponseStatus, setImageResponseStatus] = useState(false);
+  const [angabenVollständig, setAngebenVollständig] = useState(true);
+  const [cookies, setCookie, removeCookies] = useCookies([
+    "latitude",
+    "longitude",
+    "citizenFirstName",
+  ]);
   const navigate = useNavigate();
   window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
   });
+  if (Report.latitude === null) {
+    setAngebenVollständig(false);
+    //navigate("/maps");
+
+    // alert(
+    //   "Angaben von Ihnen sind verloren gegangen. Bitte laden Sie die Seite nicht neu während Sie Angaben tätigen um dies zu verhindern."
+    // );
+  }
   const onClick = () => {
+    removeCookies("citizenFirstName", { path: "/" });
+    console.log(cookies.latitude);
     var citizenRequest = new XMLHttpRequest();
     citizenRequest.open("POST", "http://localhost:8080/citizens", false);
     citizenRequest.setRequestHeader("content-type", "application/json");
@@ -82,9 +99,13 @@ export default function Summary() {
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <Marker position={[Report.latitude, Report.longitude]}>
-                <Popup>Ihre Standort-Angabe</Popup>
-              </Marker>
+              {angabenVollständig ? (
+                <Marker position={[cookies.latitude, cookies.longitude]}>
+                  <Popup>Ihre Standort-Angabe</Popup>
+                </Marker>
+              ) : (
+                <Navigate to="/maps" />
+              )}
             </Map>
           </td>
           <td>
