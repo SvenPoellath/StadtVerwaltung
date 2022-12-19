@@ -1,7 +1,7 @@
 .overview-table{
     width: 100%;
 }
-tbody > tr:hover{
+.reportOverviewBody > tr:hover{
   background-color: white;
   color: black;
 }
@@ -49,7 +49,7 @@ h1 {
     width: 100%;
     height: 120vh;
     background-color: rgba(0,0,0, 0.5);
-
+    z-index: 0;
   }
   .popup_inner {
     display: grid;

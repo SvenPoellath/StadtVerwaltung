@@ -11,23 +11,25 @@ import { useCookies } from "react-cookie";
 
 export default function Maps() {
   const navigate = useNavigate();
-  var searchMarker;
-  var checked;
-  const defaultChecked = checked ? checked : false;
-  const [isChecked, setIsChecked] = useState(defaultChecked);
+  const [searchMarker, setSearchMarker] = useState();
+  const [isChecked, setIsChecked] = useState(false);
+  const [reportDataIsLoaded, setReportDataIsLoaded] = useState(true);
   const [cookies, setCookie] = useCookies(["latitude", "longitude", "site"]);
   const mapRef = useRef();
-  const schadenIcon = new L.Icon({
-    iconUrl: require("../../iconSchaden.png"),
-    iconRetinaUrl: require("../../iconSchaden.png"),
-    iconAnchor: null,
-    popupAnchor: null,
-    shadowUrl: null,
-    shadowSize: null,
-    shadowAnchor: null,
-    iconSize: new L.Point(60, 75),
-    className: "leaflet-div-icon",
-  });
+  const mylocation = useGeoLocation();
+
+  var loadReportsRequest = new XMLHttpRequest();
+  loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
+  loadReportsRequest.send();
+  var json;
+  try {
+    json = JSON.parse(loadReportsRequest.responseText);
+  } catch (error) {
+    console.log("report data did not load");
+    setReportDataIsLoaded(false);
+  }
+
+  //useGeoLocation tries to get the current Location of the User
   const useGeoLocation = () => {
     const [location, setLocation] = useState({
       loaded: false,
@@ -61,9 +63,9 @@ export default function Maps() {
     }, []);
     return location;
   };
-  const setSearchMarker = (latLng) => {
-    searchMarker = latLng;
-  };
+
+  /*Sets the coordinates of the Report to either the current location of the user or the given location by the search field.
+  When there is no location a message pops up to tell the User to provide a location*/
   const setLocation = () => {
     setCookie("site", "true", { path: "/" });
     if (isChecked) {
@@ -89,24 +91,6 @@ export default function Maps() {
     }
   };
 
-  var loadReportsRequest = new XMLHttpRequest();
-  loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
-  loadReportsRequest.send();
-
-  const json = JSON.parse(loadReportsRequest.responseText);
-  const mylocation = useGeoLocation();
-  const showMyLocation = () => {
-    const { current = {} } = mapRef;
-    const { leafletElement: map } = current;
-    const geoLocation = mylocation;
-    const latlng = [geoLocation.coordinates.lat, geoLocation.coordinates.lng];
-    console.log(latlng);
-    if (mylocation.loaded && !mylocation.error) {
-      map.flyTo(latlng, 14);
-    } else {
-      alert(mylocation.error.message);
-    }
-  };
   return (
     <div className="container">
       <img
@@ -132,18 +116,21 @@ export default function Maps() {
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              {(Object.entries(json) || []).map(([key, data]) => {
-                return (
-                  <div key={key}>
-                    <Marker position={[data.latitude, data.longitude]}>
-                      <Popup>
-                        Schadensart: {data.kindOfReport} <br /> Beschreibung:{" "}
-                        {data.description} <br /> Status: {data.status}
-                      </Popup>
-                    </Marker>
-                  </div>
-                );
-              })}
+              {reportDataIsLoaded
+                ? (Object.entries(json) || []).map(([key, data]) => {
+                    return (
+                      <div key={key}>
+                        <Marker position={[data.latitude, data.longitude]}>
+                          <Popup>
+                            Schadensart: {data.kindOfReport} <br />{" "}
+                            Beschreibung: {data.description} <br /> Status:{" "}
+                            {data.status}
+                          </Popup>
+                        </Marker>
+                      </div>
+                    );
+                  })
+                : null}
               <Search
                 className="Search-Box"
                 position="topright"
@@ -189,7 +176,6 @@ export default function Maps() {
               <input
                 type="checkbox"
                 onChange={() => setIsChecked((prev) => !prev)}
-                onClick={showMyLocation}
               />
               Mein Standort verwenden
             </label>
