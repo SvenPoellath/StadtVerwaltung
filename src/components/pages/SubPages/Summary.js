@@ -17,19 +17,17 @@ export default function Summary() {
     "latitude",
     "longitude",
     "citizenFirstName",
+    "citizenLastName",
+    "citizenEmailAddress",
+    "citizenPhoneNumber",
+    "description",
+    "kindOfReport",
+    "pictureID",
   ]);
   const navigate = useNavigate();
   window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
   });
-  if (Report.latitude === null) {
-    setAngebenVollständig(false);
-    //navigate("/maps");
-
-    // alert(
-    //   "Angaben von Ihnen sind verloren gegangen. Bitte laden Sie die Seite nicht neu während Sie Angaben tätigen um dies zu verhindern."
-    // );
-  }
   const onClick = () => {
     removeCookies("citizenFirstName", { path: "/" });
     console.log(cookies.latitude);
@@ -60,13 +58,15 @@ export default function Summary() {
       console.log("Server response: " + imageRequest.response);
       setImageData(imageRequest.response);
     };
+    console.log(cookies.pictureID);
     imageRequest.responseType = "arraybuffer";
     imageRequest.open(
       "GET",
-      "http://localhost:8080/image?id=" + Report.pictureID
+      "http://localhost:8080/image?id=" + cookies.pictureID
     );
     imageRequest.send();
-    if (imageRequest.status != 0) {
+    console.log("Request Status: " + imageRequest.status);
+    if (imageRequest.status === 200) {
       setImageResponseStatus(true);
     } else {
       setImageResponseStatus(false);
@@ -91,7 +91,7 @@ export default function Summary() {
           <td>
             <Map
               className="summaryMap"
-              center={[Report.latitude, Report.longitude]}
+              center={[cookies.latitude, cookies.longitude]}
               zoom={13}
               style={{ height: "400px" }}
             >
@@ -123,7 +123,7 @@ export default function Summary() {
         </tr>
         <tr>
           <td>
-            <label className="dataEntry">{Report.description}</label>
+            <label className="dataEntry">{cookies.description}</label>
           </td>
         </tr>
         <tr>
@@ -141,10 +141,10 @@ export default function Summary() {
         </tr>
         <tr>
           <td>
-            <label className="dataEntry">{Citizen.citizenFirstName}</label>
+            <label className="dataEntry">{cookies.citizenFirstName}</label>
           </td>
           <td>
-            <label className="dataEntry">{Citizen.citizenLastName}</label>
+            <label className="dataEntry">{cookies.citizenLastName}</label>
           </td>
         </tr>
         <tr>
@@ -157,10 +157,10 @@ export default function Summary() {
         </tr>
         <tr>
           <td>
-            <label className="dataEntry">{Citizen.citizenEmailAddress}</label>
+            <label className="dataEntry">{cookies.citizenEmailAddress}</label>
           </td>
           <td>
-            <label className="dataEntry">{Citizen.citizenPhoneNumber}</label>
+            <label className="dataEntry">{cookies.citizenPhoneNumber}</label>
           </td>
         </tr>
         <tr>

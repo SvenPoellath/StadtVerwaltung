@@ -8,7 +8,7 @@ import Summary from "./Summary";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 export default function Description() {
-  const [cookies, setCookie] = useCookies(["description"]);
+  const [cookies, setCookie] = useCookies(["description", "pictureID"]);
   const [image, setImage] = useState(null);
   window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
@@ -35,6 +35,7 @@ export default function Description() {
         .post("http://localhost:8080/image", formData)
         .then(function (response) {
           console.log(response.data);
+          setCookie("pictureID", response.data, { path: "/" });
           Report.pictureID = response.data;
         })
         .catch(function (error) {
@@ -59,7 +60,7 @@ export default function Description() {
             <td>
               <textarea
                 {...register("description", {
-                  pattern: /^[a-zA-ZäöüÄÖÜß.,:;!?() -]*$/,
+                  pattern: /^[a-zA-Z0-9äöüÄÖÜß.,:;!?() -]*$/,
                 })}
                 type="textarea"
                 className="textbox Beschreibung-TextBox"
