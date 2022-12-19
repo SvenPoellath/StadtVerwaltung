@@ -7,11 +7,18 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 function SearchResult() {
   const [imageResponseStatus, setImageResponseStatus] = useState(false);
   const [imageData, setImageData] = useState(null);
+
+  //Loading Picture from Backend
   useEffect(() => {
     const imageRequest = new XMLHttpRequest();
     imageRequest.onload = function () {
       console.log("Server response: " + imageRequest.response);
       setImageData(imageRequest.response);
+      if (imageRequest.status === 200) {
+        setImageResponseStatus(true);
+      } else {
+        setImageResponseStatus(false);
+      }
     };
     imageRequest.responseType = "arraybuffer";
     imageRequest.open(
@@ -19,11 +26,6 @@ function SearchResult() {
       "http://localhost:8080/image?id=" + Report.pictureID
     );
     imageRequest.send();
-    if (imageRequest.status != 0) {
-      setImageResponseStatus(true);
-    } else {
-      setImageResponseStatus(false);
-    }
   }, []);
   console.log("ImageData before creating blob: " + imageData);
   const blob = new Blob([imageData], { type: "image/jpeg" });

@@ -120,14 +120,14 @@ export default function ReportOverview() {
     imageRequest.onload = function () {
       console.log("Server response: " + imageRequest.response);
       setImageData(imageRequest.response);
+      if (imageRequest.status === 200) {
+        setImageResponseStatus(true);
+      } else {
+        setImageResponseStatus(false);
+      }
     };
     imageRequest.send();
     console.log(imageRequest.status);
-    if (imageRequest.status != 0) {
-      setImageResponseStatus(true);
-    } else {
-      setImageResponseStatus(false);
-    }
     console.log("ImageData before creating blob: " + imageData);
     const blob = new Blob([imageData], { type: "image/jpeg" });
     console.log("Created blob: " + blob);
@@ -314,7 +314,7 @@ export default function ReportOverview() {
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()}>
+          <tbody className="reportOverviewBody" {...getTableBodyProps()}>
             {firstPageRows.map((row, i) => {
               prepareRow(row);
               return (
@@ -492,7 +492,7 @@ export default function ReportOverview() {
                     </td>
                     <td>
                       <input
-                        className="btns btn--outline"
+                        className="btns btn--outline btn--medium"
                         type="submit"
                         value="Speichern"
                       />

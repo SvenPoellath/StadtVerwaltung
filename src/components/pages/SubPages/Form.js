@@ -17,6 +17,8 @@ export default function Form() {
   });
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+
+  //After the Data was checked by Patterns and React-Hook-Forms it is stored for later use
   const onSubmit = (data) => {
     setCookie("citizenFirstName", data.firstName, { path: "/" });
     setCookie("citizenLastName", data.lastName, { path: "/" });
