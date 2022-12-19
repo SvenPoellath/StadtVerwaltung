@@ -29,7 +29,7 @@ public class ImageController {
         if (image != null) {
             return ResponseEntity.ok(image);
         } else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
     }
 
