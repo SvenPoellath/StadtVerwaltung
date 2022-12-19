@@ -42,27 +42,35 @@ export default function Summary() {
     postRequest.setRequestHeader("content-type", "application/json");
     postRequest.send(JSON.stringify(Report));
     Report.id = postRequest.responseText;
-    navigate("/idinfopage");
-  };
-  const print = () => {
-    window.print();
+    if (
+      citizenRequest.responseText !== "" &&
+      citizenRequest.responseText !== ""
+    ) {
+      navigate("/idinfopage");
+    } else {
+      alert(
+        "Daten konnten nicht hochgeladen werden. Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support."
+      );
+    }
   };
   const onVerifyCaptcha = (token) => {
     console.log("Verified");
   };
 
   const [imageData, setImageData] = useState(null);
+
+  //Loading Picture from Backend
   useEffect(() => {
     const imageRequest = new XMLHttpRequest();
     imageRequest.onload = function () {
       console.log("Server response: " + imageRequest.response);
       setImageData(imageRequest.response);
       console.log("Request Status: " + imageRequest.status);
-    if (imageRequest.status === 200) {
-      setImageResponseStatus(true);
-    } else {
-      setImageResponseStatus(false);
-    }
+      if (imageRequest.status === 200) {
+        setImageResponseStatus(true);
+      } else {
+        setImageResponseStatus(false);
+      }
     };
     console.log(cookies.pictureID);
     imageRequest.responseType = "arraybuffer";
@@ -71,7 +79,6 @@ export default function Summary() {
       "http://localhost:8080/image?id=" + cookies.pictureID
     );
     imageRequest.send();
-    
   }, []);
   console.log("ImageData before creating blob: " + imageData);
   const blob = new Blob([imageData], { type: "image/jpeg" });
@@ -173,7 +180,7 @@ export default function Summary() {
           <td>
             <button
               className="btn btn--outline btn--medium"
-              onClick={print}
+              onClick={window.print()}
               style={{ marginTop: "20px" }}
             >
               Seite Drucken

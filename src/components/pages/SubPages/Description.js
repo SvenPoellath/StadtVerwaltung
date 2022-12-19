@@ -3,8 +3,6 @@ import "./Form.css";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Report from "../../globalVariables/Report";
-import File from "../../globalVariables/File";
-import Summary from "./Summary";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 export default function Description() {
@@ -37,10 +35,15 @@ export default function Description() {
           console.log(response.data);
           setCookie("pictureID", response.data, { path: "/" });
           Report.pictureID = response.data;
+          alert("Upload Erfolgreich");
         })
         .catch(function (error) {
-          console.log(error);
+          alert(error);
         });
+    } else {
+      alert(
+        "Bitte wählen Sie zuerst ein Bild aus bevor Sie auf Hochladen Klicken"
+      );
     }
   };
   return (

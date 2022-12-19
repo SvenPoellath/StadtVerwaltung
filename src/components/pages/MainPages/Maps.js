@@ -16,7 +16,6 @@ export default function Maps() {
   const [reportDataIsLoaded, setReportDataIsLoaded] = useState(true);
   const [cookies, setCookie] = useCookies(["latitude", "longitude", "site"]);
   const mapRef = useRef();
-  const mylocation = useGeoLocation();
 
   var loadReportsRequest = new XMLHttpRequest();
   loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
@@ -70,11 +69,20 @@ export default function Maps() {
     setCookie("site", "true", { path: "/" });
     if (isChecked) {
       if (mylocation.loaded && !mylocation.error) {
-        setCookie("latitude", mylocation.coordinates.lat, { path: "/" });
-        setCookie("longitude", mylocation.coordinates.lng, { path: "/" });
-        Report.latitude = mylocation.coordinates.lat;
-        Report.longitude = mylocation.coordinates.lng;
-        navigate("/products");
+        if (
+          49.438796 < mylocation.coordinates.lat < 49.563578 &&
+          8.274642 < mylocation.coordinates.lng < 8.415013
+        ) {
+          setCookie("latitude", mylocation.coordinates.lat, { path: "/" });
+          setCookie("longitude", mylocation.coordinates.lng, { path: "/" });
+          Report.latitude = mylocation.coordinates.lat;
+          Report.longitude = mylocation.coordinates.lng;
+          navigate("/products");
+        } else {
+          alert(
+            "Dein Standort befindet sich leider außerhalb von Ludwigshafen. Bitte gib einen Ort innerhalb von Ludwigshafen an."
+          );
+        }
       } else {
         alert(mylocation.error.message);
       }
@@ -91,6 +99,7 @@ export default function Maps() {
     }
   };
 
+  const mylocation = useGeoLocation();
   return (
     <div className="container">
       <img
@@ -140,12 +149,12 @@ export default function Maps() {
                 closeResultsOnClick={true}
                 openSearchOnLoad={true}
                 bounds={[
-                  [-1, -18],
-                  [1, 18],
+                  [49.438796, 8.415013],
+                  [49.563578, 8.274642],
                 ]}
                 providerOptions={{
                   searchBounds: [
-                    new LatLng(49.435146, 8.567153),
+                    new LatLng(49.438796, 8.415013),
                     new LatLng(49.563578, 8.274642),
                   ],
                 }}
