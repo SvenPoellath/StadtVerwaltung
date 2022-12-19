@@ -184,7 +184,7 @@ export default function Summary() {
           <td>
             <button
               className="btn btn--outline btn--medium"
-              onClick={window.print()}
+              onClick={window.print}
               style={{ marginTop: "20px" }}
             >
               Seite Drucken
