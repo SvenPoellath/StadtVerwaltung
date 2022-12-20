@@ -36,4 +36,5 @@ build/
 
 ### Image Files and Folder ###
 /images
+!/images/sampleImage.jpeg
 

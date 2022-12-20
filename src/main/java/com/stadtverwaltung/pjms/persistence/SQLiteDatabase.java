@@ -3,11 +3,7 @@ package com.stadtverwaltung.pjms.persistence;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-
-import javax.xml.transform.Result;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,8 +11,7 @@ import java.sql.*;
 
 public class SQLiteDatabase {
 
-    private final String URL = "jdbc:sqlite:database.sqlite";
-    private Logger logger = LoggerFactory.getLogger(SQLiteDatabase.class);
+    private final Logger logger = LoggerFactory.getLogger(SQLiteDatabase.class);
     private static Connection connection;
 
     public SQLiteDatabase() {
@@ -33,6 +28,7 @@ public class SQLiteDatabase {
     //Initializes DB and creates tables if necessary
     private void loadDb() {
         try {
+            String URL = "jdbc:sqlite:database.sqlite";
             connection = DriverManager.getConnection(URL);
             logger.info("Connection to database established");
         } catch (SQLException sqe) {
@@ -97,11 +93,7 @@ public class SQLiteDatabase {
             boolean citizensEmpty = !getCitizens.executeQuery().next();
             boolean employeesEmpty = !getEmployees.executeQuery().next();
 
-            if (reportsEmpty && citizensEmpty && employeesEmpty) {
-                return true;
-            } else {
-                return false;
-            }
+            return reportsEmpty && citizensEmpty && employeesEmpty;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

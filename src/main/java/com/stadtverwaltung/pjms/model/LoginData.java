@@ -4,5 +4,5 @@ public class LoginData {
     public String employeeID;
     public String password;
 
-    public LoginData(){};
+    public LoginData(){}
 }
