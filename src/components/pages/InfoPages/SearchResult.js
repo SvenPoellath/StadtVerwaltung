@@ -1,6 +1,4 @@
-import Search from "react-leaflet-search/lib";
 import Report from "../../globalVariables/Report";
-import Comment from "../../globalVariables/Comment";
 import "./InfoPages.css";
 import { useState, useEffect } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";

@@ -76,6 +76,7 @@ export default function Maps() {
           setCookie("longitude", mylocation.coordinates.lng, { path: "/" });
           Report.latitude = mylocation.coordinates.lat;
           Report.longitude = mylocation.coordinates.lng;
+          console.log("Coordinates have been Saved");
           navigate("/products");
         } else {
           alert(
@@ -90,6 +91,7 @@ export default function Maps() {
       setCookie("longitude", searchMarker.lng, { path: "/" });
       Report.latitude = searchMarker.lat;
       Report.longitude = searchMarker.lng;
+      console.log("Coordinates have been Saved");
       navigate("/products");
     } else {
       alert(

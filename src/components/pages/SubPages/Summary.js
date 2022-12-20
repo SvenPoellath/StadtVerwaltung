@@ -3,10 +3,8 @@ import "./Form.css";
 import Report from "../../globalVariables/Report";
 import Citizen from "../../globalVariables/Citizen";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
-import File from "../../globalVariables/File";
-import Description from "./Description";
 import HCaptcha from "react-hcaptcha";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../Button";
 import { useCookies } from "react-cookie";
 
@@ -36,28 +34,37 @@ export default function Summary() {
     removeCookies("description", { path: "/" });
     removeCookies("kindOfReport", { path: "/" });
     removeCookies("latitude", { path: "/" });
-    console.log(cookies.latitude);
+    console.log("cookies are removed");
     var citizenRequest = new XMLHttpRequest();
     citizenRequest.open("POST", "http://localhost:8080/citizens", false);
     citizenRequest.setRequestHeader("content-type", "application/json");
     citizenRequest.send(JSON.stringify(Citizen));
-    Citizen.citizenID = citizenRequest.responseText;
-    console.log(JSON.stringify(Citizen));
     var postRequest = new XMLHttpRequest();
     postRequest.open("POST", "http://localhost:8080/reports", false);
     postRequest.setRequestHeader("content-type", "application/json");
     postRequest.send(JSON.stringify(Report));
-    Report.id = postRequest.responseText;
-    if (
-      citizenRequest.responseText !== "" &&
-      citizenRequest.responseText !== ""
-    ) {
-      navigate("/idinfopage");
-    } else {
-      alert(
-        "Daten konnten nicht hochgeladen werden. Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support."
+
+    citizenRequest.onload = function () {
+      Citizen.citizenID = citizenRequest.responseText;
+      console.log(
+        "Request for adding a new Citizen has been send to the Database"
       );
-    }
+      console.log("CitizenID of new Citizen: " + Citizen.citizenID);
+      postRequest.onload = function () {
+        Report.id = postRequest.responseText;
+        console.log(
+          "Request for adding a new Report has been send to the Database"
+        );
+        console.log("ReportID of the new Report: " + Report.id);
+        if (citizenRequest.status === 200 && postRequest.status === 200) {
+          navigate("/idinfopage");
+        } else {
+          alert(
+            "Daten konnten nicht hochgeladen werden. Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support."
+          );
+        }
+      };
+    };
   };
   const onVerifyCaptcha = (token) => {
     setCookie("captchaToken", token, { path: "/" });
@@ -79,7 +86,7 @@ export default function Summary() {
         setImageResponseStatus(false);
       }
     };
-    console.log(cookies.pictureID);
+    console.log("PictureID: " + cookies.pictureID);
     imageRequest.responseType = "arraybuffer";
     imageRequest.open(
       "GET",
