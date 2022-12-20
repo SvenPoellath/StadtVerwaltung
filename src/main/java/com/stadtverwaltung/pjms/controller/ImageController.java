@@ -7,23 +7,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.print.attribute.standard.Media;
 import java.io.IOException;
 
+/**
+ * REST Controller for Image Management
+ */
 @RestController
 @CrossOrigin
+
 public class ImageController {
-
+    /**
+     * Connection to Databse
+     */
     private final ImagePersistence imagePersistence = new ImagePersistence();
-    private final AuthorizationController authorizationController = new AuthorizationController();
 
+    /**
+     * Sends image to frontend for display
+     * @param id imageID to load picture from file
+     * @return image as arraybuffer/bytestream/bytearray
+     */
     @GetMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getImage(@RequestParam String id) {
-        byte[] image = null;
+        byte[] image;
 
         try {
            image = imagePersistence.getImage(id);
         } catch(IOException ioException) {
+            throw new RuntimeException();
         }
 
         if (image != null) {
@@ -32,6 +42,12 @@ public class ImageController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    /**
+     * Saves picture sent by frontend in images folder
+     * @param imageFile image as an http multipartFile
+     * @return String with imageID
+     */
 
     @PostMapping(value = "/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> postImage(@RequestParam MultipartFile imageFile) {
@@ -43,18 +59,4 @@ public class ImageController {
         }
     }
 
-    @DeleteMapping(value = "/image")
-    public ResponseEntity<String> deleteImage(@RequestParam String id, @RequestHeader String employeeID, @RequestHeader String sessionID) {
-        String returnID = null;
-        try {
-            returnID = imagePersistence.deleteImage(id);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        if (returnID!=null) {
-            return ResponseEntity.ok(returnID);
-        } else {
-            return ResponseEntity.badRequest().build();
-        } 
-    }
 }
