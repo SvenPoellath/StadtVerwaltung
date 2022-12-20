@@ -74,7 +74,7 @@ export default function Maps() {
       if (mylocation.loaded && !mylocation.error) {
         if (
           49.438796 < mylocation.coordinates.lat < 49.563578 &&
-          8.274642 < mylocation.coordinates.lng < 8.415013
+          8.378561 < mylocation.coordinates.lng < 8.42719
         ) {
           setCookie("latitude", mylocation.coordinates.lat, { path: "/" });
           setCookie("longitude", mylocation.coordinates.lng, { path: "/" });
@@ -157,13 +157,13 @@ export default function Maps() {
                   closeResultsOnClick={true}
                   openSearchOnLoad={true}
                   bounds={[
-                    [49.438796, 8.415013],
+                    [49.438796, 8.42719],
                     [49.563578, 8.274642],
                   ]}
                   providerOptions={{
                     searchBounds: [
-                      new LatLng(49.438796, 8.415013),
-                      new LatLng(49.563578, 8.274642),
+                      new LatLng(49.542992, 8.458913),
+                      new LatLng(49.445922, 8.374184),
                     ],
                   }}
                 >
