@@ -16,6 +16,8 @@ export default function Form() {
     "citizenEmailAddress",
     "citizenPhoneNumber",
   ]);
+
+  //Creates Popup when user tries to reload the page to make the user aware that is might have consequences
   window.addEventListener("beforeunload", function (e) {
     navigate("/maps");
   });

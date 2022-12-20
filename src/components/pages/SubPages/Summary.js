@@ -14,7 +14,7 @@ import { useCookies } from "react-cookie";
  */
 export default function Summary() {
   const [imageResponseStatus, setImageResponseStatus] = useState(false);
-  const [cookies, setCookie, removeCookies] = useCookies([
+  const [cookies, setCookie] = useCookies([
     "latitude",
     "longitude",
     "citizenFirstName",
@@ -26,19 +26,19 @@ export default function Summary() {
     "pictureID",
     "captchaToken",
   ]);
+
   const navigate = useNavigate();
+
+  //Creates Popup when user tries to reload the page to make the user aware that is might have consequences
   window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
   });
+
+  //uploads new Report to Database
   const onClick = () => {
     //if(cookie.captchaToken !== undefined)
     //else{alert("Bitte füllen Sie das Captcha aus bevor Sie auf Abschicken klicken")}
-    removeCookies("citizenFirstName", { path: "/" });
-    removeCookies("pictureID", { path: "/" });
-    removeCookies("description", { path: "/" });
-    removeCookies("kindOfReport", { path: "/" });
-    removeCookies("latitude", { path: "/" });
-    console.log("cookies are removed");
+
     var citizenRequest = new XMLHttpRequest();
     citizenRequest.open("POST", "http://localhost:8080/citizens", false);
     citizenRequest.setRequestHeader("content-type", "application/json");
@@ -48,27 +48,23 @@ export default function Summary() {
     postRequest.setRequestHeader("content-type", "application/json");
     postRequest.send(JSON.stringify(Report));
 
-    citizenRequest.onload = function () {
-      Citizen.citizenID = citizenRequest.responseText;
-      console.log(
-        "Request for adding a new Citizen has been send to the Database"
+    Citizen.citizenID = citizenRequest.responseText;
+    console.log(
+      "Request for adding a new Citizen has been send to the Database"
+    );
+    console.log("CitizenID of new Citizen: " + Citizen.citizenID);
+    Report.id = postRequest.responseText;
+    console.log(
+      "Request for adding a new Report has been send to the Database"
+    );
+    console.log("ReportID of the new Report: " + Report.id);
+    if (citizenRequest.status === 200 && postRequest.status === 200) {
+      navigate("/idinfopage");
+    } else {
+      alert(
+        "Daten konnten nicht hochgeladen werden. Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support."
       );
-      console.log("CitizenID of new Citizen: " + Citizen.citizenID);
-      postRequest.onload = function () {
-        Report.id = postRequest.responseText;
-        console.log(
-          "Request for adding a new Report has been send to the Database"
-        );
-        console.log("ReportID of the new Report: " + Report.id);
-        if (citizenRequest.status === 200 && postRequest.status === 200) {
-          navigate("/idinfopage");
-        } else {
-          alert(
-            "Daten konnten nicht hochgeladen werden. Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support."
-          );
-        }
-      };
-    };
+    }
   };
   const onVerifyCaptcha = (token) => {
     setCookie("captchaToken", token, { path: "/" });
