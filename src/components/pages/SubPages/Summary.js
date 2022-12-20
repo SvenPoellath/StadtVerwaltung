@@ -12,7 +12,6 @@ import { useCookies } from "react-cookie";
 
 export default function Summary() {
   const [imageResponseStatus, setImageResponseStatus] = useState(false);
-  const [angabenVollständig, setAngebenVollständig] = useState(true);
   const [cookies, setCookie, removeCookies] = useCookies([
     "latitude",
     "longitude",
@@ -23,12 +22,15 @@ export default function Summary() {
     "description",
     "kindOfReport",
     "pictureID",
+    "captchaToken",
   ]);
   const navigate = useNavigate();
   window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
   });
   const onClick = () => {
+    //if(cookie.captchaToken !== undefined)
+    //else{alert("Bitte füllen Sie das Captcha aus bevor Sie auf Abschicken klicken")}
     removeCookies("citizenFirstName", { path: "/" });
     removeCookies("pictureID", { path: "/" });
     removeCookies("description", { path: "/" });
@@ -58,6 +60,7 @@ export default function Summary() {
     }
   };
   const onVerifyCaptcha = (token) => {
+    setCookie("captchaToken", token, { path: "/" });
     console.log("Verified");
   };
 
@@ -94,115 +97,121 @@ export default function Summary() {
     <div className="Container">
       <img src="icons/Stage 1.png" className="img-header img-header-map" />
       <table>
-        <tr>
-          <th>
-            <h2>Zusammenfassung Ihrer Angaben</h2>
-          </th>
-        </tr>
-        <tr>
-          <td>
-            <Map
-              className="summaryMap"
-              center={[cookies.latitude, cookies.longitude]}
-              zoom={13}
-              style={{ height: "400px" }}
-            >
-              <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              {angabenVollständig ? (
+        <thead>
+          <tr>
+            <th>
+              <h2>Zusammenfassung Ihrer Angaben</h2>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <Map
+                className="summaryMap"
+                center={[cookies.latitude, cookies.longitude]}
+                zoom={13}
+                style={{ height: "400px" }}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
                 <Marker position={[cookies.latitude, cookies.longitude]}>
                   <Popup>Ihre Standort-Angabe</Popup>
                 </Marker>
+              </Map>
+            </td>
+            <td>
+              {imageResponseStatus ? (
+                <img src={imageUrl} alt="img" className="summaryImage" />
               ) : (
-                <Navigate to="/maps" />
+                <label></label>
               )}
-            </Map>
-          </td>
-          <td>
-            {imageResponseStatus ? (
-              <img src={imageUrl} alt="img" className="summaryImage" />
-            ) : (
-              <label></label>
-            )}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label className="label Beschreibung-Text">Beschreibung</label>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label className="dataEntry">{cookies.description}</label>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <h3 className="header">Kontaktinformation</h3>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label className="label">Vorname</label>
-          </td>
-          <td>
-            <label className="label">Nachname</label>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label className="dataEntry">{cookies.citizenFirstName}</label>
-          </td>
-          <td>
-            <label className="dataEntry">{cookies.citizenLastName}</label>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label className="label">E-Mail</label>
-          </td>
-          <td>
-            <label className="label">Telefonnummer</label>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label className="dataEntry">{cookies.citizenEmailAddress}</label>
-          </td>
-          <td>
-            <label className="dataEntry">{cookies.citizenPhoneNumber}</label>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <Button buttonStyle="btn--outline" buttonLink="/maps">
-              Zurück
-            </Button>
-          </td>
-          <td>
-            <button
-              className="btn btn--outline btn--medium"
-              onClick={window.print}
-              style={{ marginTop: "20px" }}
-            >
-              Seite Drucken
-            </button>
-          </td>
-          <td>
-            <button
-              className="btn btn--outline btn--medium"
-              onClick={onClick}
-              style={{ marginTop: "20px" }}
-            >
-              Abschicken
-            </button>
-          </td>
-        </tr>
-        <tr></tr>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label className="label Beschreibung-Text">Beschreibung</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label className="dataEntry">{cookies.description}</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h3 className="header">Kontaktinformation</h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label className="label">Vorname</label>
+            </td>
+            <td>
+              <label className="label">Nachname</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label className="dataEntry">{cookies.citizenFirstName}</label>
+            </td>
+            <td>
+              <label className="dataEntry">{cookies.citizenLastName}</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label className="label">E-Mail</label>
+            </td>
+            <td>
+              <label className="label">Telefonnummer</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label className="dataEntry">{cookies.citizenEmailAddress}</label>
+            </td>
+            <td>
+              <label className="dataEntry">{cookies.citizenPhoneNumber}</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Button buttonStyle="btn--outline" buttonLink="/maps">
+                Zurück
+              </Button>
+            </td>
+            <td>
+              <button
+                className="btn btn--outline btn--medium"
+                onClick={window.print}
+                style={{ marginTop: "20px" }}
+              >
+                Seite Drucken
+              </button>
+            </td>
+            <td>
+              <button
+                className="btn btn--outline btn--medium"
+                onClick={onClick}
+                style={{ marginTop: "20px" }}
+              >
+                Abschicken
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {/* <HCaptcha
+                sitekey="49755cd2-2c21-40c3-ab7d-fe8ba9dd0d73"
+                onVerify={onVerifyCaptcha}
+              /> */}
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   );
 }
-/* <HCaptcha sitekey='49755cd2-2c21-40c3-ab7d-fe8ba9dd0d73' onVerify={onVerifyCaptcha}/> */

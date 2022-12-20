@@ -37,34 +37,38 @@ function IdSearchPage() {
     <div className="InfoPage-container">
       <form onSubmit={handleSubmit(searchReport)}>
         <table className="InfoPage-Text">
-          <tr>
-            <th>
-              <h1>Fall Suchen</h1>
-              <br></br>
-            </th>
-          </tr>
-          <tr>
-            <td>
-              <p>
-                Geben Sie die Fall ID ein die Sie Suchen möchten
-                <br />
-                <br />
-                Ihre Fall ID:{" "}
-                <input
-                  {...register("FallID", { required: true, maxLength: 20 })}
-                  type="text"
-                  placeholder="Fall ID"
-                />
-                <br />
-                <br />
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input type="submit" value="Fall Suchen" />
-            </td>
-          </tr>
+          <thead>
+            <tr>
+              <th>
+                <h1>Fall Suchen</h1>
+                <br></br>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <p>
+                  Geben Sie die Fall ID ein die Sie Suchen möchten
+                  <br />
+                  <br />
+                  Ihre Fall ID:{" "}
+                  <input
+                    {...register("FallID", { required: true, maxLength: 20 })}
+                    type="text"
+                    placeholder="Fall ID"
+                  />
+                  <br />
+                  <br />
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="submit" value="Fall Suchen" />
+              </td>
+            </tr>
+          </tbody>
         </table>
       </form>
     </div>

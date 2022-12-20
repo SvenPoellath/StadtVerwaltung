@@ -32,7 +32,6 @@ function Navbar() {
       removeCookies("employeeID", { path: "/" });
       removeCookies("sessionID", { path: "/" });
       setCookie("session", false, { path: "/" });
-      setCookie("session", false, { path: "/" });
       Session.isSet = false;
       console.log(cookies.session);
       navigate("/");
@@ -82,7 +81,17 @@ function Navbar() {
                 Problem Melden
               </Link>
             </li>
-
+            {Session.isSet ? (
+              <li className="nav-item">
+                <Link
+                  to="/reportOverview"
+                  className="nav-links"
+                  onClick={closeMobileMenu}
+                >
+                  Fall Übersicht
+                </Link>
+              </li>
+            ) : null}
             <li>
               <Link
                 to="/login"

@@ -51,48 +51,58 @@ export default function Description() {
       <img src="icons/Stage 3.png" className="img-header" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <table className="map-table">
-          <tr>
-            <td>
-              <label className="label Beschreibung-Text">
-                Beschreiben Sie den Mängel*
+          <thead>
+            <tr>
+              <td>
+                <label className="label Beschreibung-Text">
+                  Beschreiben Sie den Mängel*
+                </label>
+              </td>
+              <label className="label">
+                Sie können auch ein Bild hinzufügen
               </label>
-            </td>
-            <label className="label">Sie können auch ein Bild hinzufügen</label>
-          </tr>
-          <tr>
-            <td>
-              <textarea
-                {...register("description", {
-                  pattern: /^[a-zA-Z0-9äöüÄÖÜß.,:;!?() -]*$/,
-                })}
-                type="textarea"
-                className="textbox Beschreibung-TextBox"
-                placeholder="Beschreibung"
-                required={true}
-              />
-            </td>
-            <td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <textarea
+                  {...register("description", {
+                    pattern: /^[a-zA-Z0-9äöüÄÖÜß.,:;!?() -]*$/,
+                  })}
+                  type="textarea"
+                  className="textbox Beschreibung-TextBox"
+                  placeholder="Beschreibung"
+                  required={true}
+                />
+              </td>
+              <td>
+                <input
+                  name="Bild auswählen"
+                  type="file"
+                  onChange={fileSelectedHandler}
+                />
+                <input
+                  type="button"
+                  style={{
+                    background: "white",
+                    padding: 0,
+                    borderRadius: "5px",
+                  }}
+                  value="Hochladen"
+                  onClick={uploadImage}
+                />
+              </td>
+            </tr>
+            <tr>(*)Pflichtfelder</tr>
+            <tr>
               <input
-                name="Bild auswählen"
-                type="file"
-                onChange={fileSelectedHandler}
+                className="btns btn--outline"
+                type="submit"
+                value="Weiter"
               />
-              <input
-                type="button"
-                style={{
-                  background: "white",
-                  padding: 0,
-                  borderRadius: "5px",
-                }}
-                value="Hochladen"
-                onClick={uploadImage}
-              />
-            </td>
-          </tr>
-          <tr>(*)Pflichtfelder</tr>
-          <tr>
-            <input className="btns btn--outline" type="submit" value="Weiter" />
-          </tr>
+            </tr>
+          </tbody>
         </table>
       </form>
     </div>
