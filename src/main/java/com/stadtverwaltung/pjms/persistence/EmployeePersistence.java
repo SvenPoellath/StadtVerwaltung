@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class EmployeePersistence {
-    private SQLiteDatabase sqLiteDatabase = new SQLiteDatabase();
-    private SHA512PasswordPersistence sha512PasswordPersistence = new SHA512PasswordPersistence();
+    private final SQLiteDatabase sqLiteDatabase = new SQLiteDatabase();
+    private final SHA512PasswordPersistence sha512PasswordPersistence = new SHA512PasswordPersistence();
 
     public String checkLogin(LoginData loginData) throws SQLException {
         String securePassword = null;

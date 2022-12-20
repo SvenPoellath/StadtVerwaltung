@@ -5,17 +5,15 @@ import com.stadtverwaltung.pjms.persistence.ReportPersistence;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.print.attribute.standard.Media;
 import java.sql.SQLException;
 import java.util.List;
 
 @RestController
 @CrossOrigin
 public class ReportController {
-    private ReportPersistence reportPersistence = new ReportPersistence();
-    private JSONController jsonController = new JSONController();
-    private AuthorizationController authorizationController = new AuthorizationController();
+    private final ReportPersistence reportPersistence = new ReportPersistence();
+    private final JSONController jsonController = new JSONController();
+    private final AuthorizationController authorizationController = new AuthorizationController();
 
     @GetMapping(value = "/reports", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Report>> getReports() {
@@ -23,7 +21,7 @@ public class ReportController {
             try {
                 reports = reportPersistence.getReportsFromDB();
             } catch (SQLException e) {
-
+                throw new RuntimeException(e);
             }
             if (reports == null) {
                 return ResponseEntity.notFound().build();
@@ -69,7 +67,7 @@ public class ReportController {
     @PostMapping(value = "comment", consumes = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<Report> postComment (@RequestParam String id, @RequestBody String comment, @RequestHeader String employeeID, @RequestHeader String sessionID) {
         if (authorizationController.hasAuthorization(employeeID,sessionID)) {
-            String returnID = null;
+            String returnID;
             try {
                 returnID = reportPersistence.updateComment(id,comment);
             } catch (SQLException e) {
@@ -87,9 +85,9 @@ public class ReportController {
     }
 
     @PutMapping(value = "/comment", consumes = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<Report> lupdateComment(@RequestParam String id, @RequestBody String comment, @RequestHeader String employeeID, @RequestHeader String sessionID) {
+    public ResponseEntity<Report> updateComment(@RequestParam String id, @RequestBody String comment, @RequestHeader String employeeID, @RequestHeader String sessionID) {
         if (authorizationController.hasAuthorization(employeeID,sessionID)) {
-            String returnID = null;
+            String returnID;
             try {
                 returnID = reportPersistence.updateComment(id,comment);
             } catch (SQLException e) {
@@ -109,7 +107,7 @@ public class ReportController {
     @PutMapping(value = "/status", consumes = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<Report> putReportStatus(@RequestParam String id, @RequestBody String status, @RequestHeader String employeeID, @RequestHeader String sessionID) {
         if (authorizationController.hasAuthorization(employeeID,sessionID)) {
-            String returnID = null;
+            String returnID;
             try {
                 returnID = reportPersistence.updateStatus(id,status);
             } catch (SQLException e) {

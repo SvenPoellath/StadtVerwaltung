@@ -1,14 +1,14 @@
 package com.stadtverwaltung.pjms.persistence;
 
-import org.apache.commons.io.IOUtils;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+
 
 public class ImagePersistence {
 
@@ -42,7 +42,7 @@ public class ImagePersistence {
 
     }
 
-    public String generateID() {
+    private String generateID() {
         String id;
         do {
             id = RandomStringUtils.randomAlphanumeric(12);

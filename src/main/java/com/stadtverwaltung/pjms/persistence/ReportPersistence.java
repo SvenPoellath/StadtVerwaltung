@@ -1,6 +1,5 @@
 package com.stadtverwaltung.pjms.persistence;
 
-import com.stadtverwaltung.pjms.controller.AuthorizationController;
 import com.stadtverwaltung.pjms.model.Report;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class ReportPersistence {
     private final SQLiteDatabase sqliteDatabase = new SQLiteDatabase();
-    private Logger logger = LoggerFactory.getLogger(ReportPersistence.class);
+    private final Logger logger = LoggerFactory.getLogger(ReportPersistence.class);
 
     public List<Report> getReportsFromDB() throws SQLException {
         List<Report> reportList = new ArrayList<>();
@@ -28,12 +27,13 @@ public class ReportPersistence {
     }
 
     public Report getReportFromDB(String reportID) throws SQLException {
-        Report returnReport;
+        Report returnReport = null;
         PreparedStatement selectReportStatement = sqliteDatabase.getConnection().prepareStatement("SELECT * FROM reports LEFT JOIN citizens USING(citizenID) LEFT JOIN employees USING(employeeID) WHERE reportID = ?");
         selectReportStatement.setString(1,reportID);
         ResultSet resultSet = selectReportStatement.executeQuery();
-        resultSet.next();
-        returnReport = mapReport(resultSet);
+        if(resultSet.next()) {
+            returnReport = mapReport(resultSet);
+        }
         return returnReport;
     }
 

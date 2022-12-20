@@ -35,5 +35,6 @@ build/
 *.sqlite
 
 ### Image Files and Folder ###
-/images
+/images/*
+!/images/sampleImage.jpeg
 

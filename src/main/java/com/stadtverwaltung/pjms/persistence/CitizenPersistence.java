@@ -3,10 +3,7 @@ package com.stadtverwaltung.pjms.persistence;
 import com.stadtverwaltung.pjms.model.Citizen;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CitizenPersistence {
     private final SQLiteDatabase sqliteDatabase = new SQLiteDatabase();
@@ -25,27 +22,4 @@ public class CitizenPersistence {
             return null;
         }
     }
-
-    public List<Citizen> getCitizensFromDB() throws SQLException {
-        List<Citizen> citizenList = new ArrayList<>();
-        PreparedStatement selectStatement = sqliteDatabase.getConnection().prepareStatement("SELECT * FROM citizens");
-        ResultSet resultSet = selectStatement.executeQuery();
-
-        while (resultSet.next()) {
-            citizenList.add(mapCitizen(resultSet));
-        }
-
-        return citizenList;
-    }
-
-    private Citizen mapCitizen(ResultSet resultSet) throws SQLException {
-        Citizen returnCitizen = new Citizen();
-        returnCitizen.citizenID = resultSet.getString("citizenID");
-        returnCitizen.citizenFirstName =resultSet.getString("citizenFirstName");
-        returnCitizen.citizenLastName =resultSet.getString("citizenLastName");
-        returnCitizen.citizenEmailAddress =resultSet.getString("citizenEmailAddress");
-        returnCitizen.citizenPhoneNumber =resultSet.getString("citizenPhoneNumber");
-        return returnCitizen;
-    }
-
 }
