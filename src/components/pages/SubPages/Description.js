@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 import Report from "../../globalVariables/Report";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+
+/**
+ * Displays Description Page, sets Description and Uploads a Picture if it is needed
+ * @returns Description Page
+ */
 export default function Description() {
   const [cookies, setCookie] = useCookies(["description", "pictureID"]);
   const [image, setImage] = useState(null);
@@ -20,6 +25,7 @@ export default function Description() {
     console.log("Description: " + Report.description);
     navigate("/form");
   };
+  //Sets image Variable
   const fileSelectedHandler = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(event.target.files[0]);
