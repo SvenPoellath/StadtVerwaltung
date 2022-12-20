@@ -1,8 +1,11 @@
 import React from "react";
 import "./Footer.css";
-import { Button } from "./Button";
 import { Link } from "react-router-dom";
 
+/**
+ * Not Customizable Component which is present on every Page
+ * @returns Footer Component
+ */
 function Footer() {
   return (
     <div className="footer-container">

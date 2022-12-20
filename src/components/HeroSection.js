@@ -3,6 +3,10 @@ import "../App.css";
 import { Button } from "./Button";
 import "./HeroSection.css";
 
+/**
+ * Single Use and not customizable Component for Starting Page
+ * @returns HeroSection Component
+ */
 function HeroSection() {
   return (
     <div className="hero-container">

@@ -8,6 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../Button";
 import { useCookies } from "react-cookie";
 
+/**
+ * Loads all previously entered Data and displays them in a Summary Page
+ * @returns Summary Page
+ */
 export default function Summary() {
   const [imageResponseStatus, setImageResponseStatus] = useState(false);
   const [cookies, setCookie, removeCookies] = useCookies([

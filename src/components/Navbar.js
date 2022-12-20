@@ -7,6 +7,10 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import Session from "./globalVariables/Session";
 
+/**
+ * Non-customizable Component which is present on every Page
+ * @returns Navbar Component
+ */
 function Navbar() {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookies] = useCookies([
@@ -27,21 +31,20 @@ function Navbar() {
       setButton(true);
     }
   };
+
+  //Manages Employee Login Button
   const mitarbeiterLogging = () => {
     if (Session.isSet) {
       removeCookies("employeeID", { path: "/" });
       removeCookies("sessionID", { path: "/" });
       setCookie("session", false, { path: "/" });
       Session.isSet = false;
-      console.log(cookies.session);
+      console.log("Session Cookie: " + cookies.sessionID);
       navigate("/");
     } else {
-      console.log(cookies.session);
+      console.log("Session Cookie: " + cookies.sessionID);
       navigate("/login");
     }
-  };
-  const loginButtonChange = () => {
-    return cookies.session ? "Logout" : "Mitarbeiter anmeldung";
   };
   useEffect(() => {
     showButton();

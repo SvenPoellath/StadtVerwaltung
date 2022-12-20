@@ -1,4 +1,8 @@
 import "./InfoPages.css";
+/**
+ * Displays the Impressum Page to be on the Safe Side legally
+ * @returns Impressum Page
+ */
 function Impressum() {
   return (
     <div className="InfoPage-container">

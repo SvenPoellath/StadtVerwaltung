@@ -1,4 +1,7 @@
 import Citizen from "./Citizen";
+/**
+ * Global Variable to temporarily store Report Data
+ */
 const Report = {
   id: null,
   latitude: null,

@@ -1,5 +1,9 @@
 import Report from "../../globalVariables/Report";
 import "../InfoPages/InfoPages.css";
+/**
+ * Contains useful Information including the ReportID of the previously created Report
+ * @returns IdInfoPage
+ */
 function IdInfoPage() {
   return (
     <div className="InfoPage-container">

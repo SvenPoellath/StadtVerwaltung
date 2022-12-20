@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "./components/Navbar";
 import "./App.css";
 import Home from "./components/pages/MainPages/Home";
@@ -24,8 +24,11 @@ import IdSearchPage from "./components/pages/InfoPages/InfoSearch";
 import ReportOverview from "./components/pages/MainPages/ReportOverview";
 import SearchResult from "./components/pages/InfoPages/SearchResult";
 import { useCookies } from "react-cookie";
-import Report from "./components/globalVariables/Report";
 
+/**
+ * Manages the Routing between Pages
+ * @returns Current Displayed Page
+ */
 function App() {
   const [cookies, setCookie] = useCookies([
     "session",
@@ -34,14 +37,17 @@ function App() {
     "description",
     "citizenFirstName",
   ]);
+  //Responsible for not letting anyone browse Pages they are not permitted to see
   const PrivateRoutes = () => {
-    console.log(cookies.session);
+    console.log("Employee logged in? " + cookies.session);
     if (cookies.session !== "false") {
       return <Outlet />;
     } else {
       return <Navigate to="/" />;
     }
   };
+
+  //Responsible for not letting People submit uncomplete Reports
   const CriticalRoutes = () => {
     console.log(cookies.latitude);
     if (

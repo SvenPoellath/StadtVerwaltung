@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 import Citizen from "../../globalVariables/Citizen";
 import { useCookies } from "react-cookie";
 
+/**
+ * Displays Form Page, checks Data with tools fron react-hook-form and sets Citizen Data
+ * @returns Form Page
+ */
 export default function Form() {
   const [cookies, setCookie] = useCookies([
     "citizenFirstName",

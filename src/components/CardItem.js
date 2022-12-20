@@ -3,6 +3,11 @@ import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import Report from "./globalVariables/Report";
 
+/**
+ * Creates Custom CardItem Component and returns it
+ * @param {Object} props contains multiple strings for custimization
+ * @returns CardItem Component
+ */
 function CardItem(props) {
   const [cookies, setCookie] = useCookies(["kindOfReport"]);
   const onClick = () => {

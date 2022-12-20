@@ -2,6 +2,11 @@ import Report from "../../globalVariables/Report";
 import "./InfoPages.css";
 import { useState, useEffect } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+
+/**
+ * Displays all needed Information regarding the searched Report
+ * @returns SearchResult Page
+ */
 function SearchResult() {
   const [imageResponseStatus, setImageResponseStatus] = useState(false);
   const [imageData, setImageData] = useState(null);

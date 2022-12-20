@@ -1,3 +1,6 @@
+/**
+ * Global Variable to temporarily store Citizen Data
+ */
 const Citizen = {
   citizenID: null,
   citizenFirstName: null,

@@ -8,6 +8,10 @@ import { useNavigate } from "react-router-dom";
 import Report from "../../globalVariables/Report";
 import { useCookies } from "react-cookie";
 
+/**
+ * Displays Maps Page and saves coordinates of the Report Location
+ * @returns Maps Page
+ */
 export default function Maps() {
   const navigate = useNavigate();
   const [searchMarker, setSearchMarker] = useState();
