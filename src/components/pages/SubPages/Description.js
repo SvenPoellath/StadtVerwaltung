@@ -16,6 +16,8 @@ export default function Description() {
   const onSubmit = (data) => {
     setCookie("description", data.description, { path: "/" });
     Report.description = data.description;
+    console.log("Data is stored in Cookies and Global Variables");
+    console.log("Description: " + Report.description);
     navigate("/form");
   };
   const fileSelectedHandler = (event) => {
