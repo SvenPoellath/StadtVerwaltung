@@ -58,7 +58,7 @@ function App() {
     ) {
       return <Outlet />;
     } else {
-      return <Navigate to="/idinfopage" />;
+      return <Navigate to="/" />;
     }
   };
   return (
