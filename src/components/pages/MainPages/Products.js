@@ -2,6 +2,10 @@ import React from "react";
 import "./Products.css";
 import "../../Cards.css";
 import CardItem from "../../CardItem";
+/**
+ * Contains Products Page
+ * @returns Products Page
+ */
 export default function Products() {
   return (
     <div className="report-container">

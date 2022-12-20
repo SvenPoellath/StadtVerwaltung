@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 import Citizen from "../../globalVariables/Citizen";
 import { useCookies } from "react-cookie";
 
+/**
+ * Displays Form Page, checks Data with tools fron react-hook-form and sets Citizen Data
+ * @returns Form Page
+ */
 export default function Form() {
   const [cookies, setCookie] = useCookies([
     "citizenFirstName",
@@ -12,6 +16,8 @@ export default function Form() {
     "citizenEmailAddress",
     "citizenPhoneNumber",
   ]);
+
+  //Creates Popup when user tries to reload the page to make the user aware that is might have consequences
   window.addEventListener("beforeunload", function (e) {
     navigate("/maps");
   });

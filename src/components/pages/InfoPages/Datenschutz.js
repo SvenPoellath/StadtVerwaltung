@@ -1,4 +1,8 @@
 import "./InfoPages.css";
+/**
+ * Displays the Datenschutz Page to be on the Safe Side legally
+ * @returns Datenschutz Page
+ */
 function Datenschutz() {
   return (
     <div className="InfoPage-container">

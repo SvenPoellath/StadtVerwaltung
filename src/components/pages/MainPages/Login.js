@@ -6,6 +6,10 @@ import { useNavigate } from "react-router-dom";
 import Employee from "../../globalVariables/Employee";
 import { useCookies } from "react-cookie";
 
+/**
+ * Displays Login Page and sets cookies for Session Control
+ * @returns Login Page
+ */
 export default function Login() {
   const [cookies, setCookie, removeCookies] = useCookies([
     "sessionID",
@@ -14,6 +18,8 @@ export default function Login() {
   ]);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+
+  // Does Login
   const onSubmit = (data) => {
     const anmeldedaten = {
       employeeID: data.username,

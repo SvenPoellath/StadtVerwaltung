@@ -1,6 +1,23 @@
+import { useCookies } from "react-cookie";
 import Report from "../../globalVariables/Report";
 import "../InfoPages/InfoPages.css";
+/**
+ * Contains useful Information including the ReportID of the previously created Report
+ * @returns IdInfoPage
+ */
 function IdInfoPage() {
+  const [cookies, setCookie, removeCookies] = useCookies([
+    "latitude",
+    "citizenFirstName",
+    "description",
+    "kindOfReport",
+  ]);
+  removeCookies("citizenFirstName", { path: "/" });
+  removeCookies("pictureID", { path: "/" });
+  removeCookies("description", { path: "/" });
+  removeCookies("kindOfReport", { path: "/" });
+  removeCookies("latitude", { path: "/" });
+  console.log("cookies are removed");
   return (
     <div className="InfoPage-container">
       <table className="InfoPage-Text">

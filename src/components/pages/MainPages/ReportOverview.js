@@ -20,6 +20,13 @@ import {
   usePagination,
 } from "react-table";
 import { matchSorter } from "match-sorter";
+/**
+ * Loads all Reports and Show them in a Table
+ * By clicking in a Row a popup shows which shows the indivitual Report
+ * It allows to delete or alter a Report
+ * Changes can be sent to the Backend
+ * @returns ReportOverview Page
+ */
 export default function ReportOverview() {
   var loadReportsRequest = new XMLHttpRequest();
   loadReportsRequest.open("GET", "http://localhost:8080/reports", false);

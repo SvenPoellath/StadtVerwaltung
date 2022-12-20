@@ -2,10 +2,14 @@ import Report from "../../globalVariables/Report";
 import { useForm } from "react-hook-form";
 import "./InfoPages.css";
 import { useNavigate } from "react-router-dom";
+/**
+ * Displays the IdSearch Page and Pulls the Report of the entered ReportID from the Database if the ReportID is correct
+ * @returns IdSearchPage
+ */
 function IdSearchPage() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-
+  // Pulls the Report of the entered ReportID from the Database if the ReportID is correct
   const searchReport = (data) => {
     var postRequest = new XMLHttpRequest();
     var url = "http://localhost:8080/report?id=" + data.FallID;
