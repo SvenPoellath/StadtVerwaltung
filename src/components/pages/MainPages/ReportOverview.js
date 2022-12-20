@@ -5,10 +5,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "./ReportOverview.css";
 import { useCookies } from "react-cookie";
-import Employee from "../../globalVariables/Employee";
 import Citizen from "../../globalVariables/Citizen";
 import Report from "../../globalVariables/Report";
-import Comment from "../../globalVariables/Comment";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import Select from "react-select";
 import {
@@ -22,7 +20,6 @@ import {
   usePagination,
 } from "react-table";
 import { matchSorter } from "match-sorter";
-import Session from "../../globalVariables/Session";
 export default function ReportOverview() {
   var loadReportsRequest = new XMLHttpRequest();
   loadReportsRequest.open("GET", "http://localhost:8080/reports", false);
@@ -40,7 +37,6 @@ export default function ReportOverview() {
     { value: "In Bearbeitung", label: "In Bearbeitung" },
   ];
   const deleteReport = (data) => {
-    console.log(cookies.sessionID);
     var deleteRequest = new XMLHttpRequest();
     deleteRequest.open(
       "DELETE",
@@ -50,34 +46,43 @@ export default function ReportOverview() {
     deleteRequest.setRequestHeader("sessionID", cookies.sessionID);
     deleteRequest.setRequestHeader("employeeID", cookies.employeeID);
     deleteRequest.send();
-    togglePopup();
+    console.log("Request to delete Report has been send");
+    console.log("ReportID: " + Report.id);
+    if (deleteRequest.status === 200) {
+      console.log("Report deleted");
+      togglePopup();
+    } else {
+      alert(
+        "Etwas ist schiefgelaufen bitte versuchen Sie es erneut oder kontaktieren Sie den Support"
+      );
+    }
   };
   const sendChanges = (data) => {
-    console.log(data.comment);
-    console.log(Session.token);
     var request = new XMLHttpRequest();
-    if (Report.comment != "") {
-      request.open(
-        "PUT",
-        "http://localhost:8080/comment?id=" + Report.id,
-        false
-      );
-      request.setRequestHeader("sessionID", cookies.sessionID);
-      request.setRequestHeader("employeeID", cookies.employeeID);
-      request.setRequestHeader("Content-Type", "text/plain");
-      request.send(data.comment);
-    } else {
-      request.open(
-        "POST",
-        "http://localhost:8080/comment?id=" + Report.id,
-        false
-      );
-      request.setRequestHeader("sessionID", cookies.sessionID);
-      request.setRequestHeader("employeeID", cookies.employeeID);
-      request.setRequestHeader("Content-Type", "text/plain");
-      request.send(data.comment);
+    if (data.comment !== "") {
+      if (Report.comment !== null) {
+        request.open(
+          "PUT",
+          "http://localhost:8080/comment?id=" + Report.id,
+          false
+        );
+        request.setRequestHeader("sessionID", cookies.sessionID);
+        request.setRequestHeader("employeeID", cookies.employeeID);
+        request.setRequestHeader("Content-Type", "text/plain");
+        request.send(data.comment);
+      } else {
+        request.open(
+          "POST",
+          "http://localhost:8080/comment?id=" + Report.id,
+          false
+        );
+        request.setRequestHeader("sessionID", cookies.sessionID);
+        request.setRequestHeader("employeeID", cookies.employeeID);
+        request.setRequestHeader("Content-Type", "text/plain");
+        request.send(data.comment);
+      }
+      console.log("Request to change the Comment has been send");
     }
-    console.log(request.responseText);
     var statusupdate = new XMLHttpRequest();
     statusupdate.open(
       "PUT",
@@ -87,15 +92,27 @@ export default function ReportOverview() {
     statusupdate.setRequestHeader("sessionID", cookies.sessionID);
     statusupdate.setRequestHeader("employeeID", cookies.employeeID);
     statusupdate.send(status.label);
-    console.log(statusupdate.responseText);
+    console.log("Request to change Status has been send");
+    console.log("ReportID: " + Report.id);
+    console.log("Comment: " + data.comment);
+    console.log("Report Status: " + status.label);
     Report.comment = data.comment;
     Report.status = status.label;
-    togglePopup();
+    if (
+      (request.status === 200 || data.comment === "") &&
+      statusupdate.status === 200
+    ) {
+      console.log("Requests were successful");
+      togglePopup();
+    } else {
+      alert(
+        "Etwas ist schiefgelaufen bitte versuchen Sie es erneut oder kontaktieren Sie den Support"
+      );
+    }
   };
   const popupHandler = (rowProps) => {
-    console.log("hallo");
-    console.log(cookies.sessionID);
-    console.log(rowProps);
+    console.log("Klick on Row detected");
+    console.log("Data of klicked Row: " + rowProps);
     Report.id = rowProps.reportID;
     Report.kindOfReport = rowProps.kindOfReport;
     Report.status = rowProps.status;
@@ -108,19 +125,19 @@ export default function ReportOverview() {
     Citizen.citizenLastName = rowProps.citizen.citizenLastName;
     Citizen.citizenEmailAddress = rowProps.citizen.citizenEmailAddress;
     Citizen.citizenPhoneNumber = rowProps.citizen.citizenPhoneNumber;
-    console.log(Report);
     changeStatus({ value: Report.status, label: Report.status });
-    console.log(status);
     const imageRequest = new XMLHttpRequest();
     imageRequest.responseType = "arraybuffer";
     imageRequest.open(
       "GET",
       "http://localhost:8080/image?id=" + Report.pictureID
     );
+    console.log("Image Request has been send");
     imageRequest.onload = function () {
       console.log("Server response: " + imageRequest.response);
       setImageData(imageRequest.response);
       if (imageRequest.status === 200) {
+        console.log("Image Request was successful");
         setImageResponseStatus(true);
       } else {
         setImageResponseStatus(false);
@@ -350,162 +367,170 @@ export default function ReportOverview() {
             <div className="popup_inner">
               <form onSubmit={handleSubmit(sendChanges)}>
                 <table>
-                  <tr>
-                    <th>
-                      <h2>Zusammenfassung</h2>
-                    </th>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label>Fall ID</label>
-                    </td>
-                    <td>
-                      <label>Status</label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label className="dataEntry">{Report.id}</label>
-                    </td>
-                    <td>
-                      <Select
-                        onChange={(choice) => changeStatus(choice)}
-                        //onChange={(e) => changeStatus(e.target.value)}
-                        options={options}
-                        defaultValue={status}
-                        theme={(theme) => ({
-                          ...theme,
-                          borderRadius: 0,
-                          colors: {
-                            ...theme.colors,
-                            primary25: "black",
-                            primary: "black",
-                            neutral0: "grey",
-                          },
-                        })}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <Map
-                        className="summaryMap"
-                        center={[Report.latitude, Report.longitude]}
-                        zoom={13}
-                        style={{ height: "200px" }}
-                      >
-                        <TileLayer
-                          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  <thead>
+                    <tr>
+                      <th>
+                        <h2>Zusammenfassung</h2>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <label>Fall ID</label>
+                      </td>
+                      <td>
+                        <label>Status</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label className="dataEntry">{Report.id}</label>
+                      </td>
+                      <td>
+                        <Select
+                          onChange={(choice) => changeStatus(choice)}
+                          //onChange={(e) => changeStatus(e.target.value)}
+                          options={options}
+                          defaultValue={status}
+                          theme={(theme) => ({
+                            ...theme,
+                            borderRadius: 0,
+                            colors: {
+                              ...theme.colors,
+                              primary25: "black",
+                              primary: "black",
+                              neutral0: "grey",
+                            },
+                          })}
                         />
-                        <Marker position={[Report.latitude, Report.longitude]}>
-                          <Popup>Ihre Standort-Angabe</Popup>
-                        </Marker>
-                      </Map>
-                    </td>
-                    <td>
-                      {imageResponseStatus ? (
-                        <img
-                          src={imageURL}
-                          alt="img"
-                          width="500px"
-                          height="400px"
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <Map
+                          className="summaryMap"
+                          center={[Report.latitude, Report.longitude]}
+                          zoom={13}
+                          style={{ height: "200px" }}
+                        >
+                          <TileLayer
+                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                          />
+                          <Marker
+                            position={[Report.latitude, Report.longitude]}
+                          >
+                            <Popup>Ihre Standort-Angabe</Popup>
+                          </Marker>
+                        </Map>
+                      </td>
+                      <td>
+                        {imageResponseStatus ? (
+                          <img
+                            src={imageURL}
+                            alt="img"
+                            width="500px"
+                            height="400px"
+                          />
+                        ) : (
+                          <label></label>
+                        )}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label className="label Beschreibung-Text">
+                          Beschreibung
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label className="dataEntry">
+                          {Report.description}
+                        </label>
+                      </td>
+                      <td>
+                        <textarea
+                          {...register("comment")}
+                          type="textarea"
+                          className="textbox Vorname-TextBox"
+                          defaultValue={Report.comment}
+                        ></textarea>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <h3 className="header">Kontaktinformation</h3>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label className="label">Vorname</label>
+                      </td>
+                      <td>
+                        <label className="label">Nachname</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label className="dataEntry">
+                          {Citizen.citizenFirstName}
+                        </label>
+                      </td>
+                      <td>
+                        <label className="dataEntry">
+                          {Citizen.citizenLastName}
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label className="label">E-Mail</label>
+                      </td>
+                      <td>
+                        <label className="label">Telefonnummer</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label className="dataEntry">
+                          {Citizen.citizenEmailAddress}
+                        </label>
+                      </td>
+                      <td>
+                        <label className="dataEntry">
+                          {Citizen.citizenPhoneNumber}
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <button
+                          className="btns btn--outlin btn--medium"
+                          onClick={togglePopup}
+                        >
+                          Schließen
+                        </button>
+                      </td>
+                      <td>
+                        <input
+                          className="btns btn--outline btn--medium"
+                          type="submit"
+                          value="Speichern"
                         />
-                      ) : (
-                        <label></label>
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label className="label Beschreibung-Text">
-                        Beschreibung
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label className="dataEntry">{Report.description}</label>
-                    </td>
-                    <td>
-                      <textarea
-                        {...register("comment")}
-                        type="textarea"
-                        className="textbox Vorname-TextBox"
-                        defaultValue={Report.comment}
-                      ></textarea>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h3 className="header">Kontaktinformation</h3>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label className="label">Vorname</label>
-                    </td>
-                    <td>
-                      <label className="label">Nachname</label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label className="dataEntry">
-                        {Citizen.citizenFirstName}
-                      </label>
-                    </td>
-                    <td>
-                      <label className="dataEntry">
-                        {Citizen.citizenLastName}
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label className="label">E-Mail</label>
-                    </td>
-                    <td>
-                      <label className="label">Telefonnummer</label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label className="dataEntry">
-                        {Citizen.citizenEmailAddress}
-                      </label>
-                    </td>
-                    <td>
-                      <label className="dataEntry">
-                        {Citizen.citizenPhoneNumber}
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <button
-                        className="btns btn--outlin btn--medium"
-                        onClick={togglePopup}
-                      >
-                        Schließen
-                      </button>
-                    </td>
-                    <td>
-                      <input
-                        className="btns btn--outline btn--medium"
-                        type="submit"
-                        value="Speichern"
-                      />
-                    </td>
-                    <td>
-                      <button
-                        className="btns btn--outline btn--medium"
-                        onClick={handleSubmit(deleteReport)}
-                      >
-                        Löschen
-                      </button>
-                    </td>
-                  </tr>
+                      </td>
+                      <td>
+                        <button
+                          className="btns btn--outline btn--medium"
+                          onClick={handleSubmit(deleteReport)}
+                        >
+                          Löschen
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </form>
             </div>

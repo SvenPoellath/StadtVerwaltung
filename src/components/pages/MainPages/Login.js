@@ -24,8 +24,9 @@ export default function Login() {
     postRequest.open("POST", "http://localhost:8080/doLogin", false);
     postRequest.setRequestHeader("content-type", "application/json");
     postRequest.send(JSON.stringify(anmeldedaten));
-    console.log(postRequest.responseText);
-    if (postRequest.responseText != "") {
+    console.log("Response from Server: " + postRequest.responseText);
+    if (postRequest.status === 200) {
+      console.log("Login was successful");
       Employee.id = data.username;
       Session.token = postRequest.responseText;
       Session.isSet = true;
@@ -33,8 +34,8 @@ export default function Login() {
       setCookie("session", true, { path: "/" });
       setCookie("sessionID", Session.token, { path: "/" });
       setCookie("employeeID", Employee.id, { path: "/" });
-      console.log(cookies.employeeID);
-      console.log(cookies.sessionID);
+      console.log("SessionID for verification is Stored in Cookies");
+      console.log("EmployeeID of Logged in Employee: " + cookies.employeeID);
       navigate("/reportoverview");
     } else {
       alert("Wrong Password or Username");

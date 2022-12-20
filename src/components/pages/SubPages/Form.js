@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Form.css";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +28,8 @@ export default function Form() {
     Citizen.citizenLastName = data.lastName;
     Citizen.citizenEmailAddress = data.email;
     Citizen.citizenPhoneNumber = data.phoneNumber;
+    console.log("Data is stored in Cookies and Global Variables");
+    console.log("Citizen Records: " + Citizen);
     navigate("/summary");
   };
   return (

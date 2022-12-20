@@ -1,6 +1,4 @@
-import Search from "react-leaflet-search/lib";
 import Report from "../../globalVariables/Report";
-import Comment from "../../globalVariables/Comment";
 import { useForm } from "react-hook-form";
 import "./InfoPages.css";
 import { useNavigate } from "react-router-dom";

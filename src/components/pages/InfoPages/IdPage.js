@@ -1,9 +1,6 @@
 import Report from "../../globalVariables/Report";
 import "../InfoPages/InfoPages.css";
 function IdInfoPage() {
-  const print = () => {
-    window.print();
-  };
   return (
     <div className="InfoPage-container">
       <table className="InfoPage-Text">
@@ -30,7 +27,7 @@ function IdInfoPage() {
         </tr>
         <tr>
           <td>
-            <button onClick={print}>Seite Drucken</button>
+            <button onClick={window.print}>Seite Drucken</button>
           </td>
         </tr>
       </table>
