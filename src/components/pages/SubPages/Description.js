@@ -13,6 +13,8 @@ import { useCookies } from "react-cookie";
 export default function Description() {
   const [cookies, setCookie] = useCookies(["description", "pictureID"]);
   const [image, setImage] = useState(null);
+
+  //Creates Popup when user tries to reload the page to make the user aware that is might have consequences
   window.addEventListener("beforeunload", function (e) {
     e.preventDefault();
   });
