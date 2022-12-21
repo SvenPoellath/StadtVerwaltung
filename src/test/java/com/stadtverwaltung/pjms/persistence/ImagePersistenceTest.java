@@ -31,20 +31,4 @@ class ImagePersistenceTest {
         assertNotNull(returnImage);
 
     }
-
-    @Test
-    void deleteImage() {
-        try {
-            imagePersistence.deleteImage(returnID);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        byte[] deletedImage;
-        try {
-            deletedImage = imagePersistence.getImage(returnID);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        assertNull(deletedImage);
-    }
 }
