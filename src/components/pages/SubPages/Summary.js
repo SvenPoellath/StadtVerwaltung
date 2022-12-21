@@ -52,7 +52,12 @@ export default function Summary() {
     citizenRequest.open("POST", "http://localhost:8080/citizens", false);
     citizenRequest.setRequestHeader("content-type", "application/json");
     citizenRequest.send(JSON.stringify(Citizen));
+    console.log(
+      "Request for adding a new Citizen has been send to the Database"
+    );
+    console.log("CitizenID of new Citizen: " + Citizen.citizenID);
     if (citizenRequest.status === 200) {
+      console.log("Citizen was successfully added to the Database");
       Citizen.citizenID = citizenRequest.responseText;
     }
 
@@ -61,16 +66,13 @@ export default function Summary() {
     postRequest.setRequestHeader("content-type", "application/json");
     postRequest.send(JSON.stringify(Report));
 
-    console.log(
-      "Request for adding a new Citizen has been send to the Database"
-    );
-    console.log("CitizenID of new Citizen: " + Citizen.citizenID);
     Report.id = postRequest.responseText;
     console.log(
       "Request for adding a new Report has been send to the Database"
     );
     console.log("ReportID of the new Report: " + Report.id);
     if (citizenRequest.status === 200 && postRequest.status === 200) {
+      console.log("New Report was also successfully added to the Database");
       navigate("/idinfopage");
     } else {
       alert(
