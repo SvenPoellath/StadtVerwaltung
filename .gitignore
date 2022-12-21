@@ -38,3 +38,5 @@ build/
 /images/*
 !/images/sampleImage.jpeg
 
+/javadoc/
+/jsdoc/
