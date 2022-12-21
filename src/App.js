@@ -49,7 +49,6 @@ function App() {
 
   //Responsible for not letting People submit uncomplete Reports
   const CriticalRoutes = () => {
-    console.log(cookies.latitude);
     if (
       cookies.latitude !== undefined &&
       cookies.citizenFirstName !== undefined &&

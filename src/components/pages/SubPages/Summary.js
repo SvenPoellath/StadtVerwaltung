@@ -38,17 +38,29 @@ export default function Summary() {
   const onClick = () => {
     //if(cookie.captchaToken !== undefined)
     //else{alert("Bitte füllen Sie das Captcha aus bevor Sie auf Abschicken klicken")}
+    Citizen.citizenEmailAddress = cookies.citizenEmailAddress;
+    Citizen.citizenFirstName = cookies.citizenFirstName;
+    Citizen.citizenLastName = cookies.citizenLastName;
+    Citizen.citizenPhoneNumber = cookies.citizenPhoneNumber;
+    Report.latitude = cookies.latitude;
+    Report.longitude = cookies.longitude;
+    Report.kindOfReport = cookies.kindOfReport;
+    Report.description = cookies.description;
+    Report.pictureID = cookies.pictureID;
 
     var citizenRequest = new XMLHttpRequest();
     citizenRequest.open("POST", "http://localhost:8080/citizens", false);
     citizenRequest.setRequestHeader("content-type", "application/json");
     citizenRequest.send(JSON.stringify(Citizen));
+    if (citizenRequest.status === 200) {
+      Citizen.citizenID = citizenRequest.responseText;
+    }
+
     var postRequest = new XMLHttpRequest();
     postRequest.open("POST", "http://localhost:8080/reports", false);
     postRequest.setRequestHeader("content-type", "application/json");
     postRequest.send(JSON.stringify(Report));
 
-    Citizen.citizenID = citizenRequest.responseText;
     console.log(
       "Request for adding a new Citizen has been send to the Database"
     );

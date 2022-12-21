@@ -32,6 +32,9 @@ function Navbar() {
     }
   };
 
+  if (cookies.session === "true") {
+    Session.isSet = true;
+  }
   //Manages Employee Login Button
   const mitarbeiterLogging = () => {
     if (Session.isSet) {
