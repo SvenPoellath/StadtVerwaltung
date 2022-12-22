@@ -24,7 +24,7 @@ Die PJMS Stadtverwaltung ist ein Projekt von Studierenden der HWG Ludwigshafen. 
 
 ```
     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
-´´´
+```
 
 -   Der folgende Befehl kann genutzt werden, um eventuelle Sicherheitsprobleme zu beheben
 
