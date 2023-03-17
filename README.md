@@ -31,7 +31,7 @@ Die PJMS Stadtverwaltung ist ein Projekt von Studierenden der HWG Ludwigshafen. 
 ```
     npm fund
     npm audit fix
-´´´
+```
 
 ### Backend Einrichtung
 -   Maven Projekt mithilfe von Visual Studio Code oder IntelliJ initialisieren
