@@ -41,10 +41,9 @@ Die PJMS Stadtverwaltung ist ein Projekt von Studierenden der HWG Ludwigshafen. 
 -   Java Backend von DpdBackendApplication.class (main Methode) aus starten (localhost:8080)
 
 -   React Frontend mit Node.JS Server starten (localhost:3000) 
-
 ```
     npm start
-´´´
+```
 
 ## Technical Details
 |                                                                                                                                 |
