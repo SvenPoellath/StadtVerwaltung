@@ -44,7 +44,7 @@ Die PJMS Stadtverwaltung ist ein Projekt von Studierenden der HWG Ludwigshafen. 
 
 ```
     npm start
-```
+´´´
 
 ## Technical Details
 |                                                                                                                                 |
