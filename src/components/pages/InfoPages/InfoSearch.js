@@ -1,4 +1,4 @@
-import Report from "../../globalVariables/Report";
+import Report from "../../globalVariables/Report.js";
 import { useForm } from "react-hook-form";
 import "./InfoPages.css";
 import { useNavigate } from "react-router-dom";

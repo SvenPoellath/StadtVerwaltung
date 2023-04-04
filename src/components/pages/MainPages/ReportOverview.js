@@ -5,8 +5,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "./ReportOverview.css";
 import { useCookies } from "react-cookie";
-import Citizen from "../../globalVariables/Citizen";
-import Report from "../../globalVariables/Report";
+import Citizen from "../../globalVariables/Citizen.js";
+import Report from "../../globalVariables/Report.js";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import Select from "react-select";
 import {

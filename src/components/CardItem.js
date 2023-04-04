@@ -1,7 +1,7 @@
 import React from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-import Report from "./globalVariables/Report";
+import Report from "./globalVariables/Report.js";
 
 /**
  * Creates Custom CardItem Component and returns it

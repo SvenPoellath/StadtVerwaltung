@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar.js";
 import "./App.css";
-import Home from "./components/pages/MainPages/Home";
+import Home from "./components/pages/MainPages/Home.js";
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,20 +9,20 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import Products from "./components/pages/MainPages/Products";
-import Maps from "./components/pages/MainPages/Maps";
-import Login from "./components/pages/MainPages/Login";
-import Form from "./components/pages/SubPages/Form";
-import Summary from "./components/pages/SubPages/Summary";
-import Description from "./components/pages/SubPages/Description";
-import Footer from "./components/Footer";
-import Impressum from "./components/pages/InfoPages/Impressum";
-import Datenschutz from "./components/pages/InfoPages/Datenschutz";
-import Nutzungsbedingungen from "./components/pages/InfoPages/Nutzungsbedingungen";
-import IdInfoPage from "./components/pages/InfoPages/IdPage";
-import IdSearchPage from "./components/pages/InfoPages/InfoSearch";
-import ReportOverview from "./components/pages/MainPages/ReportOverview";
-import SearchResult from "./components/pages/InfoPages/SearchResult";
+import Products from "./components/pages/MainPages/Products.js";
+import Maps from "./components/pages/MainPages/Maps.js";
+import Login from "./components/pages/MainPages/Login.js";
+import Form from "./components/pages/SubPages/Form.js";
+import Summary from "./components/pages/SubPages/Summary.js";
+import Description from "./components/pages/SubPages/Description.js";
+import Footer from "./components/Footer.js";
+import Impressum from "./components/pages/InfoPages/Impressum.js";
+import Datenschutz from "./components/pages/InfoPages/Datenschutz.js";
+import Nutzungsbedingungen from "./components/pages/InfoPages/Nutzungsbedingungen.js";
+import IdInfoPage from "./components/pages/InfoPages/IdPage.js";
+import IdSearchPage from "./components/pages/InfoPages/InfoSearch.js";
+import ReportOverview from "./components/pages/MainPages/ReportOverview.js";
+import SearchResult from "./components/pages/InfoPages/SearchResult.js";
 import { useCookies } from "react-cookie";
 
 /**

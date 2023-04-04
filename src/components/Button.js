@@ -13,7 +13,7 @@
 import React from "react";
 import "./Button.css";
 import { Link, useNavigate } from "react-router-dom";
-import Report from "./globalVariables/Report";
+import Report from "./globalVariables/Report.js";
 
 const STYLES = ["btn--primary", "btn--outline", "btn--test"];
 

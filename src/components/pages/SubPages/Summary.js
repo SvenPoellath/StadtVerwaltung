@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Form.css";
-import Report from "../../globalVariables/Report";
-import Citizen from "../../globalVariables/Citizen";
+import Report from "../../globalVariables/Report.js";
+import Citizen from "../../globalVariables/Citizen.js";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import HCaptcha from "react-hcaptcha";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../Button";
+import { Button } from "../../Button.js";
 import { useCookies } from "react-cookie";
 
 /**

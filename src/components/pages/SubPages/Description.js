@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Form.css";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import Report from "../../globalVariables/Report";
+import Report from "../../globalVariables/Report.js";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 

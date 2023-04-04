@@ -65,7 +65,14 @@ k8s_resource('frontend',
 #              # control whether the resource automatically updates
 #              trigger_mode=TRIGGER_MODE_MANUAL
 )
-
+#k8s_resource('backend',
+#              # map one or more local ports to ports on your Pod
+#              port_forwards=['8080:8080'],
+#              # change whether the resource is started by default
+#              auto_init=False,
+#              # control whether the resource automatically updates
+#              trigger_mode=TRIGGER_MODE_MANUAL
+#)
 
 # Run local commands
 #   Local commands can be helpful for one-time tasks like installing
@@ -74,16 +81,16 @@ k8s_resource('frontend',
 #
 #   More info: https://docs.tilt.dev/local_resource.html
 #
-# local_resource('install-helm',
-#                cmd='which helm > /dev/null || brew install helm',
+local_resource('install-helm',
+               cmd='which helm > /dev/null || brew install helm',
 #                # `cmd_bat`, when present, is used instead of `cmd` on Windows.
-#                cmd_bat=[
-#                    'powershell.exe',
-#                    '-Noninteractive',
-#                    '-Command',
-#                    '& {if (!(Get-Command helm -ErrorAction SilentlyContinue)) {scoop install helm}}'
-#                ]
-# )
+                cmd_bat=[
+                    'powershell.exe',
+                    '-Noninteractive',
+                    '-Command',
+                    '& {if (!(Get-Command helm -ErrorAction SilentlyContinue)) {scoop install helm}}'
+                ]
+)
 
 
 # Extensions are open-source, pre-packaged functions that extend Tilt

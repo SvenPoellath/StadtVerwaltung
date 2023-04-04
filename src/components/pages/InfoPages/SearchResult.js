@@ -1,4 +1,4 @@
-import Report from "../../globalVariables/Report";
+import Report from "../../globalVariables/Report.js";
 import "./InfoPages.css";
 import { useState, useEffect } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";

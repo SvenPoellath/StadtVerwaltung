@@ -1,9 +1,9 @@
 import React from "react";
 import "./Login.css";
 import { useForm } from "react-hook-form";
-import Session from "../../globalVariables/Session";
+import Session from "../../globalVariables/Session.js";
 import { useNavigate } from "react-router-dom";
-import Employee from "../../globalVariables/Employee";
+import Employee from "../../globalVariables/Employee.js";
 import { useCookies } from "react-cookie";
 
 /**

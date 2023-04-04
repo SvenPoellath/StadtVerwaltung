@@ -1,4 +1,4 @@
-import Citizen from "./Citizen";
+import Citizen from "./Citizen.js";
 /**
  * Global Variable to temporarily store Report Data
  */

@@ -1,6 +1,6 @@
 import React from "react";
-import "../../../App";
-import HeroSection from "../../HeroSection";
+import "../../../App.js";
+import HeroSection from "../../HeroSection.js";
 
 /**
  * Displays the Home Page

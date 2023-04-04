@@ -1,7 +1,7 @@
 import React from "react";
 import "./Products.css";
 import "../../Cards.css";
-import CardItem from "../../CardItem";
+import CardItem from "../../CardItem.js";
 /**
  * Contains Products Page
  * @returns Products Page

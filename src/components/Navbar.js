@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "./Button";
+import { Button } from "./Button.js";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Logo from "./Stadt_Ludwigshafen_logo.png";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import Session from "./globalVariables/Session";
+import Session from "./globalVariables/Session.js";
 
 /**
  * Non-customizable Component which is present on every Page
@@ -62,7 +62,7 @@ function Navbar() {
           <img src={Logo} className="logo-image" alt="Lu" />
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             <h1>Ludwigshafen am Rhein</h1>
-            <h3 className="stadt">Stadtverwaltun</h3>
+            <h3 className="stadt">Stadtverwaltung</h3>
           </Link>
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />

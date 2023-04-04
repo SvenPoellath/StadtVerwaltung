@@ -1,5 +1,5 @@
 import { useCookies } from "react-cookie";
-import Report from "../../globalVariables/Report";
+import Report from "../../globalVariables/Report.js";
 import "../InfoPages/InfoPages.css";
 /**
  * Contains useful Information including the ReportID of the previously created Report

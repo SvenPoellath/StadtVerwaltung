@@ -5,7 +5,7 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import L, { icon, LatLng } from "leaflet";
 import Search from "react-leaflet-search";
 import { useNavigate } from "react-router-dom";
-import Report from "../../globalVariables/Report";
+import Report from "../../globalVariables/Report.js";
 import { useCookies } from "react-cookie";
 
 /**

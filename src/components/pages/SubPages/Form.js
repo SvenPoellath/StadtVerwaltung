@@ -2,7 +2,7 @@ import React from "react";
 import "./Form.css";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import Citizen from "../../globalVariables/Citizen";
+import Citizen from "../../globalVariables/Citizen.js";
 import { useCookies } from "react-cookie";
 
 /**
