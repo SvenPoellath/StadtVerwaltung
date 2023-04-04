@@ -19,11 +19,11 @@
 #
 #   More info: https://docs.tilt.dev/api.html#api.docker_build
 #
-docker_build('openjdk',context='.',dockerfile='./javadocker/Dockerfile')
+docker_build('springboot-backend',context='.',dockerfile='Dockerfile')
 docker_build('nginx',
               context='.',
 #              # (Optional) Use a custom Dockerfile path
-              dockerfile='Dockerfile',
+              dockerfile='other',
 #              # (Optional) Filter the paths used in the build
 #              only=['./app'],
 #              # (Recommended) Updating a running container in-place
@@ -65,14 +65,14 @@ k8s_resource('frontend',
 #              # control whether the resource automatically updates
 #              trigger_mode=TRIGGER_MODE_MANUAL
 )
-#k8s_resource('backend',
+k8s_resource('backend',
 #              # map one or more local ports to ports on your Pod
-#              port_forwards=['8080:8080'],
+              port_forwards=['8080:8080'],
 #              # change whether the resource is started by default
 #              auto_init=False,
 #              # control whether the resource automatically updates
 #              trigger_mode=TRIGGER_MODE_MANUAL
-#)
+)
 
 # Run local commands
 #   Local commands can be helpful for one-time tasks like installing
