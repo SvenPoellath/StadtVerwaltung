@@ -31,7 +31,7 @@ Die PJMS Stadtverwaltung ist ein Projekt von Studierenden der HWG Ludwigshafen. 
 ```
     npm fund
     npm audit fix
-´´´
+```
 
 ### Backend Einrichtung
 -   Maven Projekt mithilfe von Visual Studio Code oder IntelliJ initialisieren
@@ -41,7 +41,6 @@ Die PJMS Stadtverwaltung ist ein Projekt von Studierenden der HWG Ludwigshafen. 
 -   Java Backend von DpdBackendApplication.class (main Methode) aus starten (localhost:8080)
 
 -   React Frontend mit Node.JS Server starten (localhost:3000) 
-
 ```
     npm start
 ```
