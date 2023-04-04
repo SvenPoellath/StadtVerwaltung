@@ -27,7 +27,8 @@
     "react-table": "^7.8.0",
     "reactjs-popup": "^2.0.5",
     "serve": "^14.1.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "start": "react-scripts start",

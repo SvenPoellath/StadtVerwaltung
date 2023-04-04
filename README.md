@@ -20,6 +20,11 @@ Die PJMS Stadtverwaltung ist ein Projekt von Studierenden der HWG Ludwigshafen. 
     npm install yarn
     yarn install
 ```
+-   Sollte das Ausführen von (Yarn) Skripten nicht zugelassen sein, kann dies über eine Windows-Powershell mit Administratorrechten durch folgenden Befehl geändert werden
+
+```
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+```
 
 -   Der folgende Befehl kann genutzt werden, um eventuelle Sicherheitsprobleme zu beheben
 
@@ -36,7 +41,6 @@ Die PJMS Stadtverwaltung ist ein Projekt von Studierenden der HWG Ludwigshafen. 
 -   Java Backend von DpdBackendApplication.class (main Methode) aus starten (localhost:8080)
 
 -   React Frontend mit Node.JS Server starten (localhost:3000) 
-
 ```
     npm start
 ```
