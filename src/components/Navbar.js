@@ -62,7 +62,7 @@ function Navbar() {
           <img src={Logo} className="logo-image" alt="Lu" />
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             <h1>Ludwigshafen am Rhein</h1>
-            <h3 className="stadt">Stadtverwaltung</h3>
+            <h3 className="stadt">Stadtverwaltun</h3>
           </Link>
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
